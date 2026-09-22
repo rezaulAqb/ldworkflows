@@ -1,0 +1,727 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <meta charset="utf-8">
+  <title>Banner A4 | Slate amber</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&amp;display=swap" rel="stylesheet">
+  <script src="./image-slot.js"></script>
+  <style>
+    html, body { margin: 0; padding: 0; background: #F7F3EA; }
+    body { font-family: 'Plus Jakarta Sans', sans-serif; color: #14281F; -webkit-font-smoothing: antialiased; }
+    a { color: #14281F; text-decoration: none; }
+    a:hover { color: #14281F; opacity: 0.75; }
+    ::selection { background: #D8FA68; color: #14281F; }
+    @keyframes ldw-marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+    @keyframes ldw-float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+    @keyframes ldw-dash { to { stroke-dashoffset: -28; } }
+    @keyframes ldw-spin { to { transform: rotate(360deg); } }
+    @keyframes ldw-pulse { 0%, 100% { transform: scale(1); opacity: 0.55; } 50% { transform: scale(1.06); opacity: 0.85; } }
+    /* Tiny avatar slots: cover the component's built-in empty-state caption
+       (it cannot be styled inline from outside the shadow DOM); the cover
+       is pointer-events:none so drops/clicks still reach the slot, and it
+       hides itself once the slot reports data-filled. */
+    .ldw-avatar-cover { position: absolute; inset: 0; border-radius: 50%; display: grid; place-items: center; font-weight: 700; color: rgba(20,40,31,0.45); pointer-events: none; background: inherit; }
+    image-slot[data-filled] + .ldw-avatar-cover { display: none; }
+    /* ---- Preview mode (Tweaks: Desktop / Mobile) ---- */
+    .ldw-root { container-type: inline-size; container-name: page; }
+    .ldw-root[data-mode="Mobile"] { max-width: 390px; margin: 0 auto; overflow-x: clip; box-shadow: 0 0 0 1px rgba(20,40,31,0.15), 0 30px 80px rgba(20,40,31,0.25); }
+    /* ---- Responsive (container queries so the Mobile preview frame triggers them too; overrides inline styles, hence !important) ---- */
+    @container page (max-width: 1200px) {
+      .ldw-collage-grid { grid-template-columns: repeat(2, minmax(0,1fr)) !important; }
+      .ldw-journey-line { display: none !important; }
+      .ldw-journey-grid { grid-template-columns: minmax(0,1fr) !important; }
+      .ldw-journey-grid > div { margin-top: 0 !important; transform: none !important; }
+      .ldw-res-grid { grid-template-columns: repeat(2, minmax(0,1fr)) !important; }
+      .ldw-demo-grid { grid-template-columns: minmax(0,1fr) !important; padding: 56px 40px !important; }
+      .ldw-orbit { height: auto !important; display: grid !important; grid-template-columns: repeat(2, minmax(0,1fr)) !important; gap: 14px !important; padding: 8px 32px 48px !important; }
+      .ldw-orbit > svg { display: none !important; }
+      .ldw-orbit-core { position: static !important; transform: none !important; width: 100% !important; height: 150px !important; border-radius: 22px !important; grid-column: span 2 !important; }
+      .ldw-orbit-node { position: static !important; transform: none !important; width: auto !important; }
+    }
+    @container page (max-width: 900px) {
+      .ldw-case-grid { grid-template-columns: minmax(0,1fr) !important; }
+      .ldw-compare-table { font-size: 13px; }
+      .ldw-compare-table > div > div:first-child { padding-left: 16px !important; padding-right: 8px !important; }
+      .ldw-compare-table > div > div { padding-left: 8px !important; padding-right: 8px !important; }
+      .ldw-flows-grid { grid-template-columns: minmax(0,1fr) !important; }
+      .ldw-crm-grid { grid-template-columns: minmax(0,1fr) !important; }
+      .ldw-flows-grid > div { margin-top: 0 !important; }
+      .ldw-split-grid { grid-template-columns: minmax(0,1fr) !important; }
+      .ldw-split-band { right: -50vw !important; }
+      .ldw-split-img { height: 440px !important; }
+      .ldw-footer-grid { grid-template-columns: minmax(0,1fr) !important; gap: 32px !important; }
+    }
+    @container page (max-width: 700px) {
+      h1 { font-size: clamp(38px, 10vw, 54px) !important; padding-left: 0 !important; }
+      h2 { font-size: clamp(30px, 8vw, 40px) !important; }
+      .ldw-nav-links { display: none !important; }
+      .ldw-nav-cta { margin-left: auto !important; }
+      section[data-screen-label], #flows, #resources, #contact { padding-left: 20px !important; padding-right: 20px !important; }
+      .ldw-cta-row, .ldw-stat-strip, .ldw-trust-row, .ldw-res-head { flex-wrap: wrap !important; }
+      .ldw-stat-strip { gap: 14px !important; }
+      .ldw-trust-row { gap: 12px 20px !important; }
+      .ldw-res-grid { grid-template-columns: minmax(0,1fr) !important; grid-auto-rows: auto !important; }
+      .ldw-res-grid > a { grid-column: span 1 !important; grid-row: span 1 !important; min-height: 240px; }
+      .ldw-banner-card { left: 12px !important; right: 12px !important; bottom: 12px !important; max-width: none !important; padding: 26px 24px !important; }
+      .ldw-demo-grid { padding: 44px 26px !important; }
+      .ldw-footer-bottom { flex-direction: column !important; gap: 12px !important; }
+      .ldw-split-img { height: 360px !important; }
+    }
+  </style>
+</helmet>
+
+<div class="ldw-root" data-mode="{{ previewMode }}">
+<!-- ============ NAV ============ -->
+<header data-screen-label="Nav" style="position: sticky; top: 0; z-index: 50; background: rgba(255,255,255,0.92); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(20,40,31,0.1)">
+  <div style="max-width: 1240px; margin: 0 auto; padding: 16px 32px; display: flex; align-items: center; gap: 40px">
+    <img src="uploads/LD-logo.png" alt="LD Workflows" style="height: 32px; width: auto; display: block">
+    <nav class="ldw-nav-links" style="display: flex; gap: 28px; font-size: 15px; font-weight: 500; margin-left: auto">
+      <a href="#flows" style="color: #14281F" style-hover="opacity: 0.65">Software</a>
+      <a href="#resources" style="color: #14281F" style-hover="opacity: 0.65">News</a>
+      <a href="Pricing.dc.html" style="color: #14281F" style-hover="opacity: 0.65">Pricing</a>
+      <a href="#contact" style="color: #14281F" style-hover="opacity: 0.65">Contact</a>
+    </nav>
+    <div class="ldw-nav-cta" style="display: flex; gap: 12px; align-items: center">
+      <a href="#" style="background: #14281F; color: #D8FA68; font-size: 15px; font-weight: 600; padding: 10px 20px; border-radius: 999px; display: inline-block" style-hover="background: #D8FA68; color: #14281F">Login</a>
+    </div>
+  </div>
+</header>
+
+<!-- ============ HERO variant: Orbit (pastel) ============ -->
+<sc-if value="{{ heroOrbit }}" hint-placeholder-val="{{ true }}">
+<section data-screen-label="Hero" style="position: relative; overflow: hidden; background: #10141C; background-image: radial-gradient(72% 56% at 50% 42%, #1E2836 0%, rgba(30,40,54,0) 72%), radial-gradient(62% 50% at 50% -10%, #3A2A1C 0%, rgba(58,42,28,0) 70%); border-bottom: 1px solid rgba(255,255,255,0.08)">
+  <div style="max-width: 1160px; margin: 0 auto; padding: 84px 32px 0; text-align: center; position: relative">
+    <div style="display: inline-flex; align-items: center; gap: 9px; background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.22); border-radius: 999px; padding: 9px 20px; font-size: 12px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: #FFFFFF; margin-bottom: 26px">
+      <span style="width: 7px; height: 7px; border-radius: 50%; background: #FFC96B; display: inline-block"></span>
+      UK ERP · CRM · Field Service · MTD VAT
+    </div>
+    <h1 style="font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; font-size: 72px; line-height: 1.02; letter-spacing: -0.04em; margin: 0 auto 22px; max-width: 900px; color: #FFFFFF; text-wrap: pretty">One ERP at the centre. Every flow <em style="font-style: italic; background: linear-gradient(transparent 64%, rgba(255,184,77,0.85) 64%)">around it</em>.</h1>
+    <p style="font-size: 19px; line-height: 1.65; color: rgba(255,255,255,0.82); max-width: 660px; margin: 0 auto 32px; text-wrap: pretty">CRM, order to cash, procure to pay, warehouse fulfilment and e-commerce all run on one platform. No connectors, no bridging software, no spreadsheet at quarter end.</p>
+    <div class="ldw-cta-row" style="display: flex; gap: 18px; justify-content: center; align-items: center; margin-bottom: 34px">
+      <a href="#contact" style="background: #F59227; color: #FFFFFF; font-size: 16px; font-weight: 700; padding: 16px 32px; border-radius: 999px; display: inline-block; box-shadow: 0 14px 32px rgba(245,146,39,0.4)" style-hover="background: #FFFFFF; color: #10141C">Book a 20-minute demo</a>
+      <a href="Pricing.dc.html" style="color: #FFFFFF; font-size: 16px; font-weight: 600; display: inline-flex; align-items: center; gap: 8px; padding: 16px 4px" style-hover="color: #FFC96B">See pricing <span style="font-size: 17px">→</span></a>
+    </div>
+    <div class="ldw-trust-row" style="display: flex; justify-content: center; align-items: center; gap: 28px; font-size: 11px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(255,255,255,0.62); border-top: 1px solid rgba(255,255,255,0.14); padding-top: 22px">
+      <span>Live in days, not months</span>
+      <span style="width: 1px; height: 12px; background: rgba(255,255,255,0.25)"></span>
+      <span>HMRC-recognised for MTD</span>
+      <span style="width: 1px; height: 12px; background: rgba(255,255,255,0.25)"></span>
+      <span>Free migration from Xero or QuickBooks</span>
+    </div>
+  </div>
+
+  <!-- Orbit diagram -->
+  <div class="ldw-orbit" style="position: relative; max-width: 1100px; margin: 44px auto 0; height: 580px; padding: 0 32px">
+    <svg viewBox="0 0 1100 560" preserveAspectRatio="none" aria-hidden="true" style="position: absolute; inset: 0; width: 100%; height: 100%">
+      <ellipse cx="550" cy="280" rx="200" ry="122" fill="none" stroke="#FFB84D" stroke-width="1.4" opacity="0.7"></ellipse>
+      <ellipse cx="550" cy="280" rx="300" ry="182" fill="none" stroke="#6C8CB5" stroke-width="1.4" opacity="0.6"></ellipse>
+      <ellipse cx="550" cy="280" rx="400" ry="242" fill="none" stroke="#FFB84D" stroke-width="1.4" opacity="0.45"></ellipse>
+      <ellipse cx="550" cy="280" rx="490" ry="296" fill="none" stroke="#FFB84D" stroke-width="1.4" opacity="0.34" stroke-dasharray="4 10"></ellipse>
+      <circle cx="550" cy="46" r="4.5" fill="#7C3AED"></circle>
+      <circle cx="145" cy="352" r="4" fill="#A78BFA"></circle>
+      <circle cx="960" cy="188" r="4" fill="#8B5CF6"></circle>
+    </svg>
+
+    <div class="ldw-orbit-core" style="position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); width: 188px; height: 188px; border-radius: 50%; background: radial-gradient(130% 130% at 30% 22%, #FFC96B 0%, #E07B2A 48%, #6B3410 100%); box-shadow: 0 0 90px rgba(255,184,77,0.35), inset 0 0 0 1px rgba(255,255,255,0.3); display: grid; place-items: center; text-align: center">
+      <div>
+        <div style="font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; font-size: 40px; letter-spacing: -0.03em; color: #FFFFFF; line-height: 1">ERP</div>
+        <div style="font-size: 11px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(255,255,255,0.85); margin-top: 6px">One platform</div>
+      </div>
+    </div>
+
+    <div class="ldw-orbit-node" style="position: absolute; left: 50%; top: 8%; transform: translate(-50%, -50%); width: 232px; background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.16); border-radius: 20px; padding: 16px 18px; box-shadow: 0 18px 42px rgba(0,0,0,0.25); text-align: left">
+      <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 6px">
+        <span style="width: 26px; height: 26px; border-radius: 9px; background: #FFC96B; display: inline-block"></span>
+        <span style="font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; font-size: 16px; color: #FFFFFF">CRM</span>
+      </div>
+      <div style="font-size: 12.5px; line-height: 1.45; color: rgba(255,255,255,0.72)">Leads, contacts and pipeline in one place</div>
+    </div>
+
+    <div class="ldw-orbit-node" style="position: absolute; left: 85%; top: 29%; transform: translate(-50%, -50%); width: 244px; background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.16); border-radius: 20px; padding: 16px 18px; box-shadow: 0 18px 42px rgba(0,0,0,0.25); text-align: left">
+      <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 6px">
+        <span style="width: 26px; height: 26px; border-radius: 9px; background: #9B6BF5; display: inline-block"></span>
+        <span style="font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; font-size: 16px; color: #FFFFFF">Order to Cash</span>
+      </div>
+      <div style="font-size: 12.5px; line-height: 1.45; color: rgba(255,255,255,0.72)">Quotes › Sales orders › Invoices › Receivables</div>
+    </div>
+
+    <div class="ldw-orbit-node" style="position: absolute; left: 82%; top: 76%; transform: translate(-50%, -50%); width: 244px; background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.16); border-radius: 20px; padding: 16px 18px; box-shadow: 0 18px 42px rgba(0,0,0,0.25); text-align: left">
+      <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 6px">
+        <span style="width: 26px; height: 26px; border-radius: 9px; background: #B79BF5; display: inline-block"></span>
+        <span style="font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; font-size: 16px; color: #FFFFFF">Procure to Pay</span>
+      </div>
+      <div style="font-size: 12.5px; line-height: 1.45; color: rgba(255,255,255,0.72)">Quotes › Purchase orders › Bills › Payables</div>
+    </div>
+
+    <div class="ldw-orbit-node" style="position: absolute; left: 18%; top: 76%; transform: translate(-50%, -50%); width: 244px; background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.16); border-radius: 20px; padding: 16px 18px; box-shadow: 0 18px 42px rgba(0,0,0,0.25); text-align: left">
+      <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 6px">
+        <span style="width: 26px; height: 26px; border-radius: 9px; background: #FFC96B; display: inline-block"></span>
+        <span style="font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; font-size: 16px; color: #FFFFFF">Warehouse</span>
+      </div>
+      <div style="font-size: 12.5px; line-height: 1.45; color: rgba(255,255,255,0.72)">Order fulfilment: pick, pack and dispatch</div>
+    </div>
+
+    <div class="ldw-orbit-node" style="position: absolute; left: 15%; top: 29%; transform: translate(-50%, -50%); width: 232px; background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.16); border-radius: 20px; padding: 16px 18px; box-shadow: 0 18px 42px rgba(0,0,0,0.25); text-align: left">
+      <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 6px">
+        <span style="width: 26px; height: 26px; border-radius: 9px; background: #9B6BF5; display: inline-block"></span>
+        <span style="font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; font-size: 16px; color: #FFFFFF">E-commerce</span>
+      </div>
+      <div style="font-size: 12.5px; line-height: 1.45; color: rgba(255,255,255,0.72)">Native Shopify and WooCommerce sync</div>
+    </div>
+  </div>
+
+  <div style="max-width: 1100px; margin: 0 auto; padding: 0 32px 72px; display: flex; justify-content: center">
+    <div style="display: inline-flex; align-items: center; gap: 14px; background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.18); border-radius: 999px; padding: 11px 24px; font-size: 13.5px; font-weight: 600; color: rgba(255,255,255,0.86)">
+      <span style="width: 8px; height: 8px; border-radius: 50%; background: #FFC96B; display: inline-block"></span>
+      E-commerce sale → warehouse fulfilment → invoicing → finance → VAT return, with no human intervention
+    </div>
+  </div>
+</section>
+</sc-if>
+
+<!-- ============ HERO variant: Collage strip ============ -->
+<sc-if value="{{ heroCollage }}" hint-placeholder-val="{{ true }}">
+<section data-screen-label="Hero" style="background: #E9E7E1; color: #14281F; overflow: hidden; border-bottom: 1px solid rgba(20,40,31,0.12)">
+  <div style="max-width: 1240px; margin: 0 auto; padding: 72px 32px 80px">
+    <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 32px; margin-bottom: 12px">
+      <div style="display: inline-flex; align-items: center; gap: 8px; background: #14281F; color: #E9E7E1; border-radius: 999px; padding: 8px 18px; font-size: 13px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase">
+        <span style="width: 8px; height: 8px; border-radius: 50%; background: #D8FA68; display: inline-block"></span>
+        Workflow &amp; automation software
+      </div>
+      <div style="font-size: 14px; color: rgba(20,40,31,0.6); max-width: 240px; text-align: right; line-height: 1.5">Trusted by operations, field and sales teams. 5.0★ on Trustist</div>
+    </div>
+    <h1 style="font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; font-size: 96px; line-height: 0.98; letter-spacing: -0.04em; margin: 0 0 12px">Optimise the journey.</h1>
+    <h1 style="font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; font-size: 96px; line-height: 0.98; letter-spacing: -0.04em; margin: 0 0 56px; padding-left: 180px">Automate <em style="font-style: italic; color: #14281F; background: linear-gradient(transparent 62%, #D8FA68 62%)">everything</em>.</h1>
+    <div class="ldw-collage-grid" style="display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.8fr) minmax(0, 0.8fr) minmax(0, 0.9fr); gap: 20px; align-items: start">
+      <div style="background: #14281F; color: #FFF6ED; border-radius: 26px; padding: 32px; display: flex; flex-direction: column; gap: 20px; min-height: 260px">
+        <p style="font-size: 17px; line-height: 1.6; margin: 0; opacity: 0.85">ERP, field service and CRM: custom-crafted software that cuts errors, saves hours and keeps every team moving in the same direction.</p>
+        <div style="display: flex; flex-wrap: wrap; gap: 12px; margin-top: auto">
+          <a href="#contact" style="background: #D8FA68; color: #14281F; font-size: 16px; font-weight: 700; padding: 14px 26px; border-radius: 999px; display: inline-block" style-hover="background: #D8F26E; color: #14281F">Start free trial</a>
+          <a href="#contact" style="border: 1.5px solid rgba(255,246,237,0.5); color: #FFF6ED; font-size: 16px; font-weight: 600; padding: 13px 26px; border-radius: 999px; display: inline-block" style-hover="background: #FFF6ED; color: #14281F">Book a demo</a>
+        </div>
+      </div>
+      <div style="height: 300px; position: relative; margin-top: 36px">
+        <image-slot id="hero-col-1" mask="inset(0 round 999px 999px 26px 26px)" placeholder="Field team at work"></image-slot>
+      </div>
+      <div style="height: 300px; position: relative; margin-top: -24px">
+        <image-slot id="hero-col-2" shape="rounded" radius="26" placeholder="Product dashboard"></image-slot>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 20px; margin-top: 12px">
+        <div style="height: 170px; position: relative">
+          <image-slot id="hero-col-3" mask="inset(0 round 26px 26px 26px 999px)" placeholder="Happy customer"></image-slot>
+        </div>
+        <div style="background: #FFF6ED; border: 1px solid rgba(20,40,31,0.12); border-radius: 26px; padding: 22px 26px">
+          <div style="font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; font-size: 34px; color: #14281F; line-height: 1">+38%</div>
+          <div style="font-size: 14px; color: rgba(20,40,31,0.7); margin-top: 4px">productivity gained with one connected flow</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+</sc-if>
+
+<!-- ============ HERO variant: Photo banner ============ -->
+<sc-if value="{{ heroBanner }}" hint-placeholder-val="{{ false }}">
+<section data-screen-label="Hero" style="padding: 20px; background: #F7F3EA">
+  <div style="position: relative; height: 660px; border-radius: 32px; overflow: hidden">
+    <image-slot id="hero-banner" shape="rounded" radius="32" placeholder="Full-width hero photo of your team on site"></image-slot>
+    <div class="ldw-banner-card" style="position: absolute; left: 28px; bottom: 28px; max-width: 560px; background: #FFF6ED; border-radius: 26px; padding: 38px 40px; box-shadow: 0 24px 60px rgba(20,40,31,0.25)">
+      <div style="display: inline-flex; align-items: center; gap: 8px; border: 1px solid rgba(20,40,31,0.25); border-radius: 999px; padding: 6px 14px; font-size: 12px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 18px">
+        <span style="width: 7px; height: 7px; border-radius: 50%; background: #D8FA68; display: inline-block"></span>
+        Workflow &amp; automation software
+      </div>
+      <h1 style="font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; font-size: 44px; line-height: 1.05; letter-spacing: -0.03em; margin: 0 0 16px">Optimise the customer journey. Automate your <em style="font-style: italic; color: #14281F; background: linear-gradient(transparent 62%, #D8FA68 62%)">success</em>.</h1>
+      <p style="font-size: 16px; line-height: 1.6; color: rgba(20,40,31,0.72); margin: 0 0 26px">ERP, field service and CRM: one flow that cuts errors and saves hours, every day.</p>
+      <div style="display: flex; gap: 12px">
+        <a href="#contact" style="background: #D8FA68; color: #14281F; font-size: 16px; font-weight: 700; padding: 14px 28px; border-radius: 999px; display: inline-block" style-hover="background: #14281F">Start free trial</a>
+        <a href="#contact" style="border: 1.5px solid #14281F; color: #14281F; font-size: 16px; font-weight: 600; padding: 13px 28px; border-radius: 999px; display: inline-block" style-hover="background: #14281F; color: #FFF6ED">Book a free demo</a>
+      </div>
+    </div>
+    <div style="position: absolute; right: 32px; top: 32px; background: #D8F26E; color: #14281F; border-radius: 999px; padding: 12px 22px; font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 700; font-size: 15px; box-shadow: 0 12px 28px rgba(20,40,31,0.25); transform: rotate(3deg)">14-day free trial · 5.0★</div>
+  </div>
+</section>
+</sc-if>
+
+<!-- ============ HERO variant: Split arch ============ -->
+<sc-if value="{{ heroSplit }}" hint-placeholder-val="{{ false }}">
+<section data-screen-label="Hero" style="color: #14281F; overflow: hidden; position: relative">
+  <div class="ldw-split-grid" style="max-width: 1240px; margin: 0 auto; padding: 76px 32px 0; display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr); gap: 40px; align-items: center; padding-top: 30px">
+    <div style="padding-bottom: 72px; position: relative">
+      <div class="ldw-split-band" style="position: absolute; top: -999px; bottom: -999px; left: -50vw; right: -24px; background: #E9E7E1; z-index: -1" aria-hidden="true"></div>
+      
+      <h1 style="font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; font-size: 74px; line-height: 1.04; letter-spacing: -0.035em; margin: 0 0 26px">
+        Run your whole operation on <em style="font-style: italic; color: #14281F; background: linear-gradient(transparent 62%, #D8FA68 62%)">one flow</em>.
+      </h1>
+      <p style="font-size: 19px; line-height: 1.6; color: rgba(20,40,31,0.75); max-width: 470px; margin: 0 0 36px">ERP, field service and CRM: custom crafted software that cuts errors, saves hours and keeps every team moving in the same direction.</p>
+      <div class="ldw-cta-row" style="display: flex; gap: 14px; align-items: center; margin-bottom: 40px">
+        <a href="#contact" style="background: #D8FA68; color: #14281F; font-size: 17px; font-weight: 700; padding: 17px 34px; border-radius: 999px; display: inline-block; box-shadow: 4px 4px 0 #14281F" style-hover="background: #14281F; box-shadow: 0 0 0 #14281F; transform: translate(4px, 4px)">Start free trial</a>
+        <a href="#contact" style="border: 1.5px solid #14281F; color: #14281F; font-size: 17px; font-weight: 600; padding: 16px 34px; border-radius: 999px; display: inline-block" style-hover="background: #14281F; color: #E9E7E1">Book a free demo</a>
+      </div>
+      <div class="ldw-stat-strip" style="display: flex; gap: 0; font-size: 14px; color: rgba(20,40,31,0.8)">
+        <div style="padding-right: 24px; border-right: 1.5px solid rgba(20,40,31,0.2)"><strong style="font-family: 'Plus Jakarta Sans', sans-serif; font-size: 20px; display: block">14 days</strong>free trial</div>
+        <div style="padding: 0 24px; border-right: 1.5px solid rgba(20,40,31,0.2)"><strong style="font-family: 'Plus Jakarta Sans', sans-serif; font-size: 20px; display: block">5.0★</strong>Trustist rating</div>
+        <div style="padding-left: 24px"><strong style="font-family: 'Plus Jakarta Sans', sans-serif; font-size: 20px; display: block">3 flows</strong>ERP · Field · CRM</div>
+      </div>
+    </div>
+    <div style="position: relative; align-self: end; overflow: visible">
+      <div class="ldw-split-img" style="width: 100%; height: 640px; position: relative; overflow: hidden; border-radius: 999px 999px 0 0">
+        <image-slot id="hero-main" fit="contain" placeholder="Hero image of your team or product in action"></image-slot>
+      </div>
+    </div>
+  </div>
+</section>
+</sc-if>
+
+<!-- ============ MARQUEE ============ -->
+<sc-if value="{{ showMarquee }}" hint-placeholder-val="{{ true }}">
+  <div style="background: #14281F; color: #FFF6ED; overflow: hidden; padding: 18px 0; margin-top: 32px">{{ marquee }}</div>
+</sc-if>
+
+<!-- ============ FLOWS ============ -->
+<div style="background: #FFFFFF">
+<section id="flows" data-screen-label="Flows" style="max-width: 1240px; margin: 0 auto; padding: 110px 32px 90px">
+  <div style="text-align: center; margin-bottom: 44px">
+    <h2 style="font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; font-size: 48px; line-height: 1.05; letter-spacing: -0.03em; margin: 0 0 14px">Pick the flow that fits your team</h2>
+    <p style="font-size: 17px; line-height: 1.6; color: rgba(20,40,31,0.65); max-width: 420px; margin: 0 auto">Powerful and easy, with everything you need. Simply select your ideal workflow.</p>
+  </div>
+  <div class="ldw-flows-grid" style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 22px; align-items: stretch">
+    <sc-for list="{{ flows }}" as="flow" hint-placeholder-count="3">
+      <div style="position: relative; border-radius: 32px; overflow: hidden; background: {{ flow.tint }}; border: 1px solid rgba(20,40,31,0.1); margin-top: {{ flow.offset }}; transition: transform 0.3s ease; display: flex; flex-direction: column" style-hover="transform: translateY(-10px); box-shadow: 0 20px 44px rgba(20,40,31,0.1)">
+        <div style="display: flex; justify-content: space-between; align-items: center; padding: 20px 20px 0">
+          <div style="width: 52px; height: 52px; border-radius: 50%; background: #14281F; color: #FFF6ED; display: grid; place-items: center; font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; font-size: 17px">{{ flow.num }}</div>
+          <div style="font-size: 12px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; background: #FFF6ED; color: #14281F; padding: 8px 16px; border-radius: 999px">{{ flow.tag }}</div>
+        </div>
+        <div style="height: 230px; position: relative; margin: 18px 20px 0; border-radius: 20px; padding: 14px; padding-top: 0px; padding-right: 0px; padding-bottom: 0px; padding-left: 0px">
+          <div style="position: absolute; inset: 14px; top: 0px; left: 0px; bottom: 0px; right: 0px">
+            <image-slot id="{{ flow.slotId }}" fit="contain" placeholder="{{ flow.imageHint }}"></image-slot>
+          </div>
+        </div>
+        <div style="padding: 22px 26px 26px; display: flex; flex-direction: column; gap: 10px; flex: 1">
+          <h3 style="font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; font-size: 25px; letter-spacing: -0.02em; margin: 0; line-height: 1.1">{{ flow.title }}</h3>
+          <p style="font-size: 14px; line-height: 1.55; color: rgba(20,40,31,0.72); margin: 0; flex: 1">{{ flow.copy }}</p>
+          <a href="#contact" style="font-weight: 700; font-size: 15px; color: #14281F; display: inline-flex; align-items: center; gap: 8px; margin-top: 2px" style-hover="gap: 12px; opacity: 0.7">View flow <span>→</span></a>
+        </div>
+      </div>
+    </sc-for>
+  </div>
+</section>
+</div>
+
+<!-- ============ CTA BAND ============ -->
+<section id="contact" data-screen-label="CTA" style="background: #D8FA68; padding: 110px 32px 120px; overflow: hidden; position: relative">
+  <div style="position: absolute; top: -140px; left: -140px; width: 420px; height: 420px; border-radius: 50%; border: 60px solid rgba(255,246,237,0.35)" aria-hidden="true"></div>
+  <div style="position: absolute; bottom: -180px; right: -120px; width: 480px; height: 480px; border-radius: 50%; border: 70px solid rgba(20,40,31,0.12)" aria-hidden="true"></div>
+  <div style="max-width: 880px; margin: 0 auto; text-align: center; position: relative">
+    <div style="display: inline-flex; align-items: center; gap: 10px; background: #14281F; color: #FFF6ED; border-radius: 999px; padding: 9px 20px; font-size: 13px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 30px">
+      <span style="color: #D8F26E">★★★★★</span> 5.0 rated on Trustist
+    </div>
+    <h2 style="font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; font-size: 64px; line-height: 1.02; letter-spacing: -0.035em; color: #14281F; margin: 0 0 22px">Don’t just take our word for it.</h2>
+    <p style="font-size: 21px; line-height: 1.55; color: rgba(20,40,31,0.8); margin: 0 auto 44px; max-width: 520px">Contact us for a free 14 day trial.</p>
+    <a href="#" style="background: #14281F; color: #FFF6ED; font-size: 18px; font-weight: 700; padding: 20px 44px; border-radius: 999px; display: inline-flex; align-items: center; gap: 12px; box-shadow: 0 18px 40px rgba(20,40,31,0.35); transition: transform 0.2s ease" style-hover="background: #FFF6ED; color: #14281F; transform: translateY(-3px)">Book a no obligations demo <span aria-hidden="true">→</span></a>
+    <div class="ldw-trust-row" style="display: flex; justify-content: center; gap: 28px; margin-top: 36px; font-size: 14.5px; font-weight: 600; color: rgba(20,40,31,0.8)">
+      <span style="display: inline-flex; align-items: center; gap: 8px"><span style="color: #14281F">✓</span> 14-day free trial</span>
+      <span style="display: inline-flex; align-items: center; gap: 8px"><span style="color: #14281F">✓</span> No card required</span>
+      <span style="display: inline-flex; align-items: center; gap: 8px"><span style="color: #14281F">✓</span> No obligations</span>
+    </div>
+  </div>
+</section>
+<!-- ============ FEATURES JOURNEY ============ -->
+<section data-screen-label="Features" style="max-width: 1240px; margin: 0 auto; padding: 100px 32px 110px; overflow: visible">
+  <h2 style="font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; font-size: 48px; line-height: 1.05; letter-spacing: -0.03em; margin: 0 0 16px; text-align: center">Tailored flows for every part<br>of your teams' day</h2>
+  <p style="font-size: 17px; color: rgba(20,40,31,0.65); text-align: center; margin: 0 auto 72px; max-width: 520px">Keep your business organised and connected. Plan, structure and track remote work with one full-service platform.</p>
+  <div style="position: relative">
+    <svg class="ldw-journey-line" viewBox="0 0 1176 320" preserveAspectRatio="none" style="position: absolute; top: -40px; left: 0; width: 100%; height: 320px; pointer-events: none; z-index: 2" aria-hidden="true">
+      <path d="M 60 88 C 280 0, 400 250, 588 200 C 750 158, 900 40, 1116 152" fill="none" stroke="#D8FA68" stroke-width="2.5" stroke-dasharray="10 9" stroke-linecap="round" style="animation: ldw-dash 1.4s linear infinite"></path>
+      <circle cx="60" cy="88" r="7" fill="#D8FA68"></circle>
+      <circle cx="588" cy="200" r="7" fill="#D8FA68"></circle>
+      <circle cx="1116" cy="152" r="7" fill="#D8FA68"></circle>
+    </svg>
+    <div class="ldw-journey-grid" style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 28px; position: relative">
+      <div style="margin-top: 64px; background: #14281F; color: #FFF6ED; border-radius: 30px; padding: 34px; display: flex; flex-direction: column; gap: 16px; transform: rotate(-1.5deg); transition: transform 0.3s ease" style-hover="transform: rotate(0deg) translateY(-8px)">
+        <span style="font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; font-size: 14px; letter-spacing: 0.12em; text-transform: uppercase; color: #D8F26E">Step 01 · Oversee</span>
+        <h3 style="font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 700; font-size: 25px; letter-spacing: -0.02em; margin: 0; line-height: 1.15">We take care of the little things so you can focus on the big picture</h3>
+        <div style="height: 170px; position: relative">
+          <image-slot id="feature-dashboard" shape="rounded" radius="16" placeholder="Dashboard screenshot"></image-slot>
+        </div>
+        <p style="font-size: 14.5px; line-height: 1.6; opacity: 0.75; margin: 0">A mid-flight overview of your business' activity and performance, in real time.</p>
+        <div style="display: flex; flex-direction: column; gap: 8px; font-size: 14px; font-weight: 600; margin-top: 6px">
+          <span style="display: flex; align-items: center; gap: 8px"><span style="color: #D8F26E">✓</span> Improved communication</span>
+          <span style="display: flex; align-items: center; gap: 8px"><span style="color: #D8F26E">✓</span> Increased efficiency</span>
+          <span style="display: flex; align-items: center; gap: 8px"><span style="color: #D8F26E">✓</span> Data insights</span>
+        </div>
+      </div>
+      <div style="margin-top: 176px; background: #FFDFC9; border-radius: 30px; padding: 34px; display: flex; flex-direction: column; gap: 16px; transform: rotate(1.5deg); transition: transform 0.3s ease" style-hover="transform: rotate(0deg) translateY(-8px)">
+        <span style="font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; font-size: 14px; letter-spacing: 0.12em; text-transform: uppercase; color: #14281F">Step 02 · Streamline</span>
+        <h3 style="font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 700; font-size: 25px; letter-spacing: -0.02em; margin: 0; line-height: 1.15">Streamline work for maximum productivity</h3>
+        <div style="height: 170px; position: relative">
+          <image-slot id="feature-mobile" shape="rounded" radius="16" placeholder="Mobile app in use"></image-slot>
+        </div>
+        <p style="font-size: 14.5px; line-height: 1.6; color: rgba(20,40,31,0.72); margin: 0">Unlike traditional CRM software, it's a completely mobile application, with better sales management, smarter production planning, richer reporting.</p>
+        <div style="display: flex; flex-direction: column; gap: 8px; font-size: 14px; font-weight: 600; margin-top: 6px">
+          <span style="display: flex; align-items: center; gap: 8px"><span style="color: #14281F">✓</span> Better sales management</span>
+          <span style="display: flex; align-items: center; gap: 8px"><span style="color: #14281F">✓</span> Smarter production planning</span>
+          <span style="display: flex; align-items: center; gap: 8px"><span style="color: #14281F">✓</span> Richer reporting</span>
+        </div>
+      </div>
+      <div style="margin-top: 128px; background: #DDE9D3; border-radius: 30px; padding: 34px; display: flex; flex-direction: column; gap: 16px; transform: rotate(-1deg); transition: transform 0.3s ease" style-hover="transform: rotate(0deg) translateY(-8px)">
+        <span style="font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; font-size: 14px; letter-spacing: 0.12em; text-transform: uppercase; color: #14281F">Step 03 · Secure</span>
+        <h3 style="font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 700; font-size: 25px; letter-spacing: -0.02em; margin: 0; line-height: 1.15">Your best work, on a secure platform</h3>
+        <div style="height: 170px; position: relative">
+          <image-slot id="feature-secure" shape="rounded" radius="16" placeholder="Secure platform image"></image-slot>
+        </div>
+        <p style="font-size: 14.5px; line-height: 1.6; color: rgba(20,40,31,0.72); margin: 0">Built on Amazon's cloud services so your data is backed up securely, all activity end-to-end encrypted, with flexibility and control.</p>
+        <div style="display: flex; flex-direction: column; gap: 8px; font-size: 14px; font-weight: 600; margin-top: 6px">
+          <span style="display: flex; align-items: center; gap: 8px"><span data-om-id="e97f56fe:171" style="color: #14281F;">✓</span><span style="color: rgba(26, 26, 26, 0.8); font-family: 'Plus Jakarta Sans', sans-serif; font-size: 14px; font-weight: 600">Enhanced flexibility and control</span></span>
+          <span style="display: flex; align-items: center; gap: 8px"><span style="color: #14281F;">✓</span> Time-Saving</span>
+          <span style="display: flex; align-items: center; gap: 8px"><span style="color: #14281F;">✓</span> Greater Transparency</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ COMPARISON ============ -->
+<section id="pricing" data-screen-label="Comparison" style="border-top: 1px solid rgba(20,40,31,0.08)">
+  <div style="max-width: 1240px; margin: 0 auto; padding: 100px 32px">
+    <div style="text-align: center; margin-bottom: 48px">
+      <div style="display: inline-flex; align-items: center; gap: 8px; background: #14281F; color: #FFF6ED; border-radius: 999px; padding: 8px 18px; font-size: 12px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 20px">
+        <span style="width: 8px; height: 8px; border-radius: 50%; background: #D8FA68; display: inline-block"></span>
+        How the platforms compare
+      </div>
+      <h2 style="font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; font-size: 48px; line-height: 1.05; letter-spacing: -0.03em; margin: 0">NetSuite capability. Xero-level price.</h2>
+    </div>
+    <div class="ldw-compare-table" style="background: #FFFFFF; border: 1px solid rgba(20,40,31,0.1); border-radius: 28px; overflow: hidden">
+      <div style="display: grid; grid-template-columns: minmax(0, 1.4fr) repeat(3, minmax(0, 1fr)); align-items: stretch; border-bottom: 1px solid rgba(20,40,31,0.1)">
+        <div style="padding: 20px 28px; font-size: 13px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(20,40,31,0.55); display: flex; align-items: center">Feature coverage</div>
+        <div style="padding: 20px 16px; background: #14281F; display: flex; align-items: center; justify-content: center"><span style="font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; font-size: 15px; color: #D8FA68">LD Workflows</span></div>
+        <div style="padding: 20px 16px; font-weight: 700; font-size: 15px; text-align: center; display: flex; align-items: center; justify-content: center">NetSuite</div>
+        <div style="padding: 20px 16px; font-weight: 700; font-size: 15px; text-align: center; display: flex; align-items: center; justify-content: center">Xero + apps</div>
+      </div>
+      <div style="display: grid; grid-template-columns: minmax(0, 1.4fr) repeat(3, minmax(0, 1fr)); align-items: stretch; border-bottom: 1px solid rgba(20,40,31,0.08)">
+        <div style="padding: 18px 28px; font-size: 15px; font-weight: 600; display: flex; align-items: center">MTD VAT native</div>
+        <div style="padding: 18px 16px; background: rgba(216,250,104,0.22); display: flex; align-items: center; justify-content: center; font-weight: 800">✓</div>
+        <div style="padding: 18px 16px; font-size: 14.5px; color: rgba(20,40,31,0.6); display: flex; align-items: center; justify-content: center">Add-on</div>
+        <div style="padding: 18px 16px; font-size: 14.5px; color: rgba(20,40,31,0.6); display: flex; align-items: center; justify-content: center">Partial</div>
+      </div>
+      <div style="display: grid; grid-template-columns: minmax(0, 1.4fr) repeat(3, minmax(0, 1fr)); align-items: stretch; border-bottom: 1px solid rgba(20,40,31,0.08)">
+        <div style="padding: 18px 28px; font-size: 15px; font-weight: 600; display: flex; align-items: center">Shopify deep sync</div>
+        <div style="padding: 18px 16px; background: rgba(216,250,104,0.22); display: flex; align-items: center; justify-content: center; font-weight: 800">✓</div>
+        <div style="padding: 18px 16px; font-size: 14.5px; color: rgba(20,40,31,0.6); display: flex; align-items: center; justify-content: center">3rd party</div>
+        <div style="padding: 18px 16px; font-size: 14.5px; color: rgba(20,40,31,0.6); display: flex; align-items: center; justify-content: center">Basic</div>
+      </div>
+      <div style="display: grid; grid-template-columns: minmax(0, 1.4fr) repeat(3, minmax(0, 1fr)); align-items: stretch; border-bottom: 1px solid rgba(20,40,31,0.08)">
+        <div style="padding: 18px 28px; font-size: 15px; font-weight: 600; display: flex; align-items: center">Inventory management</div>
+        <div style="padding: 18px 16px; background: rgba(216,250,104,0.22); display: flex; align-items: center; justify-content: center; font-weight: 800">✓</div>
+        <div style="padding: 18px 16px; font-size: 14.5px; color: rgba(20,40,31,0.6); display: flex; align-items: center; justify-content: center">✓</div>
+        <div style="padding: 18px 16px; font-size: 14.5px; color: rgba(20,40,31,0.6); display: flex; align-items: center; justify-content: center">Not included</div>
+      </div>
+      <div style="display: grid; grid-template-columns: minmax(0, 1.4fr) repeat(3, minmax(0, 1fr)); align-items: stretch; border-bottom: 1px solid rgba(20,40,31,0.08)">
+        <div style="padding: 18px 28px; font-size: 15px; font-weight: 600; display: flex; align-items: center">CRM included</div>
+        <div style="padding: 18px 16px; background: rgba(216,250,104,0.22); display: flex; align-items: center; justify-content: center; font-weight: 800">✓</div>
+        <div style="padding: 18px 16px; font-size: 14.5px; color: rgba(20,40,31,0.6); display: flex; align-items: center; justify-content: center">Basic</div>
+        <div style="padding: 18px 16px; font-size: 14.5px; color: rgba(20,40,31,0.6); display: flex; align-items: center; justify-content: center">Not included</div>
+      </div>
+      <div style="display: grid; grid-template-columns: minmax(0, 1.4fr) repeat(3, minmax(0, 1fr)); align-items: stretch; border-bottom: 1px solid rgba(20,40,31,0.08)">
+        <div style="padding: 18px 28px; font-size: 15px; font-weight: 600; display: flex; align-items: center">Order → invoice automation</div>
+        <div style="padding: 18px 16px; background: rgba(216,250,104,0.22); display: flex; align-items: center; justify-content: center; font-weight: 800">✓</div>
+        <div style="padding: 18px 16px; font-size: 14.5px; color: rgba(20,40,31,0.6); display: flex; align-items: center; justify-content: center">Config</div>
+        <div style="padding: 18px 16px; font-size: 14.5px; color: rgba(20,40,31,0.6); display: flex; align-items: center; justify-content: center">Not included</div>
+      </div>
+      <div style="display: grid; grid-template-columns: minmax(0, 1.4fr) repeat(3, minmax(0, 1fr)); align-items: stretch">
+        <div style="padding: 18px 28px; font-size: 15px; font-weight: 600; display: flex; align-items: center">Go-live time</div>
+        <div style="padding: 18px 16px; background: rgba(216,250,104,0.22); display: flex; align-items: center; justify-content: center; font-weight: 800">Days</div>
+        <div style="padding: 18px 16px; font-size: 14.5px; color: rgba(20,40,31,0.6); display: flex; align-items: center; justify-content: center">Months</div>
+        <div style="padding: 18px 16px; font-size: 14.5px; color: rgba(20,40,31,0.6); display: flex; align-items: center; justify-content: center">Hours</div>
+      </div>
+    </div>
+    <div style="background: #14281F; border-radius: 28px; padding: 48px 52px; margin-top: 28px; color: #FFF6ED">
+      <div style="font-size: 12px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: #D8FA68; margin-bottom: 18px">The honest summary</div>
+      <p style="font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 500; font-size: 22px; line-height: 1.55; letter-spacing: -0.01em; margin: 0; max-width: 900px">Xero is cheaper, but it's accounting software, not an ERP. You'll still need a separate inventory tool, a Shopify connector and a manual MTD process. NetSuite does everything we do, but costs 10 to 30× more and takes months to implement. <span style="color: #D8FA68">We're the only platform purpose-built for UK Shopify merchants that closes the full loop.</span></p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CRM COMPARISON ============ -->
+<section data-screen-label="CRM comparison" style="max-width: 1240px; margin: 0 auto; padding: 0 32px 100px">
+  <div style="text-align: center; margin-bottom: 48px">
+    <div style="display: inline-flex; align-items: center; gap: 8px; background: #14281F; color: #FFF6ED; border-radius: 999px; padding: 8px 18px; font-size: 12px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 20px">
+      <span style="width: 8px; height: 8px; border-radius: 50%; background: #D8FA68; display: inline-block"></span>
+      CRM: you vs HubSpot &amp; Pipedrive
+    </div>
+    <h2 style="font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; font-size: 48px; line-height: 1.05; letter-spacing: -0.03em; margin: 0">A CRM that can actually see your money.</h2>
+  </div>
+  <div class="ldw-crm-grid" style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 22px; align-items: stretch">
+    <sc-for list="{{ crmCards }}" as="card" hint-placeholder-count="3">
+      <div style="background: {{ card.bg }}; color: {{ card.fg }}; border: {{ card.border }}; border-radius: 28px; padding: 30px 30px 22px; display: flex; flex-direction: column">
+        <span style="align-self: flex-start; font-size: 12px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; background: {{ card.badgeBg }}; color: {{ card.badgeFg }}; padding: 7px 14px; border-radius: 999px; margin-bottom: 18px">{{ card.badge }}</span>
+        <h3 style="font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; font-size: 24px; letter-spacing: -0.02em; margin: 0 0 6px">{{ card.title }}</h3>
+        <p style="font-size: 14.5px; margin: 0 0 18px; opacity: 0.65">{{ card.subtitle }}</p>
+        <div style="display: flex; flex-direction: column">
+          <sc-for list="{{ card.rows }}" as="row" hint-placeholder-count="6">
+            <div style="display: flex; justify-content: space-between; align-items: center; gap: 14px; padding: 13px 0; border-top: 1px solid {{ card.divider }}">
+              <span style="font-size: 14px; opacity: 0.75">{{ row.label }}</span>
+              <span style="font-size: 14px; font-weight: 700; color: {{ card.valueColor }}; text-align: right">{{ row.value }}</span>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+    </sc-for>
+  </div>
+  <div style="background: #DDE9D3; border-radius: 24px; padding: 34px 40px; margin-top: 28px; display: flex; gap: 20px; align-items: flex-start">
+    <span style="font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; font-size: 44px; line-height: 0.7; color: #14281F">“</span>
+    <p style="font-size: 17px; line-height: 1.6; color: #14281F; margin: 0"><strong>HubSpot and Pipedrive see contacts.</strong> We see contacts <em>and</em> their order history, outstanding invoices and inventory availability, in one place, in real time. No integrations, no sync delays.</p>
+  </div>
+</section>
+
+<!-- ============ CASE STUDY ============ -->
+<div style="background: #FFFFFF; border-top: 1px solid rgba(20,40,31,0.08)">
+<section data-screen-label="Case study" style="max-width: 1240px; margin: 0 auto; padding: 100px 32px">
+  <div style="text-align: center; margin-bottom: 44px">
+    <h2 style="font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; font-size: 48px; line-height: 1.05; letter-spacing: -0.03em; margin: 0 0 14px">Real teams, real results</h2>
+    <p style="font-size: 17px; line-height: 1.6; color: rgba(20,40,31,0.65); max-width: 420px; margin: 0 auto">How one customer transformed their daily operations.</p>
+  </div>
+  <div class="ldw-case-grid" style="background: #DDE9D3; border-radius: 40px; overflow: hidden; display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 0.75fr)">
+    <div style="padding: 64px 60px; display: flex; flex-direction: column; gap: 26px">
+      <div style="display: inline-flex; align-items: center; gap: 8px; align-self: flex-start; background: #14281F; color: #DDE9D3; border-radius: 999px; padding: 8px 18px; font-size: 12px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase">
+        <span style="width: 8px; height: 8px; border-radius: 50%; background: #D8FA68; display: inline-block"></span>
+        Case study
+      </div>
+      <p style="font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 700; font-size: 36px; line-height: 1.25; letter-spacing: -0.02em; color: #14281F; margin: 0">“We cut manual VAT work by <em style="font-style: normal; background: #14281F; color: #D8FA68; padding: 0 12px; border-radius: 12px">62%</em> and doubled the order volume our team can handle, without adding headcount.”</p>
+      <div style="font-size: 15px; color: rgba(20,40,31,0.65)">Operations Director, Harbour &amp; Co.</div>
+      <a href="#" style="align-self: flex-start; background: #14281F; color: #FFF6ED; font-weight: 700; font-size: 15px; padding: 14px 28px; border-radius: 999px; display: inline-flex; align-items: center; gap: 10px" style-hover="background: #D8FA68; color: #14281F">Read the case study <span aria-hidden="true">→</span></a>
+    </div>
+    <div class="ldw-case-stats" style="background: #14281F; color: #FFF6ED; padding: 52px 48px; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0; align-content: center">
+      <div style="padding: 22px 20px; border-bottom: 1px solid rgba(255,246,237,0.15); border-right: 1px solid rgba(255,246,237,0.15)">
+        <div style="font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; font-size: 44px; line-height: 1; color: #D8F26E">62%</div>
+        <div style="font-size: 13.5px; opacity: 0.7; margin-top: 8px">less manual VAT work</div>
+      </div>
+      <div style="padding: 22px 20px; border-bottom: 1px solid rgba(255,246,237,0.15)">
+        <div style="font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; font-size: 44px; line-height: 1; color: #D8F26E">3.5h</div>
+        <div style="font-size: 13.5px; opacity: 0.7; margin-top: 8px">saved per day</div>
+      </div>
+      <div style="padding: 22px 20px; border-right: 1px solid rgba(255,246,237,0.15)">
+        <div style="font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; font-size: 44px; line-height: 1; color: #D8F26E">2×</div>
+        <div style="font-size: 13.5px; opacity: 0.7; margin-top: 8px">order capacity</div>
+      </div>
+      <div style="padding: 22px 20px">
+        <div style="font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; font-size: 44px; line-height: 1; color: #D8F26E">0</div>
+        <div style="font-size: 13.5px; opacity: 0.7; margin-top: 8px">extra headcount</div>
+      </div>
+    </div>
+  </div>
+</section>
+</div>
+
+<!-- ============ RESOURCES ============ -->
+<sc-if value="{{ showResources }}" hint-placeholder-val="{{ true }}">
+  <div style="background: #F7F3EA; border-top: 1px solid rgba(20,40,31,0.08)">
+  <section id="resources" data-screen-label="Resources" style="max-width: 1240px; margin: 0 auto; padding: 100px 32px">
+    <div class="ldw-res-head" style="display: flex; align-items: flex-end; justify-content: space-between; gap: 32px; margin-bottom: 28px">
+      <h2 style="font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; font-size: 48px; letter-spacing: -0.03em; margin: 0">Resources</h2>
+      <p style="font-size: 17px; color: rgba(20,40,31,0.65); margin: 0">We'll get you up and running in no time.</p>
+    </div>
+    <div class="ldw-res-grid" style="display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); grid-auto-rows: 250px; grid-auto-flow: dense; gap: 22px">
+      <sc-for list="{{ resourceCards }}" as="art" hint-placeholder-count="8">
+        <sc-if value="{{ art.isImage }}" hint-placeholder-val="{{ true }}">
+          <a href="#" style="grid-column: span {{ art.colSpan }}; grid-row: span {{ art.rowSpan }}; position: relative; border-radius: 26px; overflow: hidden; display: block; background: #14281F; color: #FFF6ED; transition: transform 0.25s ease" style-hover="transform: translateY(-6px)">
+            <div style="position: absolute; inset: 0 0 {{ art.textBand }} 0">
+              <image-slot id="{{ art.slotId }}" placeholder="{{ art.imageHint }}"></image-slot>
+            </div>
+            <div style="position: absolute; inset: 0; background: linear-gradient(to top, rgba(20,40,31,0.92) 0%, rgba(20,40,31,0.55) {{ art.textBand }}, rgba(20,40,31,0) 72%); pointer-events: none"></div>
+            <span style="position: absolute; top: 18px; left: 18px; font-size: 11px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; background: #D8F26E; color: #14281F; padding: 7px 14px; border-radius: 999px">{{ art.tag }}</span>
+            <div style="position: absolute; left: 22px; right: 22px; bottom: 20px; display: flex; flex-direction: column; gap: 8px">
+              <h3 style="font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; font-size: {{ art.titleSize }}; line-height: 1.12; letter-spacing: -0.02em; margin: 0">{{ art.title }}</h3>
+              <sc-if value="{{ art.copy }}" hint-placeholder-val="{{ false }}">
+                <p style="font-size: 15px; line-height: 1.5; margin: 0; opacity: 0.85; max-width: 440px">{{ art.copy }}</p>
+              </sc-if>
+              <span style="font-weight: 700; font-size: 14px; color: #D8F26E; display: inline-flex; align-items: center; gap: 8px">{{ art.cta }} <span>→</span></span>
+            </div>
+          </a>
+        </sc-if>
+        <sc-if value="{{ art.isText }}" hint-placeholder-val="{{ false }}">
+          <a href="#" style="grid-column: span {{ art.colSpan }}; grid-row: span {{ art.rowSpan }}; background: {{ art.tint }}; border-radius: 26px; padding: 26px; display: flex; flex-direction: column; gap: 10px; color: #14281F; transition: transform 0.25s ease" style-hover="transform: translateY(-6px)">
+            <span style="font-size: 11px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: #14281F">{{ art.tag }}</span>
+            <h3 style="font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 700; font-size: 20px; line-height: 1.18; letter-spacing: -0.01em; margin: 0; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical">{{ art.title }}</h3>
+            <p style="font-size: 14px; line-height: 1.55; color: rgba(20,40,31,0.68); margin: 0; flex: 1; min-height: 44px; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical">{{ art.copy }}</p>
+            <span style="width: 36px; height: 36px; flex: none; border-radius: 50%; background: #14281F; color: #FFF6ED; display: grid; place-items: center; font-size: 15px">→</span>
+          </a>
+        </sc-if>
+      </sc-for>
+    </div>
+  </section>
+  </div>
+</sc-if>
+
+<!-- ============ DEMO CTA ============ -->
+<div style="background: #FFFFFF; border-top: 1px solid rgba(20,40,31,0.08)">
+<section data-screen-label="Demo CTA" style="max-width: 1240px; margin: 0 auto; padding: 100px 32px">
+  <div class="ldw-demo-grid" style="background: #14281F; background-image: radial-gradient(rgba(216,242,110,0.12) 1.5px, transparent 1.5px); background-size: 26px 26px; border-radius: 40px; padding: 72px 64px; display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.8fr); gap: 56px; align-items: center; color: #FFF6ED; position: relative; overflow: hidden">
+    <div>
+      <div style="display: inline-flex; align-items: center; gap: 8px; border: 1px solid rgba(255,246,237,0.3); border-radius: 999px; padding: 7px 16px; font-size: 12px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 24px">
+        <span style="width: 8px; height: 8px; border-radius: 50%; background: #D8FA68; display: inline-block"></span>
+        Live demo
+      </div>
+      <h2 style="font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; font-size: 52px; line-height: 1.04; letter-spacing: -0.03em; margin: 0 0 18px">See LD Workflows <em style="font-style: italic; color: #D8F26E">in action</em>.</h2>
+      <p style="font-size: 18px; line-height: 1.6; color: rgba(255,246,237,0.75); margin: 0 0 32px; max-width: 440px">Contact us for a free 14-day trial. No obligations, no card required. Just your workflows, running smoother.</p>
+      <div style="display: flex; gap: 14px; flex-wrap: wrap">
+        <a href="#" style="background: #D8F26E; color: #14281F; font-size: 16px; font-weight: 700; padding: 16px 32px; border-radius: 999px; display: inline-block" style-hover="background: #D8FA68; color: #14281F">Book a no-obligations demo</a>
+        <a href="#" style="border: 1.5px solid rgba(255,246,237,0.5); color: #FFF6ED; font-size: 16px; font-weight: 600; padding: 15px 32px; border-radius: 999px; display: inline-block" style-hover="background: #FFF6ED; color: #14281F">Start free trial</a>
+      </div>
+    </div>
+    <div style="display: flex; flex-direction: column; gap: 16px">
+      <div style="background: rgba(255,246,237,0.07); border: 1px solid rgba(255,246,237,0.15); border-radius: 22px; padding: 22px 26px; display: flex; align-items: center; gap: 16px; backdrop-filter: blur(4px)">
+        <span style="font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; font-size: 30px; color: #D8F26E; line-height: 1">5.0★</span>
+        <span style="font-size: 14.5px; line-height: 1.45; opacity: 0.8">Rated on Trustist by teams who run on our flows</span>
+      </div>
+      <div style="background: rgba(255,246,237,0.07); border: 1px solid rgba(255,246,237,0.15); border-radius: 22px; padding: 22px 26px; display: flex; align-items: center; gap: 16px; backdrop-filter: blur(4px)">
+        <span style="font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; font-size: 30px; color: #D8F26E; line-height: 1">14</span>
+        <span style="font-size: 14.5px; line-height: 1.45; opacity: 0.8">Days of full access, free. No card, no obligations</span>
+      </div>
+      <div style="background: rgba(255,246,237,0.07); border: 1px solid rgba(255,246,237,0.15); border-radius: 22px; padding: 22px 26px; display: flex; align-items: center; gap: 16px; backdrop-filter: blur(4px)">
+        <span style="font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; font-size: 30px; color: #D8F26E; line-height: 1">1:1</span>
+        <span style="font-size: 14.5px; line-height: 1.45; opacity: 0.8">Guided walkthrough with a workflow specialist</span>
+      </div>
+    </div>
+  </div>
+</section>
+</div>
+
+<!-- ============ FOOTER ============ -->
+<footer data-screen-label="Footer" style="background: #E9E7E1; border-top: 1px solid rgba(20,40,31,0.1); padding: 80px 32px 28px; overflow: hidden">
+  <div style="max-width: 1240px; margin: 0 auto">
+    <div class="ldw-footer-top" style="display: flex; justify-content: space-between; align-items: flex-end; gap: 40px; flex-wrap: wrap; margin-bottom: 56px">
+      <h2 style="font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; font-size: 46px; line-height: 1.08; letter-spacing: -0.03em; color: #14281F; margin: 0; max-width: 520px">Ready to run everything on one flow?</h2>
+      <div style="display: flex; gap: 12px; flex-wrap: wrap">
+        <a href="#contact" style="background: #14281F; color: #D8FA68; font-size: 16px; font-weight: 700; padding: 16px 32px; border-radius: 999px; display: inline-flex; align-items: center; gap: 8px" style-hover="background: #D8FA68; color: #14281F">Book a demo <span aria-hidden="true">→</span></a>
+        <a href="#contact" style="border: 1.5px solid #14281F; color: #14281F; font-size: 16px; font-weight: 600; padding: 15px 32px; border-radius: 999px; display: inline-block" style-hover="background: #14281F; color: #D8FA68">Start free trial</a>
+      </div>
+    </div>
+    <div class="ldw-footer-nav" style="display: flex; justify-content: space-between; align-items: center; gap: 24px; flex-wrap: wrap; padding: 22px 0; border-top: 1px solid rgba(20,40,31,0.12); border-bottom: 1px solid rgba(20,40,31,0.12)">
+      <img src="uploads/LD-logo.png" alt="LD Workflows" style="height: 30px; width: auto; display: block">
+      <nav style="display: flex; gap: 6px 26px; flex-wrap: wrap; font-size: 15px; font-weight: 600">
+        <a href="#flows" style="color: #14281F" style-hover="opacity: 0.6">ERP Flow</a>
+        <a href="#flows" style="color: #14281F" style-hover="opacity: 0.6">Field Service Team Flow</a>
+        <a href="#flows" style="color: #14281F" style-hover="opacity: 0.6">CRM Flow</a>
+        <a href="Pricing.dc.html" style="color: #14281F" style-hover="opacity: 0.6">Pricing</a>
+        <a href="#contact" style="color: #14281F" style-hover="opacity: 0.6">Contact</a>
+        <a href="#" style="color: #14281F" style-hover="opacity: 0.6">Login</a>
+      </nav>
+    </div>
+    <div class="ldw-footer-bottom" style="padding: 22px 0 0; display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; font-size: 13px; color: rgba(20,40,31,0.55)">
+      <span>All rights reserved © 2026 LD Workflows</span>
+      <div style="display: flex; gap: 20px">
+        <a href="#" style="color: rgba(20,40,31,0.7)" style-hover="color: #14281F">Terms of Service</a>
+        <a href="#" style="color: rgba(20,40,31,0.7)" style-hover="color: #14281F">Cookies Policy</a>
+        <a href="#" style="color: rgba(20,40,31,0.7)" style-hover="color: #14281F">Privacy Policy</a>
+      </div>
+    </div>
+    <div class="ldw-footer-word" aria-hidden="true" style="font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; font-size: clamp(60px, 12.5cqw, 168px); letter-spacing: -0.04em; line-height: 0.8; color: rgba(20,40,31,0.08); text-align: center; margin: 44px 0 -34px; white-space: nowrap; user-select: none">ldworkflows</div>
+  </div>
+</footer>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;previewMode&quot;: {&quot;editor&quot;: &quot;enum&quot;, &quot;default&quot;: &quot;Desktop&quot;, &quot;options&quot;: [&quot;Desktop&quot;, &quot;Mobile&quot;], &quot;tsType&quot;: &quot;string&quot;, &quot;section&quot;: &quot;Preview&quot;}, &quot;heroLayout&quot;: {&quot;editor&quot;: &quot;enum&quot;, &quot;default&quot;: &quot;Orbit pastel&quot;, &quot;options&quot;: [&quot;Orbit pastel&quot;, &quot;Collage strip&quot;, &quot;Photo banner&quot;, &quot;Split arch&quot;], &quot;tsType&quot;: &quot;string&quot;, &quot;section&quot;: &quot;Banner&quot;}, &quot;showMarquee&quot;: {&quot;editor&quot;: &quot;boolean&quot;, &quot;default&quot;: false, &quot;tsType&quot;: &quot;boolean&quot;, &quot;section&quot;: &quot;Sections&quot;}, &quot;showResources&quot;: {&quot;editor&quot;: &quot;boolean&quot;, &quot;default&quot;: true, &quot;tsType&quot;: &quot;boolean&quot;, &quot;section&quot;: &quot;Sections&quot;}}">
+class Component extends DCLogic {
+  state = { openFlow: 0, resourceTag: 0 };
+
+  filterCards(cards) {
+    return cards.map(c => Object.assign({}, c, { textBand: c.rowSpan === 2 ? '0%' : '42%' }));
+  }
+  renderVals() {
+    const words = ['ERP', 'CRM', 'Field Service', 'Automation', 'Invoicing', 'Scheduling', 'Reporting', 'Order Processing'];
+    const items = [];
+    for (let r = 0; r < 2; r++) {
+      words.forEach((w, i) => {
+        items.push(React.createElement('span', {
+          key: r + '-' + i,
+          style: { fontFamily: "'Plus Jakarta Sans', sans-serif", fontWeight: 700, fontSize: 18, letterSpacing: '0.04em', textTransform: 'uppercase', whiteSpace: 'nowrap' }
+        }, w));
+        items.push(React.createElement('span', { key: r + '-' + i + '-dot', style: { color: '#D8F26E', fontSize: 18 } }, '✦'));
+      });
+    }
+    const marquee = React.createElement('div', {
+      style: { display: 'flex', gap: 36, alignItems: 'center', width: 'max-content', animation: 'ldw-marquee 28s linear infinite' }
+    }, items);
+
+    const flows = [
+      { num: '01', tag: 'ERP', tint: '#FFFFFF', slotId: 'flow-erp', imageHint: 'ERP / operations image', title: 'ERP Flow', copy: 'Streamline operations and improve efficiency with enterprise resource planning. Integrate and automate order processing, production scheduling and supply chain management.' },
+      { num: '02', tag: 'Field', tint: '#FFFFFF', slotId: 'flow-field', imageHint: 'Field team image', title: 'Field Service Team Flow', copy: 'Our number-one field service software gives operations teams a comprehensive solution for streamlining support, enhancing collaboration and improving customer satisfaction.' },
+      { num: '03', tag: 'CRM', tint: '#FFFFFF', slotId: 'flow-crm', imageHint: 'CRM / customers image', title: 'CRM Flow', copy: 'Customer management and sales software that streamlines every interaction: a coordinated platform to manage and analyse customer data and drive growth.' }
+    ];
+    const heroLayout = this.props.heroLayout ?? 'Orbit pastel';
+    return {
+      previewMode: this.props.previewMode ?? 'Desktop',
+      heroOrbit: heroLayout === 'Orbit pastel',
+      heroCollage: heroLayout === 'Collage strip',
+      heroBanner: heroLayout === 'Photo banner',
+      heroSplit: heroLayout === 'Split arch',
+      showMarquee: this.props.showMarquee ?? true,
+      showResources: this.props.showResources ?? true,
+      marquee,
+      flows: flows.map((f, i) => Object.assign({}, f, { offset: i === 1 ? '44px' : '0px' })),
+      crmCards: [
+        {
+          badge: 'Your platform', badgeBg: '#D8FA68', badgeFg: '#14281F',
+          title: 'Your ERP CRM', subtitle: 'CRM with live financial context',
+          bg: '#14281F', fg: '#FFF6ED', border: '1px solid #14281F', divider: 'rgba(255,246,237,0.15)', valueColor: '#D8FA68',
+          rows: [
+            { label: 'Order history in CRM', value: 'Live from ERP ✓' },
+            { label: 'Invoice status', value: 'Real-time ✓' },
+            { label: 'Inventory visibility', value: 'Native ✓' },
+            { label: 'Single platform', value: 'No integration ✓' },
+            { label: 'Shopify data in CRM', value: 'Automatic ✓' },
+            { label: 'Pricing', value: 'Bundled ✓' }
+          ]
+        },
+        {
+          badge: 'Competitor', badgeBg: '#E9E7E1', badgeFg: 'rgba(20,40,31,0.7)',
+          title: 'HubSpot', subtitle: 'Marketing-heavy CRM suite',
+          bg: '#FFFFFF', fg: '#14281F', border: '1px solid rgba(20,40,31,0.1)', divider: 'rgba(20,40,31,0.08)', valueColor: 'rgba(20,40,31,0.55)',
+          rows: [
+            { label: 'Order history in CRM', value: 'Integration needed' },
+            { label: 'Invoice status', value: '3rd-party sync' },
+            { label: 'Inventory visibility', value: 'Not native' },
+            { label: 'Single platform', value: 'Stack required' },
+            { label: 'Shopify data in CRM', value: 'App available' },
+            { label: 'Pricing', value: '£400 to £3k+/mo' }
+          ]
+        },
+        {
+          badge: 'Competitor', badgeBg: '#E9E7E1', badgeFg: 'rgba(20,40,31,0.7)',
+          title: 'Pipedrive', subtitle: 'Sales pipeline CRM',
+          bg: '#FFFFFF', fg: '#14281F', border: '1px solid rgba(20,40,31,0.1)', divider: 'rgba(20,40,31,0.08)', valueColor: 'rgba(20,40,31,0.55)',
+          rows: [
+            { label: 'Order history in CRM', value: 'Integration needed' },
+            { label: 'Invoice status', value: 'Xero / QB sync req.' },
+            { label: 'Inventory visibility', value: 'Not available' },
+            { label: 'Single platform', value: 'Stack required' },
+            { label: 'Shopify data in CRM', value: 'Manual / Zapier' },
+            { label: 'Pricing', value: '£15 to £60/user/mo' }
+          ]
+        }
+      ],
+      resourceCards: this.filterCards([
+        { isImage: true, colSpan: 2, rowSpan: 2, slotId: 'res-featured', tag: 'Featured guide', imageHint: 'Featured story image, team photo', title: 'Turn contacts into customers', titleSize: '32px', copy: 'Got contacts scattered across Facebook, LinkedIn and old spreadsheets? Turn them into customers who help you earn.', cta: 'Read the guide' },
+        { isText: true, colSpan: 1, rowSpan: 1, tint: '#F3EBD9', tag: 'Article', title: '5 benefits of using staff portals', copy: 'A self-service portal for schedules, benefits and work info.' },
+        { isText: true, colSpan: 1, rowSpan: 1, tint: '#FFDFC9', tag: 'Case study', title: 'Estimates, quotes and invoices', copy: 'How one team wins more jobs and gets paid faster.' },
+        { isImage: true, colSpan: 1, rowSpan: 1, slotId: 'res-security', tag: 'Security', imageHint: 'Data security image', title: 'What to know about data security', titleSize: '20px', copy: '', cta: 'Read more' },
+        { isText: true, colSpan: 1, rowSpan: 1, tint: '#DDE9D3', tag: 'Guide', title: 'Getting started with ERP Flow', copy: 'Set up order processing and scheduling in under a week.' },
+        { isImage: true, colSpan: 1, rowSpan: 1, slotId: 'res-field', tag: 'Case study', imageHint: 'Field team photo', title: 'A day with a field service team', titleSize: '20px', copy: '', cta: 'Read more' },
+        { isText: true, colSpan: 1, rowSpan: 1, tint: '#E9E7E1', tag: 'Article', title: 'Automations that save 5+ hours a week', copy: 'The most-used recipes across our customers.' },
+        { isImage: true, colSpan: 2, rowSpan: 1, slotId: 'res-reporting', tag: 'Guide', imageHint: 'Reporting dashboard image', title: 'Reporting that your whole team understands', titleSize: '24px', copy: '', cta: 'Read the guide' }
+      ])
+    };
+  }
+}
+</script>
+</body>
+</html>

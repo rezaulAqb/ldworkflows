@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+  <meta charset="utf-8">
+  <title>Pricing | LD Workflows</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&amp;display=swap" rel="stylesheet">
+  <style>
+    html, body { margin: 0; padding: 0; background: #F7F3EA; }
+    body { font-family: 'Plus Jakarta Sans', sans-serif; color: #14281F; -webkit-font-smoothing: antialiased; }
+    a { color: #14281F; text-decoration: none; }
+    a:hover { color: #14281F; opacity: 0.75; }
+    ::selection { background: #D8FA68; color: #14281F; }
+    .ldw-root { container-type: inline-size; container-name: page; }
+    @container page (max-width: 1080px) {
+      .ldw-price-grid { grid-template-columns: minmax(0,1fr) !important; max-width: 460px; margin-left: auto !important; margin-right: auto !important; }
+      .ldw-price-grid > div { transform: none !important; }
+      .ldw-vs-grid { grid-template-columns: minmax(0,1fr) !important; }
+      .ldw-crm-grid { grid-template-columns: minmax(0,1fr) !important; }
+      .ldw-footer-grid { grid-template-columns: minmax(0,1fr) !important; gap: 32px !important; }
+    }
+    @container page (max-width: 700px) {
+      .ldw-footer-bottom { flex-direction: column !important; gap: 12px !important; }
+      h1 { font-size: clamp(36px, 10vw, 52px) !important; }
+      h2 { font-size: clamp(30px, 8vw, 40px) !important; }
+      .ldw-nav-links { display: none !important; }
+      .ldw-nav-cta { margin-left: auto !important; }
+      section[data-screen-label] { padding-left: 20px !important; padding-right: 20px !important; }
+      .ldw-compare-table > div > div { padding-left: 8px !important; padding-right: 8px !important; }
+      .ldw-compare-table { font-size: 13px; }
+      .ldw-hero-ctas { flex-wrap: wrap !important; }
+    }
+  </style>
+</helmet>
+
+<div class="ldw-root">
+<!-- ============ NAV ============ -->
+<header data-screen-label="Nav" style="position: sticky; top: 0; z-index: 50; background: rgba(255,255,255,0.92); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(20,40,31,0.1)">
+  <div style="max-width: 1240px; margin: 0 auto; padding: 16px 32px; display: flex; align-items: center; gap: 40px">
+    <a href="LD Workflows Redesign.dc.html" style="display: block">
+      <img src="uploads/LD-logo.png" alt="LD Workflows" style="height: 32px; width: auto; display: block">
+    </a>
+    <nav class="ldw-nav-links" style="display: flex; gap: 28px; font-size: 15px; font-weight: 500; margin-left: auto">
+      <a href="LD Workflows Redesign.dc.html#flows" style="color: #14281F" style-hover="opacity: 0.65">Software</a>
+      <a href="LD Workflows Redesign.dc.html#resources" style="color: #14281F" style-hover="opacity: 0.65">News</a>
+      <a href="Pricing.dc.html" style="color: #14281F; font-weight: 700; border-bottom: 2px solid #D8FA68">Pricing</a>
+      <a href="LD Workflows Redesign.dc.html#contact" style="color: #14281F" style-hover="opacity: 0.65">Contact</a>
+    </nav>
+    <div class="ldw-nav-cta" style="display: flex; gap: 12px; align-items: center">
+      <a href="#" style="background: #14281F; color: #D8FA68; font-size: 15px; font-weight: 600; padding: 10px 20px; border-radius: 999px; display: inline-block" style-hover="background: #D8FA68; color: #14281F">Login</a>
+    </div>
+  </div>
+</header>
+
+<!-- ============ HERO ============ -->
+<section data-screen-label="Pricing hero" style="background: #14281F; background-image: radial-gradient(rgba(216,250,104,0.1) 1.5px, transparent 1.5px); background-size: 26px 26px; color: #FFF6ED; padding: 96px 32px 88px; text-align: center">
+  <div style="max-width: 880px; margin: 0 auto">
+    <div style="display: inline-flex; align-items: center; gap: 8px; border: 1px solid rgba(255,246,237,0.3); border-radius: 999px; padding: 8px 18px; font-size: 12px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 28px">
+      <span style="width: 8px; height: 8px; border-radius: 50%; background: #D8FA68; display: inline-block"></span>
+      Pricing &amp; plans
+    </div>
+    <h1 style="font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; font-size: 62px; line-height: 1.05; letter-spacing: -0.035em; margin: 0 0 10px">Everything from Shopify order to VAT return.</h1>
+    <div style="font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 700; font-style: italic; font-size: 40px; letter-spacing: -0.02em; color: #D8FA68; margin: 0 0 24px">No enterprise price tag.</div>
+    <p style="font-size: 18px; line-height: 1.6; color: rgba(255,246,237,0.75); margin: 0 auto 36px; max-width: 520px">One platform: full ERP, accounting, inventory, CRM and MTD VAT filing, built for UK merchants.</p>
+    <div class="ldw-hero-ctas" style="display: flex; gap: 14px; justify-content: center">
+      <a href="#plans" style="background: #D8FA68; color: #14281F; font-size: 16px; font-weight: 700; padding: 16px 32px; border-radius: 999px; display: inline-block" style-hover="background: #FFF6ED">Start free trial →</a>
+      <a href="LD Workflows Redesign.dc.html#contact" style="border: 1.5px solid rgba(255,246,237,0.5); color: #FFF6ED; font-size: 16px; font-weight: 600; padding: 15px 32px; border-radius: 999px; display: inline-block" style-hover="background: #FFF6ED; color: #14281F">Book a demo</a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PLANS ============ -->
+<section id="plans" data-screen-label="Plans" style="max-width: 1240px; margin: 0 auto; padding: 90px 32px">
+  <p style="text-align: center; font-size: 16px; color: rgba(20,40,31,0.7); margin: 0 0 22px">Choose monthly for flexibility, or annual to get two months free. Switch whenever you like.</p>
+  <div style="display: flex; justify-content: center; margin-bottom: 52px">
+    <div style="display: inline-flex; background: #FFFFFF; border: 1px solid rgba(20,40,31,0.15); border-radius: 999px; padding: 5px">
+      <button onClick="{{ setMonthly }}" style="font-family: 'Plus Jakarta Sans', sans-serif; font-size: 15px; font-weight: 700; padding: 11px 24px; border-radius: 999px; border: none; cursor: pointer; background: {{ monthlyBg }}; color: {{ monthlyFg }}">Monthly</button>
+      <button onClick="{{ setAnnual }}" style="font-family: 'Plus Jakarta Sans', sans-serif; font-size: 15px; font-weight: 700; padding: 11px 24px; border-radius: 999px; border: none; cursor: pointer; background: {{ annualBg }}; color: {{ annualFg }}">Annual <span style="font-weight: 600; opacity: 0.7">· 2 months free</span></button>
+    </div>
+  </div>
+  <div class="ldw-price-grid" style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 22px; align-items: stretch">
+    <sc-for list="{{ plans }}" as="plan" hint-placeholder-count="3">
+      <div style="background: {{ plan.bg }}; color: {{ plan.fg }}; border: {{ plan.border }}; border-radius: 30px; padding: 34px 32px; display: flex; flex-direction: column; transform: {{ plan.lift }}; box-shadow: {{ plan.shadow }}">
+        <span style="align-self: flex-start; font-size: 12px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; background: {{ plan.badgeBg }}; color: {{ plan.badgeFg }}; padding: 7px 14px; border-radius: 999px; margin-bottom: 20px">{{ plan.badge }}</span>
+        <h3 style="font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; font-size: 26px; letter-spacing: -0.02em; margin: 0 0 6px">{{ plan.name }}</h3>
+        <p style="font-size: 14.5px; margin: 0 0 24px; opacity: 0.65; min-height: 44px">{{ plan.subtitle }}</p>
+        <div style="display: flex; align-items: baseline; gap: 6px">
+          <span style="font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; font-size: 48px; letter-spacing: -0.03em">{{ plan.price }}</span>
+          <span style="font-size: 15px; opacity: 0.6">/mo</span>
+        </div>
+        <p style="font-size: 13px; opacity: 0.6; margin: 6px 0 24px">{{ plan.priceNote }}</p>
+        <a href="#" style="text-align: center; background: {{ plan.ctaBg }}; color: {{ plan.ctaFg }}; font-weight: 700; font-size: 15px; padding: 15px 28px; border-radius: 999px; display: block; margin-bottom: 26px" style-hover="opacity: 0.85">{{ plan.cta }}</a>
+        <div style="display: flex; flex-direction: column; gap: 11px">
+          <sc-for list="{{ plan.features }}" as="feat" hint-placeholder-count="8">
+            <span style="display: flex; align-items: flex-start; gap: 10px; font-size: 14.5px; opacity: {{ feat.opacity }}; text-decoration: {{ feat.deco }}"><span style="color: {{ plan.tick }}; font-weight: 700">{{ feat.mark }}</span> {{ feat.label }}</span>
+          </sc-for>
+        </div>
+      </div>
+    </sc-for>
+  </div>
+  <p style="text-align: center; font-size: 15px; color: rgba(20,40,31,0.7); margin: 40px auto 0; max-width: 620px">All plans include a <strong>14-day free trial</strong> and <strong>free migration</strong> from Xero, QuickBooks or spreadsheets. No credit card required.</p>
+</section>
+
+<!-- ============ COMPARISON TABLE ============ -->
+<div style="background: #FFFFFF; border-top: 1px solid rgba(20,40,31,0.08)">
+<section data-screen-label="Platform compare" style="max-width: 1240px; margin: 0 auto; padding: 90px 32px 100px">
+  <div style="text-align: center; margin-bottom: 48px">
+    <div style="display: inline-flex; align-items: center; gap: 8px; background: #14281F; color: #FFF6ED; border-radius: 999px; padding: 8px 18px; font-size: 12px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 20px">
+      <span style="width: 8px; height: 8px; border-radius: 50%; background: #D8FA68; display: inline-block"></span>
+      How the platforms compare
+    </div>
+    <h2 style="font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; font-size: 44px; line-height: 1.05; letter-spacing: -0.03em; margin: 0">NetSuite capability. Xero-level price.</h2>
+  </div>
+  <div class="ldw-compare-table" style="background: #FFFFFF; border: 1px solid rgba(20,40,31,0.1); border-radius: 28px; overflow: hidden">
+    <div style="display: grid; grid-template-columns: minmax(0, 1.4fr) repeat(3, minmax(0, 1fr)); align-items: stretch; border-bottom: 1px solid rgba(20,40,31,0.1)">
+      <div style="padding: 20px 28px; font-size: 13px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(20,40,31,0.55); display: flex; align-items: center">Feature coverage</div>
+      <div style="padding: 20px 16px; background: #14281F; display: flex; align-items: center; justify-content: center"><span style="font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; font-size: 15px; color: #D8FA68">LD Workflows</span></div>
+      <div style="padding: 20px 16px; font-weight: 700; font-size: 15px; display: flex; align-items: center; justify-content: center">NetSuite</div>
+      <div style="padding: 20px 16px; font-weight: 700; font-size: 15px; display: flex; align-items: center; justify-content: center">Xero + apps</div>
+    </div>
+    <sc-for list="{{ compareRows }}" as="row" hint-placeholder-count="6">
+      <div style="display: grid; grid-template-columns: minmax(0, 1.4fr) repeat(3, minmax(0, 1fr)); align-items: stretch; border-bottom: {{ row.borderBottom }}">
+        <div style="padding: 18px 28px; font-size: 15px; font-weight: 600; display: flex; align-items: center">{{ row.label }}</div>
+        <div style="padding: 18px 16px; background: rgba(216,250,104,0.22); display: flex; align-items: center; justify-content: center; font-weight: 800">{{ row.us }}</div>
+        <div style="padding: 18px 16px; font-size: 14.5px; color: rgba(20,40,31,0.6); display: flex; align-items: center; justify-content: center">{{ row.netsuite }}</div>
+        <div style="padding: 18px 16px; font-size: 14.5px; color: rgba(20,40,31,0.6); display: flex; align-items: center; justify-content: center">{{ row.xero }}</div>
+      </div>
+    </sc-for>
+  </div>
+  <div style="background: #14281F; border-radius: 28px; padding: 48px 52px; margin-top: 28px; color: #FFF6ED">
+    <div style="font-size: 12px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: #D8FA68; margin-bottom: 18px">The honest summary</div>
+    <p style="font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 500; font-size: 21px; line-height: 1.55; letter-spacing: -0.01em; margin: 0; max-width: 900px">Xero is cheaper, but it's accounting software, not an ERP. You'll still need a separate inventory tool, a Shopify connector and a manual MTD process. NetSuite does everything we do, but costs 10 to 30× more and takes months to implement. <span style="color: #D8FA68">We're the only platform purpose-built for UK Shopify merchants that closes the full loop.</span></p>
+  </div>
+</section>
+</div>
+
+<!-- ============ YOU VS NETSUITE ============ -->
+<section data-screen-label="You vs NetSuite" style="max-width: 1240px; margin: 0 auto; padding: 100px 32px">
+  <div style="text-align: center; margin-bottom: 48px">
+    <div style="display: inline-flex; align-items: center; gap: 8px; background: #14281F; color: #FFF6ED; border-radius: 999px; padding: 8px 18px; font-size: 12px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 20px">
+      <span style="width: 8px; height: 8px; border-radius: 50%; background: #D8FA68; display: inline-block"></span>
+      You vs NetSuite
+    </div>
+    <h2 style="font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; font-size: 44px; line-height: 1.1; letter-spacing: -0.03em; margin: 0">Live in days, not months, for a fraction of the cost.</h2>
+  </div>
+  <div class="ldw-vs-grid" style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 22px; align-items: stretch">
+    <sc-for list="{{ vsCards }}" as="card" hint-placeholder-count="2">
+      <div style="background: {{ card.bg }}; color: {{ card.fg }}; border: {{ card.border }}; border-radius: 28px; padding: 30px 30px 22px; display: flex; flex-direction: column">
+        <span style="align-self: flex-start; font-size: 12px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; background: {{ card.badgeBg }}; color: {{ card.badgeFg }}; padding: 7px 14px; border-radius: 999px; margin-bottom: 18px">{{ card.badge }}</span>
+        <h3 style="font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; font-size: 24px; letter-spacing: -0.02em; margin: 0 0 6px">{{ card.title }}</h3>
+        <p style="font-size: 14.5px; margin: 0 0 18px; opacity: 0.65">{{ card.subtitle }}</p>
+        <div style="display: flex; flex-direction: column">
+          <sc-for list="{{ card.rows }}" as="row" hint-placeholder-count="6">
+            <div style="display: flex; justify-content: space-between; align-items: center; gap: 14px; padding: 13px 0; border-top: 1px solid {{ card.divider }}">
+              <span style="font-size: 14px; opacity: 0.75">{{ row.label }}</span>
+              <span style="font-size: 14px; font-weight: 700; color: {{ card.valueColor }}; text-align: right">{{ row.value }}</span>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+    </sc-for>
+  </div>
+  <div style="background: #DDE9D3; border-radius: 24px; padding: 34px 40px; margin-top: 28px; display: flex; gap: 20px; align-items: flex-start">
+    <span style="font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; font-size: 44px; line-height: 0.7; color: #14281F">&ldquo;</span>
+    <p style="font-size: 17px; line-height: 1.6; color: #14281F; margin: 0"><strong>NetSuite does everything we do</strong>, but costs 10 to 30× more and takes months to implement. We're live in days, for a fraction of the cost. No consultants, no connectors.</p>
+  </div>
+</section>
+
+<!-- ============ CRM COMPARISON ============ -->
+<div style="background: #FFFFFF; border-top: 1px solid rgba(20,40,31,0.08)">
+<section data-screen-label="CRM comparison" style="max-width: 1240px; margin: 0 auto; padding: 100px 32px">
+  <div style="text-align: center; margin-bottom: 48px">
+    <div style="display: inline-flex; align-items: center; gap: 8px; background: #14281F; color: #FFF6ED; border-radius: 999px; padding: 8px 18px; font-size: 12px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 20px">
+      <span style="width: 8px; height: 8px; border-radius: 50%; background: #D8FA68; display: inline-block"></span>
+      CRM: you vs HubSpot &amp; Pipedrive
+    </div>
+    <h2 style="font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; font-size: 44px; line-height: 1.05; letter-spacing: -0.03em; margin: 0">A CRM that can actually see your money.</h2>
+  </div>
+  <div class="ldw-crm-grid" style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 22px; align-items: stretch">
+    <sc-for list="{{ crmCards }}" as="card" hint-placeholder-count="3">
+      <div style="background: {{ card.bg }}; color: {{ card.fg }}; border: {{ card.border }}; border-radius: 28px; padding: 30px 30px 22px; display: flex; flex-direction: column">
+        <span style="align-self: flex-start; font-size: 12px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; background: {{ card.badgeBg }}; color: {{ card.badgeFg }}; padding: 7px 14px; border-radius: 999px; margin-bottom: 18px">{{ card.badge }}</span>
+        <h3 style="font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; font-size: 24px; letter-spacing: -0.02em; margin: 0 0 6px">{{ card.title }}</h3>
+        <p style="font-size: 14.5px; margin: 0 0 18px; opacity: 0.65">{{ card.subtitle }}</p>
+        <div style="display: flex; flex-direction: column">
+          <sc-for list="{{ card.rows }}" as="row" hint-placeholder-count="6">
+            <div style="display: flex; justify-content: space-between; align-items: center; gap: 14px; padding: 13px 0; border-top: 1px solid {{ card.divider }}">
+              <span style="font-size: 14px; opacity: 0.75">{{ row.label }}</span>
+              <span style="font-size: 14px; font-weight: 700; color: {{ card.valueColor }}; text-align: right">{{ row.value }}</span>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+    </sc-for>
+  </div>
+  <div style="background: #DDE9D3; border-radius: 24px; padding: 34px 40px; margin-top: 28px; display: flex; gap: 20px; align-items: flex-start">
+    <span style="font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; font-size: 44px; line-height: 0.7; color: #14281F">&ldquo;</span>
+    <p style="font-size: 17px; line-height: 1.6; color: #14281F; margin: 0"><strong>HubSpot and Pipedrive see contacts.</strong> We see contacts <em>and</em> their order history, outstanding invoices and inventory availability, in one place, in real time. No integrations, no sync delays.</p>
+  </div>
+</section>
+</div>
+
+<!-- ============ FAQ ============ -->
+<div style="border-top: 1px solid rgba(20,40,31,0.08)">
+<section data-screen-label="FAQ" style="max-width: 880px; margin: 0 auto; padding: 100px 32px">
+  <h2 style="font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; font-size: 44px; letter-spacing: -0.03em; text-align: center; margin: 0 0 44px">Frequently asked questions</h2>
+  <div style="display: flex; flex-direction: column; gap: 14px">
+    <sc-for list="{{ faqs }}" as="faq" hint-placeholder-count="7">
+      <div onClick="{{ faq.toggle }}" style="background: {{ faq.bg }}; border: 1px solid rgba(20,40,31,0.1); border-radius: 20px; padding: 22px 28px; cursor: pointer; transition: background 0.25s ease">
+        <div style="display: flex; justify-content: space-between; align-items: center; gap: 18px">
+          <span style="font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 700; font-size: 17px">{{ faq.q }}</span>
+          <span style="width: 34px; height: 34px; flex: none; border-radius: 50%; background: {{ faq.iconBg }}; color: {{ faq.iconFg }}; display: grid; place-items: center; font-size: 17px; font-weight: 700; transform: {{ faq.rot }}; transition: transform 0.25s ease">+</span>
+        </div>
+        <sc-if value="{{ faq.open }}" hint-placeholder-val="{{ false }}">
+          <p style="font-size: 15px; line-height: 1.65; color: rgba(20,40,31,0.72); margin: 14px 0 0; max-width: 680px">{{ faq.a }}</p>
+        </sc-if>
+      </div>
+    </sc-for>
+  </div>
+</section>
+</div>
+
+<!-- ============ FINAL CTA ============ -->
+<section data-screen-label="Final CTA" style="max-width: 1240px; margin: 0 auto; padding: 0 32px 100px">
+  <div class="ldw-final-cta" style="background: #14281F; background-image: radial-gradient(rgba(216,250,104,0.12) 1.5px, transparent 1.5px); background-size: 26px 26px; border-radius: 40px; padding: 64px; display: flex; align-items: center; justify-content: space-between; gap: 40px; color: #FFF6ED; flex-wrap: wrap">
+    <div>
+      <h2 style="font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; font-size: 40px; line-height: 1.1; letter-spacing: -0.03em; margin: 0 0 8px">Don't just take our word for it.</h2>
+      <div style="font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 700; font-style: italic; font-size: 28px; letter-spacing: -0.02em; color: #D8FA68">Try it free for 14 days.</div>
+    </div>
+    <div style="display: flex; gap: 14px; flex-wrap: wrap">
+      <a href="#plans" style="background: #D8FA68; color: #14281F; font-size: 16px; font-weight: 700; padding: 16px 32px; border-radius: 999px; display: inline-block" style-hover="background: #FFF6ED">Start free trial</a>
+      <a href="LD Workflows Redesign.dc.html#contact" style="border: 1.5px solid rgba(255,246,237,0.5); color: #FFF6ED; font-size: 16px; font-weight: 600; padding: 15px 32px; border-radius: 999px; display: inline-block" style-hover="background: #FFF6ED; color: #14281F">Book a demo</a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer data-screen-label="Footer" style="background: #E9E7E1; border-top: 1px solid rgba(20,40,31,0.1); padding: 80px 32px 28px; overflow: hidden">
+  <div style="max-width: 1240px; margin: 0 auto">
+    <div class="ldw-footer-top" style="display: flex; justify-content: space-between; align-items: flex-end; gap: 40px; flex-wrap: wrap; margin-bottom: 56px">
+      <h2 style="font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; font-size: 46px; line-height: 1.08; letter-spacing: -0.03em; color: #14281F; margin: 0; max-width: 520px">Ready to run everything on one flow?</h2>
+      <div style="display: flex; gap: 12px; flex-wrap: wrap">
+        <a href="LD Workflows Redesign.dc.html#contact" style="background: #14281F; color: #D8FA68; font-size: 16px; font-weight: 700; padding: 16px 32px; border-radius: 999px; display: inline-flex; align-items: center; gap: 8px" style-hover="background: #D8FA68; color: #14281F">Book a demo <span aria-hidden="true">→</span></a>
+        <a href="#plans" style="border: 1.5px solid #14281F; color: #14281F; font-size: 16px; font-weight: 600; padding: 15px 32px; border-radius: 999px; display: inline-block" style-hover="background: #14281F; color: #D8FA68">Start free trial</a>
+      </div>
+    </div>
+    <div class="ldw-footer-nav" style="display: flex; justify-content: space-between; align-items: center; gap: 24px; flex-wrap: wrap; padding: 22px 0; border-top: 1px solid rgba(20,40,31,0.12); border-bottom: 1px solid rgba(20,40,31,0.12)">
+      <a href="LD Workflows Redesign.dc.html" style="display: block">
+        <img src="uploads/LD-logo.png" alt="LD Workflows" style="height: 30px; width: auto; display: block">
+      </a>
+      <nav style="display: flex; gap: 6px 26px; flex-wrap: wrap; font-size: 15px; font-weight: 600">
+        <a href="LD Workflows Redesign.dc.html#flows" style="color: #14281F" style-hover="opacity: 0.6">ERP Flow</a>
+        <a href="LD Workflows Redesign.dc.html#flows" style="color: #14281F" style-hover="opacity: 0.6">Field Service Team Flow</a>
+        <a href="LD Workflows Redesign.dc.html#flows" style="color: #14281F" style-hover="opacity: 0.6">CRM Flow</a>
+        <a href="Pricing.dc.html" style="color: #14281F" style-hover="opacity: 0.6">Pricing</a>
+        <a href="LD Workflows Redesign.dc.html#contact" style="color: #14281F" style-hover="opacity: 0.6">Contact</a>
+        <a href="#" style="color: #14281F" style-hover="opacity: 0.6">Login</a>
+      </nav>
+    </div>
+    <div class="ldw-footer-bottom" style="padding: 22px 0 0; display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; font-size: 13px; color: rgba(20,40,31,0.55)">
+      <span>All rights reserved © 2026 LD Workflows</span>
+      <div style="display: flex; gap: 20px">
+        <a href="#" style="color: rgba(20,40,31,0.7)" style-hover="color: #14281F">Terms of Service</a>
+        <a href="#" style="color: rgba(20,40,31,0.7)" style-hover="color: #14281F">Cookies Policy</a>
+        <a href="#" style="color: rgba(20,40,31,0.7)" style-hover="color: #14281F">Privacy Policy</a>
+      </div>
+    </div>
+    <div class="ldw-footer-word" aria-hidden="true" style="font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; font-size: clamp(60px, 12.5cqw, 168px); letter-spacing: -0.04em; line-height: 0.8; color: rgba(20,40,31,0.08); text-align: center; margin: 44px 0 -34px; white-space: nowrap; user-select: none">ldworkflows</div>
+  </div>
+</footer>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { billing: 'annual', openFaq: -1 };
+
+  renderVals() {
+    const annual = this.state.billing === 'annual';
+    const price = (a, m) => annual ? a : m;
+    const priceNote = annual ? 'per month, billed annually · 2 months free' : 'per month, billed monthly';
+
+    const feat = (label) => ({ label, mark: '✓', opacity: 1, deco: 'none' });
+    const cut = (label) => ({ label, mark: '✕', opacity: 0.45, deco: 'line-through' });
+
+    const plans = [
+      {
+        badge: 'Starter', badgeBg: '#E9E7E1', badgeFg: 'rgba(20,40,31,0.7)',
+        name: 'Starter', subtitle: 'Shopify merchants outgrowing spreadsheets',
+        price: price('£108', '£130'), priceNote,
+        bg: '#FFFFFF', fg: '#14281F', border: '1px solid rgba(20,40,31,0.1)', lift: 'none', shadow: 'none',
+        cta: 'Start free trial', ctaBg: '#14281F', ctaFg: '#FFF6ED', tick: '#14281F',
+        features: [feat('Shopify sync: orders, refunds, products'), feat('Automated invoicing'), feat('Inventory management'), feat('MTD VAT filing to HMRC'), feat('Core accounting & P&L'), feat('Up to 500 orders / month'), feat('3 users included'), cut('CRM'), cut('Multi-warehouse')]
+      },
+      {
+        badge: 'Most popular', badgeBg: '#D8FA68', badgeFg: '#14281F',
+        name: 'Growth', subtitle: 'The complete platform for scaling merchants',
+        price: price('£249', '£299'), priceNote,
+        bg: '#14281F', fg: '#FFF6ED', border: '1px solid #14281F', lift: 'translateY(-14px)', shadow: '0 28px 56px rgba(20,40,31,0.28)',
+        cta: 'Start free trial', ctaBg: '#D8FA68', ctaFg: '#14281F', tick: '#D8FA68',
+        features: [feat('Everything in Starter'), feat('Full CRM with order history'), feat('Multi-warehouse inventory'), feat('Advanced reporting & dashboards'), feat('Purchase orders & supplier management'), feat('Up to 2,000 orders / month'), feat('8 users included'), feat('Email & chat support')]
+      },
+      {
+        badge: 'Scale', badgeBg: '#E9E7E1', badgeFg: 'rgba(20,40,31,0.7)',
+        name: 'Scale', subtitle: 'High-volume & multi-entity businesses',
+        price: price('£499', '£599'), priceNote,
+        bg: '#FFFFFF', fg: '#14281F', border: '1px solid rgba(20,40,31,0.1)', lift: 'none', shadow: 'none',
+        cta: 'Talk to sales', ctaBg: '#14281F', ctaFg: '#FFF6ED', tick: '#14281F',
+        features: [feat('Everything in Growth'), feat('Multi-entity & multi-currency'), feat('Unlimited orders'), feat('API access & webhooks'), feat('Custom roles & permissions'), feat('Dedicated onboarding manager'), feat('Unlimited users'), feat('Phone & priority support')]
+      }
+    ];
+
+    const faqsData = [
+      { q: 'Can I switch plans as I grow?', a: 'Yes, upgrade or downgrade at any time from your account settings. Upgrades apply immediately and we pro-rate the difference; downgrades take effect at your next billing date.' },
+      { q: 'What happens if I exceed my order limit?', a: "Nothing breaks. We'll keep processing your orders and simply get in touch to move you to the right plan. You'll never lose data or have orders blocked mid-month." },
+      { q: 'How does the free migration work?', a: 'Our onboarding team imports your products, customers, open orders and account balances from Xero, QuickBooks or spreadsheets, typically within a few days, at no cost on any plan.' },
+      { q: 'Is MTD VAT filing really included?', a: 'Yes. HMRC-recognised Making Tax Digital VAT filing is built into every plan, including Starter, with no bridging software or add-ons needed.' },
+      { q: 'Do I need a separate accounting tool?', a: "No. Core accounting, P&L and VAT are part of the platform. Most customers replace Xero or QuickBooks entirely; if you'd rather keep them, we can run alongside during transition." },
+      { q: "What's the difference from Xero or QuickBooks?", a: "They're accounting software. LD Workflows is a full ERP: accounting plus live inventory, order automation, CRM and Shopify sync in one system, with no connectors or app stack required." },
+      { q: 'Can my accountant access the platform?', a: 'Yes, accountant seats are free on every plan, with role-based access to the reports and VAT records they need.' }
+    ];
+
+    return {
+      setMonthly: () => this.setState({ billing: 'monthly' }),
+      setAnnual: () => this.setState({ billing: 'annual' }),
+      monthlyBg: annual ? 'transparent' : '#14281F',
+      monthlyFg: annual ? '#14281F' : '#FFF6ED',
+      annualBg: annual ? '#14281F' : 'transparent',
+      annualFg: annual ? '#FFF6ED' : '#14281F',
+      plans,
+      compareRows: [
+        { label: 'MTD VAT native', us: '✓', netsuite: 'Add-on', xero: 'Partial' },
+        { label: 'Shopify deep sync', us: '✓', netsuite: '3rd party', xero: 'Basic' },
+        { label: 'Inventory management', us: '✓', netsuite: '✓', xero: 'Not included' },
+        { label: 'CRM included', us: '✓', netsuite: 'Basic', xero: 'Not included' },
+        { label: 'Order → invoice automation', us: '✓', netsuite: 'Config', xero: 'Not included' },
+        { label: 'Go-live time', us: 'Days', netsuite: 'Months', xero: 'Hours' }
+      ].map((r, i, arr) => Object.assign({}, r, { borderBottom: i === arr.length - 1 ? 'none' : '1px solid rgba(20,40,31,0.08)' })),
+      vsCards: [
+        {
+          badge: 'Your platform', badgeBg: '#D8FA68', badgeFg: '#14281F',
+          title: 'LD Workflows', subtitle: 'UK-native ERP for Shopify merchants',
+          bg: '#14281F', fg: '#FFF6ED', border: '1px solid #14281F', divider: 'rgba(255,246,237,0.15)', valueColor: '#D8FA68',
+          rows: [
+            { label: 'Go-live time', value: 'Days ✓' },
+            { label: 'Typical annual cost', value: '£3k to £10k ✓' },
+            { label: 'MTD VAT filing', value: 'Native ✓' },
+            { label: 'Shopify sync', value: 'Native, real-time ✓' },
+            { label: 'Implementation consultants', value: 'Not needed ✓' },
+            { label: 'Built for', value: 'UK Shopify SMEs ✓' }
+          ]
+        },
+        {
+          badge: 'Competitor', badgeBg: '#E9E7E1', badgeFg: 'rgba(20,40,31,0.7)',
+          title: 'NetSuite', subtitle: 'Enterprise ERP suite',
+          bg: '#FFFFFF', fg: '#14281F', border: '1px solid rgba(20,40,31,0.1)', divider: 'rgba(20,40,31,0.08)', valueColor: 'rgba(20,40,31,0.55)',
+          rows: [
+            { label: 'Go-live time', value: '3 to 12 months' },
+            { label: 'Typical annual cost', value: '£30k to £100k+' },
+            { label: 'MTD VAT filing', value: 'Add-on module' },
+            { label: 'Shopify sync', value: '3rd-party connector' },
+            { label: 'Implementation consultants', value: 'Required' },
+            { label: 'Built for', value: 'Large enterprises' }
+          ]
+        }
+      ],
+      crmCards: [
+        {
+          badge: 'Your platform', badgeBg: '#D8FA68', badgeFg: '#14281F',
+          title: 'Your ERP CRM', subtitle: 'CRM with live financial context',
+          bg: '#14281F', fg: '#FFF6ED', border: '1px solid #14281F', divider: 'rgba(255,246,237,0.15)', valueColor: '#D8FA68',
+          rows: [
+            { label: 'Order history in CRM', value: 'Live from ERP ✓' },
+            { label: 'Invoice status', value: 'Real-time ✓' },
+            { label: 'Inventory visibility', value: 'Native ✓' },
+            { label: 'Single platform', value: 'No integration ✓' },
+            { label: 'Shopify data in CRM', value: 'Automatic ✓' },
+            { label: 'Pricing', value: 'Bundled ✓' }
+          ]
+        },
+        {
+          badge: 'Competitor', badgeBg: '#E9E7E1', badgeFg: 'rgba(20,40,31,0.7)',
+          title: 'HubSpot', subtitle: 'Marketing-heavy CRM suite',
+          bg: '#FFFFFF', fg: '#14281F', border: '1px solid rgba(20,40,31,0.1)', divider: 'rgba(20,40,31,0.08)', valueColor: 'rgba(20,40,31,0.55)',
+          rows: [
+            { label: 'Order history in CRM', value: 'Integration needed' },
+            { label: 'Invoice status', value: '3rd-party sync' },
+            { label: 'Inventory visibility', value: 'Not native' },
+            { label: 'Single platform', value: 'Stack required' },
+            { label: 'Shopify data in CRM', value: 'App available' },
+            { label: 'Pricing', value: '£400 to £3k+/mo' }
+          ]
+        },
+        {
+          badge: 'Competitor', badgeBg: '#E9E7E1', badgeFg: 'rgba(20,40,31,0.7)',
+          title: 'Pipedrive', subtitle: 'Sales pipeline CRM',
+          bg: '#FFFFFF', fg: '#14281F', border: '1px solid rgba(20,40,31,0.1)', divider: 'rgba(20,40,31,0.08)', valueColor: 'rgba(20,40,31,0.55)',
+          rows: [
+            { label: 'Order history in CRM', value: 'Integration needed' },
+            { label: 'Invoice status', value: 'Xero / QB sync req.' },
+            { label: 'Inventory visibility', value: 'Not available' },
+            { label: 'Single platform', value: 'Stack required' },
+            { label: 'Shopify data in CRM', value: 'Manual / Zapier' },
+            { label: 'Pricing', value: '£15 to £60/user/mo' }
+          ]
+        }
+      ],
+      faqs: faqsData.map((f, i) => {
+        const open = this.state.openFaq === i;
+        return {
+          q: f.q, a: f.a, open,
+          toggle: () => this.setState({ openFaq: open ? -1 : i }),
+          bg: open ? '#FFFFFF' : 'rgba(255,255,255,0.6)',
+          iconBg: open ? '#14281F' : '#E9E7E1',
+          iconFg: open ? '#D8FA68' : '#14281F',
+          rot: open ? 'rotate(45deg)' : 'rotate(0deg)'
+        };
+      })
+    };
+  }
+}
+</script>
+</body>
+</html>
