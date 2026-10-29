@@ -1,0 +1,90 @@
+    html, body { margin: 0; padding: 0; background: #FFFFFF; }
+    body { font-family: 'Plus Jakarta Sans', sans-serif; color: #234C5A; -webkit-font-smoothing: antialiased; }
+    a { color: #234C5A; text-decoration: none; }
+    a:hover { color: #234C5A; opacity: 0.75; }
+    ::selection { background: #59ADA8; color: #FFFFFF; }
+    @keyframes ldw-drift-a { 0%,100% { transform: translate(0,0) scale(1); } 50% { transform: translate(60px,40px) scale(1.12); } }
+    @keyframes ldw-drift-b { 0%,100% { transform: translate(0,0) scale(1); } 50% { transform: translate(-70px,30px) scale(1.08); } }
+    @keyframes ldw-drift-c { 0%,100% { transform: translate(0,0) scale(1.05); } 50% { transform: translate(40px,-50px) scale(0.95); } }
+    @keyframes ldw-marquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+    @keyframes ldw-float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+    @keyframes ldw-dash { to { stroke-dashoffset: -28; } }
+    @keyframes ldw-spin { to { transform: rotate(360deg); } }
+    @keyframes ldw-pulse { 0%, 100% { transform: scale(1); opacity: 0.55; } 50% { transform: scale(1.06); opacity: 0.85; } }
+    @keyframes ldw-halo { 0%, 100% { transform: translate(-50%,-50%) scale(1); opacity: 0.6; } 50% { transform: translate(-50%,-50%) scale(1.07); opacity: 0.9; } }
+    @keyframes ldw-arc-a { to { stroke-dashoffset: -943; } }
+    @keyframes ldw-arc-b { to { stroke-dashoffset: -1320; } }
+    @keyframes ldw-arc-c { to { stroke-dashoffset: -1647; } }
+    @keyframes ldw-arc-d { to { stroke-dashoffset: -1935; } }
+    @keyframes ldw-pulse-run { 0% { left: 10%; opacity: 0; } 3% { left: 10%; opacity: 1; } 17.3% { left: 30%; } 31.5% { left: 50%; } 45.8% { left: 70%; } 60% { left: 90%; } 70% { left: 90%; } 79% { left: 100%; } 93% { left: 100%; opacity: 1; } 100% { left: 100%; opacity: 0; } }
+    @keyframes ldw-fill-run { 0% { width: 10%; opacity: 0; } 3% { width: 10%; opacity: 1; } 17.3% { width: 30%; } 31.5% { width: 50%; } 45.8% { width: 70%; } 60% { width: 90%; } 70% { width: 90%; } 79% { width: 100%; } 93% { width: 100%; opacity: 1; } 100% { width: 100%; opacity: 0; } }
+    @keyframes ldw-rev0 { 0%, 0% { opacity: 0; transform: translate(-50%, 10px); } 6%, 93% { opacity: 1; transform: translate(-50%, 0); } 100% { opacity: 0; transform: translate(-50%, 0); } }
+    @keyframes ldw-dot0 { 0%, 0% { background: #FFFFFF; border-color: #E3E6EA; transform: translate(-50%,-50%) scale(0.85); } 6%, 93% { background: #59ADA8; border-color: #59ADA8; transform: translate(-50%,-50%) scale(1); } 100% { background: #FFFFFF; border-color: #E3E6EA; transform: translate(-50%,-50%) scale(0.85); } }
+    @keyframes ldw-rev1 { 0%, 14.3% { opacity: 0; transform: translate(-50%, 10px); } 20.3%, 93% { opacity: 1; transform: translate(-50%, 0); } 100% { opacity: 0; transform: translate(-50%, 0); } }
+    @keyframes ldw-dot1 { 0%, 14.3% { background: #FFFFFF; border-color: #E3E6EA; transform: translate(-50%,-50%) scale(0.85); } 20.3%, 93% { background: #59ADA8; border-color: #59ADA8; transform: translate(-50%,-50%) scale(1); } 100% { background: #FFFFFF; border-color: #E3E6EA; transform: translate(-50%,-50%) scale(0.85); } }
+    @keyframes ldw-rev2 { 0%, 28.5% { opacity: 0; transform: translate(-50%, 10px); } 34.5%, 93% { opacity: 1; transform: translate(-50%, 0); } 100% { opacity: 0; transform: translate(-50%, 0); } }
+    @keyframes ldw-dot2 { 0%, 28.5% { background: #FFFFFF; border-color: #E3E6EA; transform: translate(-50%,-50%) scale(0.85); } 34.5%, 93% { background: #59ADA8; border-color: #59ADA8; transform: translate(-50%,-50%) scale(1); } 100% { background: #FFFFFF; border-color: #E3E6EA; transform: translate(-50%,-50%) scale(0.85); } }
+    @keyframes ldw-rev3 { 0%, 42.8% { opacity: 0; transform: translate(-50%, 10px); } 48.8%, 93% { opacity: 1; transform: translate(-50%, 0); } 100% { opacity: 0; transform: translate(-50%, 0); } }
+    @keyframes ldw-dot3 { 0%, 42.8% { background: #FFFFFF; border-color: #E3E6EA; transform: translate(-50%,-50%) scale(0.85); } 48.8%, 93% { background: #59ADA8; border-color: #59ADA8; transform: translate(-50%,-50%) scale(1); } 100% { background: #FFFFFF; border-color: #E3E6EA; transform: translate(-50%,-50%) scale(0.85); } }
+    @keyframes ldw-rev4 { 0%, 57% { opacity: 0; transform: translate(-50%, 10px); } 63%, 93% { opacity: 1; transform: translate(-50%, 0); } 100% { opacity: 0; transform: translate(-50%, 0); } }
+    @keyframes ldw-dot4 { 0%, 57% { background: #FFFFFF; border-color: #E3E6EA; transform: translate(-50%,-50%) scale(0.85); } 63%, 93% { background: #59ADA8; border-color: #59ADA8; transform: translate(-50%,-50%) scale(1); } 100% { background: #FFFFFF; border-color: #E3E6EA; transform: translate(-50%,-50%) scale(0.85); } }
+    /* Tiny avatar slots: cover the component's built-in empty-state caption
+       (it cannot be styled inline from outside the shadow DOM); the cover
+       is pointer-events:none so drops/clicks still reach the slot, and it
+       hides itself once the slot reports data-filled. */
+    .ldw-avatar-cover { position: absolute; inset: 0; border-radius: 50%; display: grid; place-items: center; font-weight: 700; color: rgba(35,76,90,0.45); pointer-events: none; background: inherit; }
+    image-slot[data-filled] + .ldw-avatar-cover { display: none; }
+    image-slot[data-filled] + .ldw-int-name { display: none !important; }
+    /* ---- Preview mode (Tweaks: Desktop / Mobile) ---- */
+    .ldw-root { container-type: inline-size; container-name: page; }
+    .ldw-root[data-mode="Mobile"] { max-width: 390px; margin: 0 auto; overflow-x: clip; box-shadow: 0 0 0 1px rgba(35,76,90,0.15), 0 30px 80px rgba(35,76,90,0.25); }
+    /* ---- Responsive (container queries so the Mobile preview frame triggers them too; overrides inline styles, hence !important) ---- */
+    @container page (max-width: 1200px) {
+      .ldw-collage-grid { grid-template-columns: repeat(2, minmax(0,1fr)) !important; }
+      .ldw-journey-line { display: none !important; }
+      .ldw-journey-grid { grid-template-columns: minmax(0,1fr) !important; }
+      .ldw-journey-grid > div { margin-top: 0 !important; transform: none !important; }
+      .ldw-res-grid { grid-template-columns: repeat(2, minmax(0,1fr)) !important; }
+      .ldw-demo-grid { grid-template-columns: minmax(0,1fr) !important; padding: 56px 40px !important; }
+      .ldw-int-grid { grid-template-columns: repeat(3, minmax(0,1fr)) !important; }
+      .ldw-nav-links { display: none !important; }
+      .ldw-nav-toggle { display: inline-flex !important; margin-left: auto; }
+      .ldw-nav-inner { display: flex !important; }
+      .ldw-nav-mobile[data-open="true"] { display: block !important; }
+      .ldw-vat-wrap { height: auto !important; }
+      .ldw-vat-track { display: none !important; }
+      .ldw-vat-grid { position: static !important; grid-template-columns: minmax(0,1fr) !important; gap: 0 !important; border-left: 2px solid #EEF2F1; margin-left: 7px; }
+      .ldw-vat-grid > div { position: static !important; display: flex !important; align-items: center; gap: 14px; padding: 15px 0 15px 24px; }
+      .ldw-vat-grid > div > div:nth-child(1) { position: static !important; transform: none !important; max-width: none !important; text-align: left !important; opacity: 1 !important; animation: none !important; order: 2; }
+      .ldw-vat-grid > div > div:nth-child(2) { display: none !important; }
+      .ldw-vat-grid > div > div:nth-child(3) { position: static !important; transform: none !important; order: 1; flex: none; width: 12px; height: 12px; margin-left: -31px; background: #59ADA8 !important; border-color: #59ADA8 !important; animation: none !important; }
+    }
+    @container page (max-width: 900px) {
+      .ldw-flows-grid { grid-template-columns: minmax(0,1fr) !important; }
+      .ldw-flows-grid > div { margin-top: 0 !important; }
+      .ldw-split-grid { grid-template-columns: minmax(0,1fr) !important; }
+      .ldw-split-band { right: -50vw !important; }
+      .ldw-split-img { height: 440px !important; }
+      .ldw-footer-grid { grid-template-columns: minmax(0,1fr) !important; gap: 32px !important; }
+    }
+    @container page (max-width: 700px) {
+      h1 { font-size: clamp(38px, 10vw, 54px) !important; padding-left: 0 !important; }
+      h2 { font-size: clamp(30px, 8vw, 40px) !important; }
+      .ldw-int-grid { grid-template-columns: repeat(3, minmax(0,1fr)) !important; }
+      .ldw-nav-links { display: none !important; }
+      .ldw-nav-toggle { display: inline-flex !important; margin-left: auto; }
+      .ldw-nav-inner { display: flex !important; }
+      .ldw-nav-mobile[data-open="true"] { display: block !important; }
+      section[data-screen-label], #flows, #resources, #contact { padding-left: 20px !important; padding-right: 20px !important; }
+      .ldw-cta-row, .ldw-stat-strip, .ldw-trust-row, .ldw-res-head { flex-wrap: wrap !important; }
+      .ldw-stat-strip { gap: 14px !important; }
+      .ldw-trust-row { gap: 12px 20px !important; }
+      .ldw-res-grid { grid-template-columns: minmax(0,1fr) !important; grid-auto-rows: auto !important; }
+      .ldw-res-grid > a { grid-column: span 1 !important; grid-row: span 1 !important; min-height: 240px; }
+      .ldw-banner-card { left: 12px !important; right: 12px !important; bottom: 12px !important; max-width: none !important; padding: 26px 24px !important; }
+      .ldw-demo-grid { padding: 44px 26px !important; }
+      .ldw-int-grid { grid-template-columns: repeat(2, minmax(0,1fr)) !important; }
+      .ldw-footer-bottom { flex-direction: column !important; gap: 12px !important; }
+      .ldw-split-img { height: 360px !important; }
+      #sale-to-vat > div { padding-top: 56px !important; padding-bottom: 52px !important; }
+    }

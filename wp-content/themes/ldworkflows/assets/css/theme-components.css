@@ -1,0 +1,809 @@
+/* LD Workflows — component styles for PHP-rendered templates (nav + hero/orbit). */
+
+.ldw-root { container-type: inline-size; container-name: page; }
+
+/* ---------- Nav ---------- */
+.ldw-nav-header { position: sticky; top: 0; z-index: 50; background: rgba(255,255,255,0.94); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(35,76,90,0.1); }
+.ldw-nav-inner { max-width: 1240px; margin: 0 auto; padding: 18px 32px; display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 28px; min-width: 0; }
+.ldw-nav-logo { display: block; }
+.ldw-nav-links { display: flex; align-items: center; justify-content: center; gap: 26px; min-width: 0; }
+.ldw-nav-item { position: relative; }
+.ldw-nav-link { display: inline-flex; align-items: center; gap: 7px; font-family: 'Plus Jakarta Sans', sans-serif; font-size: 16px; font-weight: 600; color: #234C5A; letter-spacing: -0.01em; padding: 8px 0; }
+.ldw-nav-link:hover { opacity: 0.75; }
+.ldw-dropdown-panel { position: absolute; top: calc(100% + 12px); left: -14px; min-width: 244px; background: #FFFFFF; border: 1px solid rgba(35,76,90,0.1); border-radius: 16px; padding: 10px; box-shadow: 0 24px 48px rgba(35,76,90,0.14); opacity: 0; visibility: hidden; transform: translateY(-6px); transition: opacity 0.18s ease, transform 0.18s ease, visibility 0.18s ease; pointer-events: none; }
+.ldw-dropdown-panel::before { content: ''; position: absolute; left: 0; right: 0; top: -12px; height: 12px; }
+.ldw-has-dropdown:hover .ldw-dropdown-panel,
+.ldw-has-dropdown:focus-within .ldw-dropdown-panel { opacity: 1; visibility: visible; transform: translateY(0); pointer-events: auto; }
+.ldw-dropdown-link { display: block; padding: 11px 14px; border-radius: 10px; font-size: 15px; font-weight: 600; color: #234C5A; }
+.ldw-dropdown-link:hover { background: rgba(35,76,90,0.06); }
+.ldw-nav-toggle { display: none; align-items: center; justify-content: center; width: 42px; height: 42px; border-radius: 12px; border: 1px solid rgba(35,76,90,0.1); background: #FFFFFF; cursor: pointer; padding: 0; color: #234C5A; }
+.ldw-nav-mobile { display: none; border-top: 1px solid rgba(35,76,90,0.1); background: #FFFFFF; }
+.ldw-nav-mobile.is-open { display: block; }
+.ldw-nav-mobile-inner { max-width: 1240px; margin: 0 auto; padding: 22px 32px 30px; }
+.ldw-nav-mobile-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 4px; }
+.ldw-nav-mobile-list a { display: block; font-size: 15.5px; font-weight: 600; color: #234C5A; padding: 9px 12px; border-radius: 10px; }
+.ldw-nav-mobile-list a:hover { background: rgba(35,76,90,0.06); }
+.ldw-nav-mobile-list .sub-menu { list-style: none; margin: 0 0 0 10px; padding: 0; }
+
+@container page (max-width: 1200px) {
+  .ldw-nav-links { display: none !important; }
+  .ldw-nav-toggle { display: inline-flex !important; margin-left: auto; }
+}
+
+/* ---------- Hero ---------- */
+.ldw-hero { position: relative; overflow: hidden; isolation: isolate; background: #E4E9E5; background-image: linear-gradient(180deg, #C9D0CA 0%, #E4E9E5 55%, #F7F9FA 100%); }
+.ldw-hero-blobs { position: absolute; inset: 0; z-index: -1; overflow: hidden; pointer-events: none; }
+.ldw-blob { position: absolute; border-radius: 50%; filter: blur(30px); }
+.ldw-blob-a { left: -10%; top: -18%; width: 62%; height: 70%; background: radial-gradient(closest-side, rgba(101,187,153,0.7) 0%, rgba(101,187,153,0) 100%); animation: ldw-drift-a 16s ease-in-out infinite; }
+.ldw-blob-b { right: -12%; top: -10%; width: 55%; height: 62%; background: radial-gradient(closest-side, rgba(89,173,168,0.55) 0%, rgba(89,173,168,0.2) 55%, rgba(89,173,168,0) 100%); animation: ldw-drift-b 19s ease-in-out infinite; }
+.ldw-blob-c { right: -6%; top: 48%; width: 50%; height: 55%; filter: blur(34px); background: radial-gradient(closest-side, rgba(246,204,159,0.7) 0%, rgba(246,204,159,0) 100%); animation: ldw-drift-c 22s ease-in-out infinite; }
+.ldw-blob-d { left: -8%; top: 55%; width: 46%; height: 50%; filter: blur(34px); background: radial-gradient(closest-side, rgba(240,196,180,0.6) 0%, rgba(240,196,180,0.2) 55%, rgba(240,196,180,0) 100%); animation: ldw-drift-b 24s ease-in-out infinite reverse; }
+.ldw-hero-dots { position: absolute; inset: 0; background-image: radial-gradient(rgba(35,76,90,0.14) 1px, transparent 1.2px); background-size: 26px 26px; -webkit-mask-image: radial-gradient(70% 60% at 50% 40%, #000 0%, transparent 100%); mask-image: radial-gradient(70% 60% at 50% 40%, #000 0%, transparent 100%); }
+.ldw-hero-copy { max-width: 1160px; margin: 0 auto; padding: 90px 32px 0; text-align: center; position: relative; }
+.ldw-hero-heading { font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; font-size: 72px; line-height: 1.02; letter-spacing: -0.04em; margin: 0 auto 22px; max-width: 900px; color: #234C5A; text-wrap: pretty; }
+.ldw-hero-highlight { font-style: italic; background: linear-gradient(90deg, #3E9994 0%, #65BB99 100%); -webkit-background-clip: text; background-clip: text; color: transparent; padding-right: 0.08em; }
+.ldw-hero-subtext { font-size: 19px; line-height: 1.65; color: rgba(35,76,90,0.88); max-width: 660px; margin: 0 auto 32px; text-wrap: pretty; }
+.ldw-cta-row { display: flex; gap: 18px; justify-content: center; align-items: center; margin-bottom: 34px; flex-wrap: wrap; }
+.ldw-btn-primary { background: #E15A58; color: #FFFFFF; font-size: 16px; font-weight: 800; padding: 16px 32px; border-radius: 999px; display: inline-block; box-shadow: 0 0 0 6px rgba(225,90,88,0.16), 0 14px 34px rgba(225,90,88,0.35); transition: background 0.2s ease; }
+.ldw-btn-primary:hover { background: #C94846; color: #FFFFFF; }
+.ldw-btn-text { color: #234C5A; font-size: 16px; font-weight: 600; display: inline-flex; align-items: center; gap: 8px; padding: 16px 4px; }
+.ldw-btn-text:hover { color: #3E9994; }
+.ldw-trust-row { display: flex; justify-content: center; align-items: center; gap: 28px; font-size: 11px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(35,76,90,0.88); border-top: 1px solid rgba(35,76,90,0.2); padding-top: 22px; flex-wrap: wrap; }
+.ldw-trust-sep { width: 1px; height: 12px; background: rgba(35,76,90,0.2); }
+.ldw-hero-bar { display: grid; grid-template-columns: 2fr 1.4fr 1fr 1fr 0.8fr 0.6fr; height: 8px; }
+
+/* ---------- Orbit (revolving cards, compact sizing) ---------- */
+.ldw-orbit { position: relative; max-width: 1100px; margin: 64px auto 0; height: 800px; padding: 0 32px 56px; }
+.ldw-orbit-circle { position: absolute; inset: 0; }
+.ldw-orbit-disc { position: absolute; left: 50%; top: 50%; transform: translate(-50%,-50%); width: 504px; height: 504px; border-radius: 50%; background: radial-gradient(closest-side, rgba(255,255,255,0.8) 0%, rgba(255,255,255,0.35) 62%, rgba(255,255,255,0) 100%); }
+.ldw-orbit-rings { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+.ldw-orbit-halo { position: absolute; left: 50%; top: 50%; transform: translate(-50%,-50%); width: 252px; height: 252px; border-radius: 50%; background: radial-gradient(closest-side, rgba(101,187,153,0.4) 0%, rgba(89,173,168,0.2) 52%, rgba(89,173,168,0) 100%); animation: ldw-halo 5s ease-in-out infinite; }
+.ldw-orbit-core { position: absolute; left: 50%; top: 50%; transform: translate(-50%,-50%); width: 148px; height: 148px; border-radius: 50%; background: radial-gradient(120% 120% at 25% 10%, #65BB99 0%, #3E9994 45%, #234C5A 100%); box-shadow: 0 0 0 8px rgba(255,255,255,0.6), 0 0 0 17px rgba(101,187,153,0.18), 0 24px 64px rgba(62,153,148,0.4), inset 0 0 0 1px rgba(255,255,255,0.45); display: grid; place-items: center; text-align: center; }
+.ldw-orbit-core-title { font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; font-size: 32px; letter-spacing: -0.03em; color: #FFFFFF; line-height: 1; }
+.ldw-orbit-core-subtitle { font-size: 9px; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(255,255,255,0.88); margin-top: 5px; }
+/* Revolving mechanism: pivot rotates continuously; arm holds the fixed
+   radius; counter rotates the opposite way (same duration/delay) so the
+   card itself stays upright while its position sweeps around the circle. */
+@keyframes ldw-orbit-revolve { to { transform: rotate(360deg); } }
+.ldw-orbit-pivot { position: absolute; left: 56%; top: 50%; width: 0; height: 0; padding-left: 55px; padding-top: 55px; animation: ldw-orbit-revolve 48s linear infinite; }
+.ldw-orbit-arm { position: absolute; left: 0; top: 0; transform: translateX(292px); }
+.ldw-orbit-counter { position: absolute; left: 0; top: 0; animation: ldw-orbit-revolve 48s linear infinite reverse; }
+.ldw-orbit-circle:hover .ldw-orbit-pivot,
+.ldw-orbit-circle:hover .ldw-orbit-counter { animation-play-state: paused; }
+
+.ldw-orbit-node { position: relative; left: 0; top: 0; background: #FFFFFF; border: 1px solid rgba(35,76,90,0.08); border-radius: 14px; padding: 10px 12px; box-shadow: 0 14px 32px rgba(35,76,90,0.12); text-align: left; transform: translate(-50%,-50%); }
+.ldw-orbit-node:hover { border-color: #F6CC9F; box-shadow: 0 20px 48px rgba(0,0,0,0.35), 0 0 0 4px rgba(246,204,159,0.25); }
+.ldw-orbit-node-row { display: flex; align-items: center; gap: 7px; margin-bottom: 4px; }
+.ldw-orbit-node-icon { width: 26px; height: 26px; border-radius: 8px; display: grid; place-items: center; flex: none; }
+.ldw-orbit-node-title { font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; font-size: 14px; color: #234C5A; line-height: 1.2; }
+.ldw-orbit-node-steps { font-size: 11.5px; line-height: 1.3; color: rgba(35,76,90,0.78); }
+
+@container page (max-width: 700px) {
+  section[data-screen-label].ldw-hero { padding-left: 0 !important; padding-right: 0 !important; }
+  .ldw-orbit { height: 380px; margin-top: 24px; width: 100%; box-sizing: border-box; padding: 0 16px 40px; overflow: hidden; }
+  .ldw-orbit-disc { width: 173px; height: 173px; }
+  .ldw-orbit-halo { width: 87px; height: 87px; }
+  .ldw-orbit-core { width: 63px; height: 63px; }
+  .ldw-orbit-core-title { font-size: 12px; }
+  .ldw-orbit-core-subtitle { font-size: 5px; margin-top: 2px; }
+  .ldw-orbit-arm { transform: translateX(133.65px); }
+  .ldw-orbit-node { width: var(--ldw-mobile-width) !important; padding: 5px 5px; border-radius: 7px; }
+  .ldw-orbit-node-row { gap: 4px; margin-bottom: 2px; }
+  .ldw-orbit-node-icon { width: 14px; height: 14px; border-radius: 4px; }
+  .ldw-orbit-node-icon svg { width: 8px; height: 8px; }
+  .ldw-orbit-node-title { font-size: 7.5px; }
+  .ldw-orbit-node-steps { font-size: 6.5px; }
+}
+
+/* ---------- Sale to VAT (animated timeline) ---------- */
+.ldw-vat-section { background: #FFFFFF; background-image: radial-gradient(50% 80% at 0% 100%, rgba(246,204,159,0.35) 0%, rgba(246,204,159,0) 70%), radial-gradient(45% 80% at 100% 0%, rgba(101,187,153,0.22) 0%, rgba(101,187,153,0) 70%); border-bottom: 1px solid #EEF2F1; }
+.ldw-vat-inner { max-width: 1240px; margin: 0 auto; padding: 84px 32px 88px; }
+.ldw-vat-head { text-align: center; margin-bottom: 64px; }
+.ldw-vat-heading { font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; font-size: 44px; line-height: 1.06; letter-spacing: -0.03em; margin: 0 auto 16px; max-width: 800px; color: #234C5A; text-wrap: pretty; }
+.ldw-vat-subtext { font-size: 17px; line-height: 1.6; color: rgba(35,76,90,0.8); max-width: 620px; margin: 0 auto; }
+.ldw-vat-wrap { position: relative; height: 250px; }
+.ldw-vat-track { position: absolute; left: 0; right: 0; top: 50%; height: 2px; margin-top: -1px; background: #EEF2F1; border-radius: 999px; }
+.ldw-vat-fill { position: absolute; left: 0; top: 0; height: 100%; border-radius: 999px; background: linear-gradient(90deg, rgba(89,173,168,0.25) 0%, #59ADA8 65%, #F6CC9F 100%); animation: ldw-fill-run 17s linear infinite; }
+.ldw-vat-pulse-trail { position: absolute; top: 50%; width: 110px; height: 2px; margin-top: -1px; transform: translateX(-100%); border-radius: 999px; background: linear-gradient(90deg, rgba(246,204,159,0) 0%, rgba(246,204,159,0.85) 100%); animation: ldw-pulse-run 17s linear infinite; }
+.ldw-vat-pulse-dot { position: absolute; top: 50%; width: 14px; height: 14px; margin: -7px 0 0 -7px; border-radius: 50%; background: #FFFFFF; border: 3px solid #59ADA8; box-sizing: border-box; box-shadow: 0 0 0 7px rgba(89,173,168,0.12), 0 6px 18px rgba(89,173,168,0.42); animation: ldw-pulse-run 17s linear infinite; }
+.ldw-vat-grid { position: absolute; inset: 0; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); }
+.ldw-vat-step { position: relative; }
+.ldw-vat-step-label { position: absolute; left: 50%; transform: translateX(-50%); width: 100%; max-width: 210px; text-align: center; }
+.ldw-vat-step-label-text { font-size: 11px; font-weight: 800; letter-spacing: 0.13em; text-transform: uppercase; color: #234C5A; }
+.ldw-vat-step--above .ldw-vat-step-label { bottom: calc(50% + 30px); }
+.ldw-vat-step--below .ldw-vat-step-label { top: calc(50% + 30px); }
+.ldw-vat-step-connector { position: absolute; left: 50%; transform: translateX(-50%); width: 1px; height: 20px; }
+.ldw-vat-step--above .ldw-vat-step-connector { bottom: calc(50% + 9px); background: linear-gradient(180deg, rgba(89,173,168,0) 0%, #F0C4B4 100%); }
+.ldw-vat-step--below .ldw-vat-step-connector { top: calc(50% + 9px); background: linear-gradient(0deg, rgba(89,173,168,0) 0%, #F0C4B4 100%); }
+.ldw-vat-step-dot { position: absolute; left: 50%; top: 50%; box-sizing: border-box; width: 13px; height: 13px; border-radius: 50%; border: 2px solid #E3E6EA; background: #FFFFFF; }
+
+@container page (max-width: 700px) {
+  .ldw-vat-inner { padding-top: 56px !important; padding-bottom: 52px !important; }
+}
+
+/* ---------- CTA Band ("Don't just take our word for it") ---------- */
+.ldw-cta-band { background: #1B3A46; background-image: radial-gradient(70% 120% at 12% 0%, #234C5A 0%, rgba(35,76,90,0) 62%), radial-gradient(58% 110% at 90% 10%, #3E9994 0%, rgba(62,153,148,0) 66%), radial-gradient(56% 98% at 74% 100%, #65BB99 0%, rgba(101,187,153,0) 64%), linear-gradient(140deg, #1B3A46 0%, #1B3A46 56%, #234C5A 100%); padding: 118px 32px 124px; overflow: hidden; position: relative; }
+.ldw-cta-band-grid { position: absolute; inset: 0; background-image: linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px); background-size: 76px 76px; -webkit-mask-image: radial-gradient(60% 70% at 50% 40%, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0) 80%); mask-image: radial-gradient(60% 70% at 50% 40%, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0) 80%); }
+.ldw-cta-band-ring { position: absolute; border-radius: 50%; border: 1px solid rgba(201,230,227,0.28); }
+.ldw-cta-band-ring--a { top: -170px; left: -150px; width: 440px; height: 440px; }
+.ldw-cta-band-ring--b { bottom: -210px; right: -140px; width: 520px; height: 520px; border-color: rgba(201,230,227,0.22); }
+.ldw-cta-band-glow { position: absolute; bottom: -120px; right: -40px; width: 340px; height: 340px; border-radius: 50%; background: radial-gradient(closest-side, rgba(101,187,153,0.45) 0%, rgba(101,187,153,0) 100%); }
+.ldw-cta-band-inner { max-width: 880px; margin: 0 auto; text-align: center; position: relative; }
+.ldw-cta-band-badge { display: inline-flex; align-items: center; gap: 10px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.24); color: #FFFFFF; border-radius: 999px; padding: 9px 20px; font-size: 13px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 30px; }
+.ldw-cta-band-stars { color: #F6CC9F; }
+.ldw-cta-band-heading { font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; font-size: 64px; line-height: 1.02; letter-spacing: -0.035em; color: #FFFFFF; margin: 0 0 22px; }
+.ldw-cta-band-subtext { font-size: 21px; line-height: 1.55; color: rgba(255,255,255,0.85); margin: 0 auto 44px; max-width: 520px; }
+.ldw-cta-band-button { background: linear-gradient(135deg, #F6CC9F 0%, #EC956C 100%); color: #1B3A46; font-size: 18px; font-weight: 800; padding: 10px 10px 10px 34px; border-radius: 999px; display: inline-flex; align-items: center; gap: 18px; box-shadow: 0 0 0 6px rgba(246,204,159,0.16), 0 22px 48px rgba(236,149,108,0.45); transition: transform 0.2s ease, box-shadow 0.2s ease; }
+.ldw-cta-band-button:hover { color: #1B3A46; transform: translateY(-3px); box-shadow: 0 0 0 9px rgba(246,204,159,0.22), 0 28px 56px rgba(236,149,108,0.55); }
+.ldw-cta-band-button-arrow { width: 46px; height: 46px; border-radius: 50%; background: #234C5A; color: #F6CC9F; display: grid; place-items: center; font-size: 20px; }
+.ldw-cta-band-trust-row { display: flex; justify-content: center; gap: 28px; margin-top: 36px; font-size: 14.5px; font-weight: 600; color: rgba(255,255,255,0.88); flex-wrap: wrap; }
+.ldw-cta-band-trust-item { display: inline-flex; align-items: center; gap: 8px; }
+.ldw-cta-band-check { color: #F6CC9F; }
+
+@container page (max-width: 700px) {
+  .ldw-cta-band { padding: 80px 24px 88px; }
+  .ldw-cta-band-heading { font-size: clamp(34px, 9vw, 48px); }
+  .ldw-cta-band-subtext { font-size: 17px; }
+}
+
+/* ---------- Features Journey ("Tailored flows for every part of your teams' day") ---------- */
+.ldw-journey-band { background: #FDF3E8; }
+.ldw-journey { max-width: 1240px; margin: 0 auto; padding: 100px 32px 110px; overflow: visible; }
+.ldw-journey-heading { font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; font-size: 48px; line-height: 1.05; letter-spacing: -0.03em; margin: 0 0 16px; text-align: center; }
+.ldw-journey-subtext { font-size: 17px; color: rgba(35,76,90,0.65); text-align: center; margin: 0 auto 72px; max-width: 520px; }
+.ldw-journey-stage { position: relative; }
+.ldw-journey-line { position: absolute; top: -40px; left: 0; width: 100%; height: 320px; pointer-events: none; z-index: 2; }
+.ldw-journey-path { animation: ldw-dash 1.4s linear infinite; }
+.ldw-journey-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 28px; position: relative; }
+.ldw-journey-card { border-radius: 30px; padding: 34px; display: flex; flex-direction: column; gap: 16px; transition: transform 0.3s ease; }
+.ldw-journey-card:nth-child(1) { margin-top: 64px; transform: rotate(-1.5deg); }
+.ldw-journey-card:nth-child(2) { margin-top: 176px; transform: rotate(1.5deg); }
+.ldw-journey-card:nth-child(3) { margin-top: 128px; transform: rotate(-1deg); }
+/* Needs to out-specify the :nth-child resting transforms above, which are
+   an equal-specificity match that would otherwise win on source order. */
+.ldw-journey-grid .ldw-journey-card:hover { transform: rotate(0deg) translateY(-8px); }
+.ldw-journey-card--dark { background: #234C5A; color: #F7F9FA; }
+.ldw-journey-card--peach { background: #FBE6DD; color: #234C5A; }
+.ldw-journey-card--mint { background: #E3F1EF; color: #234C5A; }
+.ldw-journey-step { font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; font-size: 14px; letter-spacing: 0.12em; text-transform: uppercase; }
+.ldw-journey-card--dark .ldw-journey-step { color: #F6CC9F; }
+.ldw-journey-card--peach .ldw-journey-step,
+.ldw-journey-card--mint .ldw-journey-step { color: #234C5A; }
+.ldw-journey-title { font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 700; font-size: 25px; letter-spacing: -0.02em; margin: 0; line-height: 1.15; }
+.ldw-journey-media { height: 170px; position: relative; border-radius: 16px; overflow: hidden; }
+.ldw-journey-media img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.ldw-journey-media--empty { display: grid; place-items: center; background: rgba(35,76,90,0.07); border: 1px dashed rgba(35,76,90,0.2); font-size: 13px; font-weight: 600; opacity: 0.6; }
+.ldw-journey-card--dark .ldw-journey-media--empty { background: rgba(255,255,255,0.07); border-color: rgba(255,255,255,0.25); }
+.ldw-journey-text { font-size: 14.5px; line-height: 1.6; margin: 0; }
+.ldw-journey-card--dark .ldw-journey-text { opacity: 0.75; }
+.ldw-journey-card--peach .ldw-journey-text,
+.ldw-journey-card--mint .ldw-journey-text { color: rgba(35,76,90,0.72); }
+.ldw-journey-list { display: flex; flex-direction: column; gap: 8px; font-size: 14px; font-weight: 600; margin-top: 6px; }
+.ldw-journey-list-item { display: flex; align-items: center; gap: 8px; }
+.ldw-journey-card--dark .ldw-journey-check { color: #F6CC9F; }
+.ldw-journey-card--peach .ldw-journey-check,
+.ldw-journey-card--mint .ldw-journey-check { color: #234C5A; }
+
+@container page (max-width: 700px) {
+  .ldw-journey { padding: 72px 24px 80px; }
+  .ldw-journey-heading { font-size: clamp(30px, 8vw, 40px); }
+  .ldw-journey-subtext { margin-bottom: 44px; }
+}
+
+/* ---------- Integrations logo grid ---------- */
+.ldw-int-band { background: #FFFFFF; border-top: 1px solid rgba(35,76,90,0.08); }
+.ldw-int { max-width: 1240px; margin: 0 auto; padding: 96px 32px 100px; }
+.ldw-int-head { text-align: center; margin-bottom: 48px; }
+.ldw-int-heading { font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; font-size: 46px; line-height: 1.06; letter-spacing: -0.03em; margin: 0 auto 16px; max-width: 760px; color: #234C5A; text-wrap: pretty; }
+.ldw-int-subtext { font-size: 17px; line-height: 1.6; color: rgba(35,76,90,0.8); max-width: 620px; margin: 0 auto; }
+.ldw-int-grid { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 16px; }
+.ldw-int-tile { position: relative; display: block; background: #F7F9FA; border: 1px solid rgba(35,76,90,0.1); border-radius: 18px; height: 104px; overflow: hidden; box-shadow: 0 2px 8px rgba(35,76,90,0.05); transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease; }
+.ldw-int-tile:hover { transform: translateY(-5px); box-shadow: 0 18px 36px rgba(35,76,90,0.13); border-color: rgba(35,76,90,0.2); opacity: 1; }
+.ldw-int-tile-inner { position: absolute; inset: 14px 24px; display: grid; place-items: center; }
+.ldw-int-logo { max-width: 100%; max-height: 100%; width: auto; height: auto; object-fit: contain; display: block; }
+.ldw-int-name { font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 700; font-size: 19px; letter-spacing: -0.015em; color: #234C5A; text-align: center; line-height: 1.2; }
+
+@container page (max-width: 700px) {
+  .ldw-int { padding: 72px 24px 76px; }
+  .ldw-int-heading { font-size: clamp(28px, 7.5vw, 38px); }
+  .ldw-int-head { margin-bottom: 32px; }
+  /* Tiles are ~160px wide here, so the design's 19px name and 24px side
+     inset leave too little room for names like "WooCommerce". */
+  .ldw-int-tile-inner { inset: 12px 10px; }
+  .ldw-int-name { font-size: 15px; overflow-wrap: anywhere; }
+}
+
+/* ---------- Comparison table ("NetSuite capability. Xero-level price.") ---------- */
+.ldw-compare-band { background: #EEF6F5; }
+.ldw-compare { border-top: 1px solid rgba(35,76,90,0.08); }
+.ldw-compare-inner { max-width: 1240px; margin: 0 auto; padding: 100px 32px; }
+.ldw-compare-head { text-align: center; margin-bottom: 48px; }
+.ldw-compare-eyebrow { display: inline-flex; align-items: center; gap: 8px; background: #234C5A; color: #F7F9FA; border-radius: 999px; padding: 8px 18px; font-size: 12px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 20px; }
+.ldw-compare-heading { font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; font-size: 48px; line-height: 1.05; letter-spacing: -0.03em; margin: 0; }
+.ldw-compare-table { background: #FFFFFF; border: 1px solid rgba(35,76,90,0.1); border-radius: 28px; overflow: hidden; }
+.ldw-compare-row { display: grid; grid-template-columns: minmax(0, 1.4fr) repeat(3, minmax(0, 1fr)); align-items: stretch; border-bottom: 1px solid rgba(35,76,90,0.08); }
+.ldw-compare-row--head { border-bottom-color: rgba(35,76,90,0.1); }
+.ldw-compare-row:last-child { border-bottom: none; }
+.ldw-compare-cell { display: flex; align-items: center; justify-content: center; padding: 18px 16px; text-align: center; }
+.ldw-compare-cell--label { justify-content: flex-start; text-align: left; padding: 20px 28px; font-size: 13px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(35,76,90,0.72); }
+.ldw-compare-cell--planhead { padding: 20px 16px; font-weight: 700; font-size: 15px; }
+.ldw-compare-cell--feature { justify-content: flex-start; text-align: left; padding: 18px 28px; font-size: 15px; font-weight: 600; }
+.ldw-compare-cell--value { font-size: 14.5px; color: rgba(35,76,90,0.72); }
+/* Column 1 is the site's own plan: dark header, tinted body cells. */
+.ldw-compare-row--head .ldw-compare-cell--own { background: #234C5A; }
+.ldw-compare-row--head .ldw-compare-cell--own span { font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; font-size: 15px; color: #F6CC9F; }
+.ldw-compare-row:not(.ldw-compare-row--head) .ldw-compare-cell--own { background: rgba(89,173,168,0.22); color: #234C5A; font-weight: 800; }
+.ldw-compare-tick { font-weight: 800; }
+.ldw-compare-summary { background: #234C5A; border-radius: 28px; padding: 48px 52px; margin-top: 28px; color: #F7F9FA; }
+.ldw-compare-summary-label { font-size: 12px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: #F6CC9F; margin-bottom: 18px; }
+.ldw-compare-summary-text { font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 500; font-size: 22px; line-height: 1.55; letter-spacing: -0.01em; margin: 0; max-width: 900px; }
+.ldw-compare-summary-highlight { color: #F6CC9F; }
+
+/* ---- iPad portrait ---- */
+@container page (max-width: 1000px) {
+  .ldw-compare-inner { padding: 80px 24px 84px; }
+  .ldw-compare-heading { font-size: 38px; }
+  .ldw-compare-head { margin-bottom: 36px; }
+  .ldw-compare-cell { padding: 16px 10px; }
+  .ldw-compare-cell--label { padding: 18px 18px; font-size: 11px; }
+  .ldw-compare-cell--feature { padding: 16px 18px; font-size: 14px; }
+  .ldw-compare-cell--value { font-size: 13.5px; }
+  .ldw-compare-cell--planhead { font-size: 14px; }
+  .ldw-compare-row--head .ldw-compare-cell--own span { font-size: 14px; }
+  .ldw-compare-summary { padding: 38px 34px; }
+  .ldw-compare-summary-text { font-size: 19px; }
+}
+
+/* ---- Phones: four columns can't stay legible, so each feature becomes
+   a stacked block with its plan names shown inline via data-plan. ---- */
+@container page (max-width: 640px) {
+  .ldw-compare-inner { padding: 64px 18px 68px; }
+  .ldw-compare-heading { font-size: clamp(27px, 7.5vw, 36px); }
+  .ldw-compare-eyebrow { font-size: 11px; padding: 7px 14px; margin-bottom: 16px; }
+  .ldw-compare-head { margin-bottom: 28px; }
+  .ldw-compare-table { border-radius: 20px; }
+
+  /* Order matters: both selectors are equal specificity and the head row
+     also carries .ldw-compare-row, so the hide must come last. */
+  .ldw-compare-row { display: block; }
+  .ldw-compare-row--head { display: none; }
+  .ldw-compare-cell { display: flex; justify-content: space-between; align-items: center; gap: 16px; text-align: right; padding: 9px 18px; font-size: 14px; }
+  .ldw-compare-cell--feature { display: block; text-align: left; font-size: 15px; font-weight: 700; padding: 16px 18px 10px; }
+  .ldw-compare-cell--value::before { content: attr(data-plan); font-size: 13px; font-weight: 600; color: rgba(35,76,90,0.6); text-align: left; }
+  .ldw-compare-row:not(.ldw-compare-row--head) .ldw-compare-cell--own { margin: 0 10px 2px; padding: 9px 8px; border-radius: 10px; }
+  .ldw-compare-row:not(.ldw-compare-row--head) .ldw-compare-cell--own::before { color: rgba(35,76,90,0.75); }
+  .ldw-compare-cell--value:last-child { padding-bottom: 16px; }
+
+  .ldw-compare-summary { padding: 30px 24px; border-radius: 20px; }
+  .ldw-compare-summary-text { font-size: 17px; }
+}
+
+/* ---------- CRM comparison ("A CRM that can actually see your money.") ---------- */
+.ldw-crm-band { background: #EEF6F5; }
+.ldw-crm { max-width: 1240px; margin: 0 auto; padding: 0 32px 100px; }
+.ldw-crm-head { text-align: center; margin-bottom: 48px; }
+.ldw-crm-eyebrow { display: inline-flex; align-items: center; gap: 8px; background: #234C5A; color: #F7F9FA; border-radius: 999px; padding: 8px 18px; font-size: 12px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 20px; }
+.ldw-crm-heading { font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; font-size: 48px; line-height: 1.05; letter-spacing: -0.03em; margin: 0; }
+.ldw-crm-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 22px; align-items: stretch; }
+.ldw-crm-card { background: #FFFFFF; color: #234C5A; border: 1px solid rgba(35,76,90,0.1); border-radius: 28px; padding: 30px 30px 22px; display: flex; flex-direction: column; }
+/* Equal specificity to .ldw-crm-card, so this must stay below it. */
+.ldw-crm-card--own { background: #234C5A; color: #F7F9FA; border-color: #234C5A; }
+.ldw-crm-badge { align-self: flex-start; font-size: 12px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; background: #EEF2F1; color: rgba(35,76,90,0.7); padding: 7px 14px; border-radius: 999px; margin-bottom: 18px; }
+/* The own card's badge sits on its own background, so the pill reads as
+   plain text — that's the design, not a missing style. */
+/* Accent pill on the dark "own" card. The pricing design uses a bright
+   badge on the dark card (#D8FA68 on #14281F); #F6CC9F is this palette's
+   equivalent accent, already used for the card's row values below. */
+.ldw-crm-card--own .ldw-crm-badge { background: #F6CC9F; color: #234C5A; }
+.ldw-crm-title { font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; font-size: 24px; letter-spacing: -0.02em; margin: 0 0 6px; }
+.ldw-crm-subtitle { font-size: 14.5px; margin: 0 0 18px; opacity: 0.65; }
+.ldw-crm-rows { display: flex; flex-direction: column; }
+.ldw-crm-row { display: flex; justify-content: space-between; align-items: center; gap: 14px; padding: 13px 0; border-top: 1px solid rgba(35,76,90,0.08); }
+.ldw-crm-card--own .ldw-crm-row { border-top-color: rgba(255,255,255,0.15); }
+.ldw-crm-row-label { font-size: 14px; opacity: 0.75; }
+.ldw-crm-row-value { font-size: 14px; font-weight: 700; text-align: right; color: rgba(35,76,90,0.72); }
+.ldw-crm-card--own .ldw-crm-row-value { color: #F6CC9F; }
+.ldw-crm-quote { background: #E3F1EF; border-radius: 24px; padding: 34px 40px; margin-top: 28px; display: flex; gap: 20px; align-items: flex-start; }
+.ldw-crm-quote-mark { font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; font-size: 44px; line-height: 0.7; color: #234C5A; }
+.ldw-crm-quote-text { font-size: 17px; line-height: 1.6; color: #234C5A; margin: 0; }
+
+/* ---- iPad: keep all plans side by side (that's the point of the
+   comparison) and stack each row's label above its value, since a
+   label/value pair won't fit across a ~200px card. ---- */
+@container page (max-width: 1000px) {
+  .ldw-crm { padding: 0 24px 84px; }
+  .ldw-crm-heading { font-size: 38px; }
+  .ldw-crm-head { margin-bottom: 36px; }
+  .ldw-crm-grid { gap: 14px; }
+  .ldw-crm-card { padding: 24px 18px 16px; border-radius: 22px; }
+  .ldw-crm-title { font-size: 20px; }
+  .ldw-crm-subtitle { font-size: 13px; margin-bottom: 14px; }
+  .ldw-crm-badge { font-size: 10.5px; padding: 6px 11px; margin-bottom: 14px; }
+  .ldw-crm-row { flex-direction: column; align-items: flex-start; gap: 3px; padding: 11px 0; }
+  .ldw-crm-row-label { font-size: 12.5px; }
+  .ldw-crm-row-value { font-size: 13.5px; text-align: left; }
+  .ldw-crm-quote { padding: 28px 30px; }
+  .ldw-crm-quote-text { font-size: 15.5px; }
+}
+
+/* ---- Phones: one card at a time, so rows go back to label-left /
+   value-right across the full width. ---- */
+@container page (max-width: 640px) {
+  .ldw-crm { padding: 0 18px 68px; }
+  .ldw-crm-heading { font-size: clamp(27px, 7.5vw, 36px); }
+  .ldw-crm-head { margin-bottom: 28px; }
+  .ldw-crm-eyebrow { font-size: 11px; padding: 7px 14px; margin-bottom: 16px; }
+  .ldw-crm-grid { grid-template-columns: minmax(0, 1fr); gap: 18px; }
+  .ldw-crm-card { padding: 26px 22px 18px; }
+  .ldw-crm-row { flex-direction: row; align-items: center; justify-content: space-between; gap: 14px; padding: 13px 0; }
+  .ldw-crm-row-label { font-size: 14px; }
+  .ldw-crm-row-value { font-size: 14px; text-align: right; }
+  .ldw-crm-quote { padding: 26px 22px; gap: 14px; border-radius: 20px; }
+  .ldw-crm-quote-text { font-size: 15.5px; }
+}
+
+/* ---------- Case study ("Real teams, real results") ---------- */
+.ldw-case-band { background: #FFFFFF; border-top: 1px solid rgba(35,76,90,0.08); }
+.ldw-case { max-width: 1240px; margin: 0 auto; padding: 100px 32px; }
+.ldw-case-head { text-align: center; margin-bottom: 44px; }
+.ldw-case-heading { font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; font-size: 48px; line-height: 1.05; letter-spacing: -0.03em; margin: 0 0 14px; }
+.ldw-case-subtext { font-size: 17px; line-height: 1.6; color: rgba(35,76,90,0.65); max-width: 420px; margin: 0 auto; }
+.ldw-case-grid { background: #E3F1EF; border-radius: 40px; overflow: hidden; display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 0.75fr); }
+.ldw-case-main { padding: 64px 60px; display: flex; flex-direction: column; gap: 26px; }
+.ldw-case-quote { font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 700; font-size: 36px; line-height: 1.25; letter-spacing: -0.02em; color: #234C5A; margin: 0; }
+.ldw-case-highlight { font-style: normal; background: #234C5A; color: #F6CC9F; padding: 0 12px; border-radius: 12px; }
+.ldw-case-author { font-size: 15px; color: rgba(35,76,90,0.65); }
+.ldw-case-cta { align-self: flex-start; background: #234C5A; color: #FFFFFF; font-weight: 700; font-size: 15px; padding: 14px 28px; border-radius: 999px; display: inline-flex; align-items: center; gap: 10px; transition: background 0.2s ease; }
+.ldw-case-cta:hover { background: #59ADA8; color: #FFFFFF; opacity: 1; }
+.ldw-case-stats { background: #234C5A; color: #F7F9FA; padding: 52px 48px; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); align-content: center; }
+.ldw-case-stat { padding: 22px 20px; }
+/* Internal dividers only, and valid for any number of stats: a right edge
+   on the left-hand column, a top edge from the second row onward. */
+.ldw-case-stat:nth-child(odd) { border-right: 1px solid rgba(255,255,255,0.15); }
+.ldw-case-stat:nth-child(n+3) { border-top: 1px solid rgba(255,255,255,0.15); }
+.ldw-case-stat-value { font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; font-size: 44px; line-height: 1; color: #F6CC9F; }
+.ldw-case-stat-label { font-size: 13.5px; opacity: 0.7; margin-top: 8px; }
+
+@container page (max-width: 1000px) {
+  .ldw-case { padding: 84px 24px; }
+  .ldw-case-heading { font-size: 38px; }
+  .ldw-case-grid { grid-template-columns: minmax(0, 1fr); border-radius: 32px; }
+  .ldw-case-main { padding: 44px 36px; gap: 22px; }
+  .ldw-case-quote { font-size: 29px; }
+  .ldw-case-stats { padding: 36px 30px; }
+  .ldw-case-stat-value { font-size: 38px; }
+}
+
+@container page (max-width: 640px) {
+  .ldw-case { padding: 68px 18px; }
+  .ldw-case-heading { font-size: clamp(27px, 7.5vw, 36px); }
+  .ldw-case-head { margin-bottom: 32px; }
+  .ldw-case-grid { border-radius: 26px; }
+  .ldw-case-main { padding: 34px 24px; }
+  .ldw-case-quote { font-size: 23px; }
+  .ldw-case-stats { padding: 26px 18px; }
+  .ldw-case-stat { padding: 18px 14px; }
+  .ldw-case-stat-value { font-size: 32px; }
+}
+
+/* ---------- Resources grid (the blog) ---------- */
+.ldw-res-band { background: #FFFFFF; border-top: 1px solid rgba(35,76,90,0.08); }
+.ldw-res { max-width: 1240px; margin: 0 auto; padding: 100px 32px; }
+.ldw-res-head { display: flex; align-items: flex-end; justify-content: space-between; gap: 32px; margin-bottom: 28px; }
+.ldw-res-heading { font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; font-size: 48px; letter-spacing: -0.03em; margin: 0; }
+.ldw-res-subtext { font-size: 17px; color: rgba(35,76,90,0.65); margin: 0; }
+.ldw-res-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); grid-auto-rows: 250px; grid-auto-flow: dense; gap: 22px; }
+.ldw-res-card { grid-column: span var(--cols, 1); grid-row: span var(--rows, 1); border-radius: 26px; transition: transform 0.25s ease; }
+.ldw-res-card:hover { transform: translateY(-6px); opacity: 1; }
+
+.ldw-res-card--image { position: relative; overflow: hidden; display: block; background: #234C5A; color: #F7F9FA; }
+.ldw-res-card-media { position: absolute; inset: 0 0 var(--band, 42%) 0; }
+.ldw-res-card-media img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.ldw-res-card-veil { position: absolute; inset: 0; pointer-events: none; background: linear-gradient(to top, rgba(35,76,90,0.92) 0%, rgba(35,76,90,0.72) var(--band, 42%), rgba(35,76,90,0) 72%); }
+.ldw-res-tag { position: absolute; top: 18px; left: 18px; font-size: 11px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; background: #F6CC9F; color: #234C5A; padding: 7px 14px; border-radius: 999px; }
+.ldw-res-card-body { position: absolute; left: 22px; right: 22px; bottom: 20px; display: flex; flex-direction: column; gap: 8px; }
+.ldw-res-card-title { font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; font-size: 20px; line-height: 1.12; letter-spacing: -0.02em; margin: 0; }
+.ldw-res-card--image[style*="--rows:2"] .ldw-res-card-title { font-size: 32px; }
+.ldw-res-card-copy { font-size: 15px; line-height: 1.5; margin: 0; opacity: 0.85; max-width: 440px; }
+.ldw-res-card-cta { font-weight: 700; font-size: 14px; color: #F6CC9F; display: inline-flex; align-items: center; gap: 8px; }
+
+.ldw-res-card--text { padding: 26px; display: flex; flex-direction: column; gap: 10px; color: #234C5A; }
+.ldw-res-card-kicker { font-size: 11px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: #234C5A; }
+.ldw-res-card-heading { font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 700; font-size: 20px; line-height: 1.18; letter-spacing: -0.01em; margin: 0; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; }
+.ldw-res-card-text { font-size: 14px; line-height: 1.55; color: rgba(35,76,90,0.68); margin: 0; flex: 1; min-height: 44px; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; }
+.ldw-res-card-arrow { width: 36px; height: 36px; flex: none; border-radius: 50%; background: #234C5A; color: #F7F9FA; display: grid; place-items: center; font-size: 15px; }
+
+@container page (max-width: 1000px) {
+  .ldw-res { padding: 84px 24px; }
+  .ldw-res-heading { font-size: 38px; }
+  .ldw-res-card--image[style*="--rows:2"] .ldw-res-card-title { font-size: 26px; }
+}
+
+@container page (max-width: 640px) {
+  .ldw-res { padding: 68px 18px; }
+  .ldw-res-heading { font-size: clamp(27px, 7.5vw, 36px); }
+  .ldw-res-head { flex-direction: column; align-items: flex-start; gap: 10px; }
+  .ldw-res-card--image[style*="--rows:2"] .ldw-res-card-title { font-size: 22px; }
+}
+
+/* ---------- Blog archive + single post ---------- */
+.ldw-page { background: #FFFFFF; }
+.ldw-page-inner { max-width: 1240px; margin: 0 auto; padding: 72px 32px 100px; }
+.ldw-page-header { text-align: center; margin-bottom: 44px; }
+.ldw-page-title { font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; font-size: 48px; line-height: 1.05; letter-spacing: -0.03em; margin: 0 0 14px; }
+.ldw-page-sub { font-size: 17px; line-height: 1.6; color: rgba(35,76,90,0.65); margin: 0; }
+.ldw-post { max-width: 760px; margin: 0 auto; }
+.ldw-post-meta { font-size: 14px; color: rgba(35,76,90,0.6); margin-bottom: 26px; text-align: center; }
+.ldw-post-hero { border-radius: 26px; overflow: hidden; margin-bottom: 34px; }
+.ldw-post-hero img { width: 100%; height: auto; display: block; }
+.ldw-post-body { font-size: 17px; line-height: 1.7; color: #234C5A; }
+.ldw-post-body > * + * { margin-top: 1.1em; }
+.ldw-post-body h2 { font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; font-size: 28px; letter-spacing: -0.02em; margin-top: 1.6em; }
+.ldw-post-body h3 { font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 700; font-size: 21px; margin-top: 1.5em; }
+.ldw-post-body img { max-width: 100%; height: auto; border-radius: 18px; }
+.ldw-post-body a { text-decoration: underline; }
+.ldw-post-back { display: inline-flex; align-items: center; gap: 10px; margin-top: 44px; background: #234C5A; color: #FFFFFF; font-weight: 700; font-size: 15px; padding: 13px 26px; border-radius: 999px; }
+.ldw-post-back:hover { background: #59ADA8; color: #FFFFFF; opacity: 1; }
+.ldw-pagination { display: flex; justify-content: center; gap: 10px; margin-top: 44px; font-weight: 700; }
+.ldw-pagination .page-numbers { padding: 10px 16px; border-radius: 999px; background: #EEF2F1; }
+.ldw-pagination .page-numbers.current { background: #234C5A; color: #FFFFFF; }
+
+@container page (max-width: 640px) {
+  .ldw-page-inner { padding: 52px 18px 72px; }
+  .ldw-page-title { font-size: clamp(27px, 7.5vw, 36px); }
+  .ldw-post-body { font-size: 16px; }
+}
+
+/* ---------- Demo CTA ("See LD Workflows in action.") ---------- */
+.ldw-demo-band { background: #FFFFFF; border-top: 1px solid rgba(35,76,90,0.08); }
+.ldw-demo { max-width: 1240px; margin: 0 auto; padding: 100px 32px; }
+.ldw-demo-grid { background: #234C5A; background-image: radial-gradient(rgba(246,204,159,0.12) 1.5px, transparent 1.5px); background-size: 26px 26px; border-radius: 40px; padding: 72px 64px; display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.8fr); gap: 56px; align-items: center; color: #F7F9FA; position: relative; overflow: hidden; }
+.ldw-demo-heading { font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; font-size: 52px; line-height: 1.04; letter-spacing: -0.03em; margin: 0 0 18px; }
+.ldw-demo-em { font-style: italic; color: #F6CC9F; }
+.ldw-demo-subtext { font-size: 18px; line-height: 1.6; color: rgba(255,255,255,0.75); margin: 0 0 32px; max-width: 440px; }
+.ldw-demo-actions { display: flex; gap: 14px; flex-wrap: wrap; }
+.ldw-demo-btn { font-size: 16px; border-radius: 999px; display: inline-block; transition: background 0.2s ease, color 0.2s ease; }
+/* The source design gives the primary button the panel's own navy, so it
+   reads as a text link. Kept — but its hover was white-on-white there,
+   which hid the label, so that resolves to navy-on-white here. */
+.ldw-demo-btn--primary { background: #234C5A; color: #FFFFFF; font-weight: 700; padding: 16px 32px; }
+.ldw-demo-btn--primary:hover { background: #FFFFFF; color: #234C5A; opacity: 1; }
+.ldw-demo-btn--ghost { border: 1.5px solid rgba(255,255,255,0.5); color: #F7F9FA; font-weight: 600; padding: 15px 32px; }
+.ldw-demo-btn--ghost:hover { background: #F7F9FA; color: #234C5A; opacity: 1; }
+.ldw-demo-cards { display: flex; flex-direction: column; gap: 16px; }
+.ldw-demo-card { background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.15); border-radius: 22px; padding: 22px 26px; display: flex; align-items: center; gap: 16px; backdrop-filter: blur(4px); }
+.ldw-demo-card-value { font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; font-size: 30px; color: #F6CC9F; line-height: 1; flex: none; }
+.ldw-demo-card-label { font-size: 14.5px; line-height: 1.45; opacity: 0.8; }
+
+@container page (max-width: 1000px) {
+  .ldw-demo { padding: 84px 24px; }
+  .ldw-demo-grid { grid-template-columns: minmax(0, 1fr); gap: 36px; padding: 48px 40px; border-radius: 32px; }
+  .ldw-demo-heading { font-size: 40px; }
+  .ldw-demo-subtext { max-width: none; }
+}
+
+@container page (max-width: 640px) {
+  .ldw-demo { padding: 68px 18px; }
+  .ldw-demo-grid { padding: 36px 24px; border-radius: 26px; gap: 28px; }
+  .ldw-demo-heading { font-size: clamp(28px, 8vw, 38px); }
+  .ldw-demo-subtext { font-size: 16px; margin-bottom: 26px; }
+  .ldw-demo-btn { font-size: 15px; }
+  .ldw-demo-btn--primary { padding: 14px 26px; }
+  .ldw-demo-btn--ghost { padding: 13px 26px; }
+  .ldw-demo-card { padding: 18px 20px; gap: 14px; }
+  .ldw-demo-card-value { font-size: 26px; }
+}
+
+/* ---------- Footer ---------- */
+.ldw-footer { background: #EEF2F1; border-top: 1px solid rgba(35,76,90,0.1); padding: 80px 32px 28px; overflow: hidden; }
+.ldw-footer-inner { max-width: 1240px; margin: 0 auto; }
+.ldw-footer-top { display: flex; justify-content: space-between; align-items: flex-end; gap: 40px; flex-wrap: wrap; margin-bottom: 56px; }
+.ldw-footer-heading { font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; font-size: 46px; line-height: 1.08; letter-spacing: -0.03em; color: #234C5A; margin: 0; max-width: 520px; }
+.ldw-footer-actions { display: flex; gap: 12px; flex-wrap: wrap; }
+.ldw-footer-btn { font-size: 16px; border-radius: 999px; transition: background 0.2s ease, color 0.2s ease; }
+.ldw-footer-btn--primary { background: #234C5A; color: #FFFFFF; font-weight: 700; padding: 16px 32px; display: inline-flex; align-items: center; gap: 8px; }
+.ldw-footer-btn--primary:hover { background: #59ADA8; color: #FFFFFF; opacity: 1; }
+.ldw-footer-btn--ghost { border: 1.5px solid #234C5A; color: #234C5A; font-weight: 600; padding: 15px 32px; display: inline-block; }
+.ldw-footer-btn--ghost:hover { background: #234C5A; color: #F6CC9F; opacity: 1; }
+.ldw-footer-nav { display: flex; justify-content: space-between; align-items: center; gap: 24px; flex-wrap: wrap; padding: 22px 0; border-top: 1px solid rgba(35,76,90,0.12); border-bottom: 1px solid rgba(35,76,90,0.12); }
+.ldw-footer-logo img { height: 30px; width: auto; display: block; }
+.ldw-footer-links { display: flex; gap: 6px 26px; flex-wrap: wrap; font-size: 15px; font-weight: 600; list-style: none; margin: 0; padding: 0; }
+.ldw-footer-links a { color: #234C5A; }
+.ldw-footer-links a:hover { opacity: 0.6; }
+.ldw-footer-bottom { padding: 22px 0 0; display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; font-size: 13px; color: rgba(35,76,90,0.72); }
+.ldw-footer-legal { display: flex; gap: 20px; flex-wrap: wrap; }
+.ldw-footer-legal a { color: rgba(35,76,90,0.7); }
+.ldw-footer-legal a:hover { color: #234C5A; opacity: 1; }
+.ldw-footer-word { font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; font-size: clamp(60px, 12.5cqw, 168px); letter-spacing: -0.04em; line-height: 0.8; color: rgba(35,76,90,0.08); text-align: center; margin: 44px 0 -34px; white-space: nowrap; user-select: none; }
+
+@container page (max-width: 1000px) {
+  .ldw-footer { padding: 64px 24px 24px; }
+  .ldw-footer-heading { font-size: 36px; }
+  .ldw-footer-top { margin-bottom: 40px; }
+}
+
+@container page (max-width: 640px) {
+  .ldw-footer { padding: 52px 18px 20px; }
+  .ldw-footer-heading { font-size: clamp(26px, 7.5vw, 32px); }
+  .ldw-footer-top { gap: 24px; margin-bottom: 32px; }
+  .ldw-footer-btn { font-size: 15px; }
+  .ldw-footer-btn--primary { padding: 14px 26px; }
+  .ldw-footer-btn--ghost { padding: 13px 26px; }
+  .ldw-footer-nav { justify-content: flex-start; gap: 18px; }
+  .ldw-footer-links { gap: 6px 18px; font-size: 14px; }
+  .ldw-footer-word { margin: 32px 0 -16px; }
+}
+
+/* ============ PRICING: HERO ============ */
+.ldw-pricing-hero { position: relative; overflow: hidden; isolation: isolate; background: #E4E9E5; background-image: linear-gradient(180deg, #C9D0CA 0%, #E4E9E5 55%, #F7F9FA 100%); border-bottom: 1px solid rgba(35,76,90,0.08); }
+.ldw-pricing-hero-inner { position: relative; max-width: 880px; margin: 0 auto; padding: 96px 32px 88px; text-align: center; }
+.ldw-pricing-eyebrow { display: inline-flex; align-items: center; gap: 8px; background: #234C5A; color: #F7F9FA; border-radius: 999px; padding: 8px 18px; font-size: 12px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 28px; }
+.ldw-pricing-heading { font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; font-size: 56px; line-height: 1.08; letter-spacing: -0.03em; margin: 0 0 10px; color: #234C5A; }
+.ldw-pricing-highlight { font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 700; font-style: italic; font-size: 32px; letter-spacing: -0.02em; color: #3E9994; margin: 0 0 20px; }
+.ldw-pricing-subtext { font-size: 18px; line-height: 1.6; color: rgba(35,76,90,0.75); max-width: 560px; margin: 0 auto 32px; }
+
+.ldw-btn-ghost { border: 1.5px solid #234C5A; color: #234C5A; font-size: 16px; font-weight: 600; padding: 14.5px 32px; border-radius: 999px; display: inline-block; }
+.ldw-btn-ghost:hover { background: #234C5A; color: #FFFFFF; }
+
+@container page (max-width: 1000px) {
+  .ldw-pricing-hero-inner { padding: 76px 24px 72px; }
+  .ldw-pricing-heading { font-size: 42px; }
+  .ldw-pricing-highlight { font-size: 26px; }
+}
+@container page (max-width: 640px) {
+  .ldw-pricing-hero-inner { padding: 60px 18px 56px; }
+  .ldw-pricing-heading { font-size: clamp(30px, 8.5vw, 36px); }
+  .ldw-pricing-highlight { font-size: 21px; }
+  .ldw-pricing-subtext { font-size: 16px; }
+}
+
+/* ============ PRICING: PLANS ============ */
+.ldw-plans { max-width: 1240px; margin: 0 auto; padding: 90px 32px; }
+.ldw-plans-inner { position: relative; }
+.ldw-plans-intro { text-align: center; font-size: 16px; color: rgba(35,76,90,0.7); margin: 0 0 22px; }
+
+.ldw-plan-toggle-input { position: absolute; opacity: 0; width: 1px; height: 1px; }
+.ldw-plan-toggle { display: flex; justify-content: center; margin-bottom: 52px; }
+.ldw-plan-toggle-track { display: inline-flex; background: #FFFFFF; border: 1px solid rgba(35,76,90,0.15); border-radius: 999px; padding: 5px; cursor: pointer; }
+.ldw-plan-toggle-option { font-family: 'Plus Jakarta Sans', sans-serif; font-size: 15px; font-weight: 700; padding: 11px 24px; border-radius: 999px; color: #234C5A; }
+.ldw-plan-toggle-badge { font-weight: 600; opacity: 0.7; }
+/* Unchecked = monthly selected; checked = annual selected (default). */
+.ldw-plan-toggle-input:not(:checked) ~ .ldw-plan-toggle .ldw-plan-toggle-option--monthly { background: #234C5A; color: #F7F9FA; }
+.ldw-plan-toggle-input:checked ~ .ldw-plan-toggle .ldw-plan-toggle-option--annual { background: #234C5A; color: #F7F9FA; }
+
+.ldw-plan-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 22px; align-items: stretch; }
+.ldw-plan-card { background: #FFFFFF; color: #234C5A; border: 1px solid rgba(35,76,90,0.1); border-radius: 30px; padding: 34px 32px; display: flex; flex-direction: column; }
+.ldw-plan-card--featured { background: #234C5A; color: #F7F9FA; border-color: #234C5A; transform: translateY(-14px); box-shadow: 0 28px 56px rgba(35,76,90,0.28); }
+.ldw-plan-badge { align-self: flex-start; font-size: 12px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; background: #EEF2F1; color: rgba(35,76,90,0.7); padding: 7px 14px; border-radius: 999px; margin-bottom: 20px; }
+.ldw-plan-card--featured .ldw-plan-badge { background: #F6CC9F; color: #234C5A; }
+.ldw-plan-name { font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; font-size: 26px; letter-spacing: -0.02em; margin: 0 0 6px; }
+.ldw-plan-subtitle { font-size: 14.5px; margin: 0 0 24px; opacity: 0.65; min-height: 44px; }
+
+.ldw-plan-price { display: flex; align-items: baseline; gap: 6px; }
+.ldw-plan-price-value { font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; font-size: 48px; letter-spacing: -0.03em; }
+.ldw-plan-price-suffix { font-size: 15px; opacity: 0.6; }
+.ldw-plan-price-note { font-size: 13px; opacity: 0.6; margin: 6px 0 24px; }
+/* Toggle which price/note is shown, driven by the same checkbox as the toggle above. */
+.ldw-plan-price-value--annual, .ldw-plan-price-note--annual { display: inline; }
+.ldw-plan-price-value--monthly, .ldw-plan-price-note--monthly { display: none; }
+.ldw-plan-toggle-input:not(:checked) ~ .ldw-plan-grid .ldw-plan-price-value--annual,
+.ldw-plan-toggle-input:not(:checked) ~ .ldw-plan-grid .ldw-plan-price-note--annual { display: none; }
+.ldw-plan-toggle-input:not(:checked) ~ .ldw-plan-grid .ldw-plan-price-value--monthly,
+.ldw-plan-toggle-input:not(:checked) ~ .ldw-plan-grid .ldw-plan-price-note--monthly { display: inline; }
+
+.ldw-plan-cta { text-align: center; background: #234C5A; color: #F7F9FA; font-weight: 700; font-size: 15px; padding: 15px 28px; border-radius: 999px; display: block; margin-bottom: 26px; }
+.ldw-plan-card--featured .ldw-plan-cta { background: #F6CC9F; color: #234C5A; }
+.ldw-plan-cta:hover { opacity: 0.85; color: inherit; }
+
+.ldw-plan-features { display: flex; flex-direction: column; gap: 11px; }
+.ldw-plan-feature { display: flex; align-items: flex-start; gap: 10px; font-size: 14.5px; }
+.ldw-plan-feature--excluded { opacity: 0.45; text-decoration: line-through; }
+.ldw-plan-feature-mark { font-weight: 700; color: #3E9994; }
+.ldw-plan-card--featured .ldw-plan-feature-mark { color: #F6CC9F; }
+
+.ldw-plans-footnote { text-align: center; font-size: 15px; color: rgba(35,76,90,0.7); margin: 40px auto 0; max-width: 620px; }
+
+@container page (max-width: 1000px) {
+  .ldw-plans { padding: 70px 24px; }
+  .ldw-plan-grid { gap: 14px; }
+  .ldw-plan-card { padding: 28px 22px; }
+  .ldw-plan-card--featured { transform: none; }
+}
+@container page (max-width: 640px) {
+  .ldw-plans { padding: 56px 18px; }
+  .ldw-plan-grid { grid-template-columns: minmax(0, 1fr); max-width: 420px; margin: 0 auto; }
+  .ldw-plan-price-value { font-size: 40px; }
+}
+
+/* ============ PRICING: YOU VS NETSUITE ============ */
+.ldw-vs { max-width: 1240px; margin: 0 auto; padding: 100px 32px; }
+.ldw-vs-head { text-align: center; margin-bottom: 48px; }
+.ldw-vs-eyebrow { display: inline-flex; align-items: center; gap: 8px; background: #234C5A; color: #F7F9FA; border-radius: 999px; padding: 8px 18px; font-size: 12px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 20px; }
+.ldw-vs-heading { font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; font-size: 44px; line-height: 1.1; letter-spacing: -0.03em; margin: 0; }
+.ldw-vs-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.ldw-vs-quote { background: #DDE9D3; border-radius: 24px; padding: 34px 40px; margin-top: 28px; display: flex; gap: 20px; align-items: flex-start; }
+
+@container page (max-width: 1000px) {
+  .ldw-vs { padding: 0 24px 84px 24px; }
+  .ldw-vs-heading { font-size: 34px; }
+  .ldw-vs-quote { padding: 28px 30px; }
+}
+@container page (max-width: 640px) {
+  .ldw-vs { padding: 0 18px 68px 18px; }
+  .ldw-vs-grid { grid-template-columns: minmax(0, 1fr); gap: 18px; }
+  .ldw-vs-heading { font-size: clamp(26px, 7.5vw, 32px); }
+  .ldw-vs-eyebrow { font-size: 11px; padding: 7px 14px; margin-bottom: 16px; }
+  .ldw-vs-quote { padding: 26px 22px; gap: 14px; border-radius: 20px; }
+}
+
+/* ============ PRICING: FAQ ============ */
+.ldw-faq { border-top: 1px solid rgba(35,76,90,0.08); }
+.ldw-faq-inner { max-width: 880px; margin: 0 auto; padding: 100px 32px; }
+.ldw-faq-heading { font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; font-size: 44px; letter-spacing: -0.03em; text-align: center; margin: 0 0 44px; color: #234C5A; }
+.ldw-faq-list { display: flex; flex-direction: column; gap: 14px; }
+.ldw-faq-item { background: rgba(255,255,255,0.6); border: 1px solid rgba(35,76,90,0.1); border-radius: 20px; padding: 0; }
+.ldw-faq-item[open] { background: #FFFFFF; }
+.ldw-faq-question { list-style: none; display: flex; justify-content: space-between; align-items: center; gap: 18px; padding: 22px 28px; cursor: pointer; font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 700; font-size: 17px; color: #234C5A; }
+.ldw-faq-question::-webkit-details-marker { display: none; }
+.ldw-faq-icon { width: 34px; height: 34px; flex: none; border-radius: 50%; background: #EEF2F1; color: #234C5A; display: grid; place-items: center; font-size: 17px; font-weight: 700; transition: transform 0.25s ease, background 0.25s ease, color 0.25s ease; }
+.ldw-faq-item[open] .ldw-faq-icon { background: #234C5A; color: #F6CC9F; transform: rotate(45deg); }
+.ldw-faq-answer { font-size: 15px; line-height: 1.65; color: rgba(35,76,90,0.72); padding: 0 28px 22px; max-width: 680px; }
+.ldw-faq-answer p { margin: 0; }
+
+@container page (max-width: 1000px) {
+  .ldw-faq-inner { padding: 80px 24px 84px; }
+  .ldw-faq-heading { font-size: 36px; }
+}
+@container page (max-width: 640px) {
+  .ldw-faq-inner { padding: 64px 18px 68px; }
+  .ldw-faq-heading { font-size: clamp(27px, 7.5vw, 32px); }
+  .ldw-faq-question { padding: 18px 20px; font-size: 15.5px; }
+  .ldw-faq-answer { padding: 0 20px 18px; }
+}
+
+/* ---------- Final CTA ("Don't just take our word for it") ----------
+   Horizontal closing band on the Pricing page. The design's dark-green /
+   lime palette maps onto this theme's dark surface (#1B3A46) and peach
+   accent (#F6CC9F), matching .ldw-cta-band above. */
+.ldw-final-cta-section { max-width: 1240px; margin: 0 auto; padding: 0 32px 100px; }
+/* The landing pages supply all their vertical rhythm through the *top*
+   padding of the next section, and .ldw-final-cta-section has none — so
+   whatever precedes it lands flush against the dark card. Both cases are
+   keyed off the adjacency rather than a page class, so any page ending
+   this way is spaced without another rule.
+   After the benefits band a hairline gap is enough (it already carries its
+   own bottom padding); after a checklist the CTA has to supply the full
+   86px section gap itself, or the section image touches the card. */
+.ldw-crmp-benefits-band + .ldw-final-cta-section { padding-top: 20px; }
+.ldw-crmp-checklist + .ldw-final-cta-section { padding-top: 86px; }
+.ldw-final-cta { background: #1B3A46; background-image: radial-gradient(rgba(246,204,159,0.12) 1.5px, transparent 1.5px); background-size: 26px 26px; border-radius: 40px; padding: 64px; display: flex; align-items: center; justify-content: space-between; gap: 40px; flex-wrap: wrap; color: #FFFFFF; }
+.ldw-final-cta-heading { font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; font-size: 40px; line-height: 1.1; letter-spacing: -0.03em; margin: 0 0 8px; color: #FFFFFF; }
+.ldw-final-cta-accent { font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 700; font-style: italic; font-size: 28px; letter-spacing: -0.02em; color: #F6CC9F; }
+.ldw-final-cta-actions { display: flex; gap: 14px; flex-wrap: wrap; }
+.ldw-final-cta-btn { font-size: 16px; border-radius: 999px; display: inline-block; transition: transform 0.2s ease, background 0.2s ease, color 0.2s ease; }
+.ldw-final-cta-btn--primary { background: #F6CC9F; color: #1B3A46; font-weight: 700; padding: 16px 32px; }
+.ldw-final-cta-btn--primary:hover { background: #FFFFFF; color: #1B3A46; transform: translateY(-2px); }
+.ldw-final-cta-btn--ghost { border: 1.5px solid rgba(255,255,255,0.5); color: #FFFFFF; font-weight: 600; padding: 15px 32px; }
+.ldw-final-cta-btn--ghost:hover { background: #FFFFFF; color: #1B3A46; transform: translateY(-2px); }
+
+@container page (max-width: 1000px) {
+  .ldw-final-cta { padding: 48px; }
+  .ldw-final-cta-heading { font-size: 34px; }
+  .ldw-final-cta-accent { font-size: 24px; }
+}
+
+@container page (max-width: 700px) {
+  .ldw-final-cta-section { padding: 0 18px 68px; }
+  .ldw-crmp-checklist + .ldw-final-cta-section { padding-top: 64px; }
+  .ldw-final-cta { padding: 34px 26px; border-radius: 28px; gap: 26px; }
+  .ldw-final-cta-heading { font-size: clamp(25px, 7vw, 30px); }
+  .ldw-final-cta-accent { font-size: clamp(19px, 5.4vw, 22px); }
+  .ldw-final-cta-actions { width: 100%; }
+  .ldw-final-cta-btn { flex: 1 1 100%; text-align: center; }
+}
+
+/* ---------- CRM page: checklist blocks + benefits grid ---------- */
+.ldw-crmp-checklist { max-width: 1240px; margin: 0 auto; padding: 86px 32px 0; }
+.ldw-crmp-checklist-inner { max-width: 880px; margin: 0 auto; text-align: center; }
+.ldw-crmp-checklist-heading { font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; font-size: 40px; line-height: 1.12; letter-spacing: -0.03em; margin: 0 0 14px; color: #234C5A; }
+.ldw-crmp-checklist-subtext { font-size: 18px; line-height: 1.6; color: rgba(35,76,90,0.75); margin: 0 auto 34px; max-width: 620px; }
+.ldw-crmp-checklist-list { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px 28px; text-align: left; }
+.ldw-crmp-checklist-item { display: flex; align-items: flex-start; gap: 12px; background: #FFFFFF; border: 1px solid rgba(35,76,90,0.1); border-radius: 14px; padding: 16px 18px; font-size: 15.5px; line-height: 1.45; color: #234C5A; }
+.ldw-crmp-checklist-tick { flex: none; width: 22px; height: 22px; border-radius: 50%; background: #65BB99; color: #FFFFFF; display: grid; place-items: center; font-size: 12px; font-weight: 700; }
+
+.ldw-crmp-benefits-band { background: #EEF6F5; border-top: 1px solid rgba(35,76,90,0.08); border-bottom: 1px solid rgba(35,76,90,0.08); margin-top: 86px; }
+.ldw-crmp-benefits { max-width: 1240px; margin: 0 auto; padding: 90px 32px; }
+.ldw-crmp-benefits-head { text-align: center; margin-bottom: 44px; }
+.ldw-crmp-benefits-heading { font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; font-size: 40px; line-height: 1.1; letter-spacing: -0.03em; margin: 0 0 14px; color: #234C5A; }
+.ldw-crmp-benefits-subtext { font-size: 18px; line-height: 1.6; color: rgba(35,76,90,0.75); margin: 0 auto; max-width: 640px; }
+.ldw-crmp-benefits-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 22px; }
+.ldw-crmp-benefit { background: #FFFFFF; border: 1px solid rgba(35,76,90,0.1); border-radius: 22px; padding: 28px 26px; }
+.ldw-crmp-benefit-num { display: inline-block; font-size: 13px; font-weight: 800; letter-spacing: 0.1em; color: #F6CC9F; margin-bottom: 12px; }
+.ldw-crmp-benefit-title { font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; font-size: 19px; letter-spacing: -0.02em; margin: 0 0 8px; color: #234C5A; }
+.ldw-crmp-benefit-text { font-size: 14.5px; line-height: 1.6; color: rgba(35,76,90,0.75); margin: 0; }
+
+@container page (max-width: 1000px) {
+  .ldw-crmp-checklist-heading, .ldw-crmp-benefits-heading { font-size: 32px; }
+  .ldw-crmp-benefits-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+@container page (max-width: 700px) {
+  .ldw-crmp-checklist { padding: 64px 18px 0; }
+  .ldw-crmp-checklist-heading, .ldw-crmp-benefits-heading { font-size: clamp(25px, 7vw, 30px); }
+  .ldw-crmp-checklist-subtext, .ldw-crmp-benefits-subtext { font-size: 16px; }
+  .ldw-crmp-checklist-list { grid-template-columns: minmax(0, 1fr); }
+  .ldw-crmp-benefits-band { margin-top: 64px; }
+  .ldw-crmp-benefits { padding: 64px 18px; }
+  .ldw-crmp-benefits-grid { grid-template-columns: minmax(0, 1fr); }
+}
+
+/* ---------- CRM page: client strip + workflow cross-links ---------- */
+.ldw-crmp-clients { max-width: 1240px; margin: 0 auto; padding: 72px 32px 0; }
+.ldw-crmp-clients-inner { text-align: center; }
+.ldw-crmp-clients-heading { font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; font-size: 30px; line-height: 1.15; letter-spacing: -0.025em; margin: 0 0 10px; color: #234C5A; }
+.ldw-crmp-clients-subtext { font-size: 16.5px; line-height: 1.6; color: rgba(35,76,90,0.72); margin: 0 auto 28px; max-width: 560px; }
+.ldw-crmp-clients-row { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 20px 44px; margin-top: 26px; }
+.ldw-crmp-client img { display: block; max-height: 38px; width: auto; opacity: 0.72; filter: grayscale(1); transition: opacity 0.2s ease, filter 0.2s ease; }
+.ldw-crmp-client img:hover { opacity: 1; filter: grayscale(0); }
+
+.ldw-crmp-flows { max-width: 1240px; margin: 0 auto; padding: 86px 32px 0; }
+.ldw-crmp-flows-head { text-align: center; margin-bottom: 40px; }
+.ldw-crmp-flows-heading { font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; font-size: 40px; line-height: 1.1; letter-spacing: -0.03em; margin: 0 0 12px; color: #234C5A; }
+.ldw-crmp-flows-subtext { font-size: 18px; line-height: 1.6; color: rgba(35,76,90,0.75); margin: 0 auto; max-width: 560px; }
+.ldw-crmp-flows-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 22px; }
+.ldw-crmp-flow { background: #FFFFFF; border: 1px solid rgba(35,76,90,0.1); border-radius: 22px; padding: 30px 28px; display: flex; flex-direction: column; }
+.ldw-crmp-flow-title { font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; font-size: 21px; letter-spacing: -0.02em; margin: 0 0 10px; color: #234C5A; }
+.ldw-crmp-flow-text { font-size: 14.5px; line-height: 1.6; color: rgba(35,76,90,0.75); margin: 0 0 22px; flex: 1; }
+.ldw-crmp-flow-cta { display: inline-flex; align-items: center; gap: 9px; align-self: flex-start; background: #234C5A; color: #F7F9FA; font-size: 15px; font-weight: 700; padding: 12px 24px; border-radius: 999px; transition: transform 0.2s ease, background 0.2s ease; }
+.ldw-crmp-flow-cta:hover { background: #1B3A46; color: #F7F9FA; transform: translateY(-2px); }
+
+@container page (max-width: 1000px) {
+  .ldw-crmp-flows-heading { font-size: 32px; }
+  .ldw-crmp-flows-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+
+@container page (max-width: 700px) {
+  .ldw-crmp-clients { padding: 56px 18px 0; }
+  .ldw-crmp-clients-heading { font-size: clamp(22px, 6vw, 26px); }
+  .ldw-crmp-clients-row { gap: 18px 28px; }
+  .ldw-crmp-client img { max-height: 30px; }
+  .ldw-crmp-flows { padding: 64px 18px 0; }
+  .ldw-crmp-flows-heading { font-size: clamp(25px, 7vw, 30px); }
+  .ldw-crmp-flows-subtext { font-size: 16px; }
+  .ldw-crmp-flows-grid { grid-template-columns: minmax(0, 1fr); }
+}
+
+/* ---------- CRM page: image + text split layouts ---------- */
+.ldw-pricing-hero-media { max-width: 1000px; margin: 40px auto 0; padding: 0 32px; position: relative; }
+.ldw-pricing-hero-media img { display: block; width: 100%; height: auto; border-radius: 20px; }
+
+.ldw-crmp-checklist--split .ldw-crmp-checklist-inner { max-width: 1180px; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); align-items: center; gap: 56px; text-align: left; }
+.ldw-crmp-checklist--split .ldw-crmp-checklist-subtext { margin-left: 0; margin-right: 0; }
+.ldw-crmp-checklist--split .ldw-crmp-checklist-list { grid-template-columns: minmax(0, 1fr); }
+.ldw-crmp-checklist--img-right .ldw-crmp-checklist-media { order: 2; }
+.ldw-crmp-checklist-media img { display: block; width: 100%; height: auto; border-radius: 20px; }
+
+.ldw-crmp-benefits-grid { display: flex; flex-direction: column; gap: 26px; }
+.ldw-crmp-benefit--split { display: grid; grid-template-columns: 220px minmax(0, 1fr); align-items: center; gap: 36px; }
+.ldw-crmp-benefit--split.ldw-crmp-benefit--flip { grid-template-columns: minmax(0, 1fr) 220px; }
+.ldw-crmp-benefit--split.ldw-crmp-benefit--flip .ldw-crmp-benefit-media { order: 2; }
+.ldw-crmp-benefit-media img { display: block; width: 100%; height: auto; border-radius: 16px; }
+
+.ldw-crmp-flow-media { margin: -4px -4px 18px; }
+.ldw-crmp-flow-media img { display: block; width: 100%; height: auto; border-radius: 16px; }
+
+@container page (max-width: 1000px) {
+  .ldw-crmp-checklist--split .ldw-crmp-checklist-inner { gap: 34px; }
+  .ldw-crmp-benefit--split,
+  .ldw-crmp-benefit--split.ldw-crmp-benefit--flip { grid-template-columns: 150px minmax(0, 1fr); gap: 26px; }
+  .ldw-crmp-benefit--split.ldw-crmp-benefit--flip .ldw-crmp-benefit-media { order: 0; }
+}
+
+@container page (max-width: 700px) {
+  .ldw-pricing-hero-media { margin-top: 28px; padding: 0 18px; }
+  .ldw-crmp-checklist--split .ldw-crmp-checklist-inner { grid-template-columns: minmax(0, 1fr); gap: 24px; }
+  .ldw-crmp-checklist--img-right .ldw-crmp-checklist-media { order: 0; }
+  .ldw-crmp-benefit--split,
+  .ldw-crmp-benefit--split.ldw-crmp-benefit--flip { grid-template-columns: minmax(0, 1fr); gap: 16px; }
+  .ldw-crmp-benefit-media { max-width: 130px; }
+}
