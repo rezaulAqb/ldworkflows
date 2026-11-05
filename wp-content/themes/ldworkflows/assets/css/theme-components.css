@@ -429,7 +429,6 @@
 .ldw-res-pagination a.page-numbers:hover { background: #EEF6F5; border-color: rgba(35,76,90,0.3); color: #234C5A; }
 .ldw-res-pagination .page-numbers.current { background: #234C5A; border-color: #234C5A; color: #F7F9FA; }
 .ldw-res-pagination .page-numbers.dots { border-color: transparent; background: transparent; }
-}
 
 @media (max-width: 1000px) {
   .ldw-res { padding: 84px 24px; }
@@ -824,4 +823,39 @@
   .ldw-crmp-benefit--split,
   .ldw-crmp-benefit--split.ldw-crmp-benefit--flip { grid-template-columns: minmax(0, 1fr); gap: 16px; }
   .ldw-crmp-benefit-media { max-width: 130px; }
+}
+
+/* ---------- Legal pages (Terms of Service, policies) ---------- */
+/* Body copy comes from the page editor, so these rules style whatever
+   the editor emits rather than a fixed markup shape. The measure is the
+   theme's usual 1240px shell, matching the source document's layout. */
+.ldw-legal-hero { background: #1B3A46; background-image: radial-gradient(60% 120% at 15% 0%, #234C5A 0%, rgba(35,76,90,0) 64%), radial-gradient(52% 110% at 88% 100%, #3E9994 0%, rgba(62,153,148,0) 70%), linear-gradient(140deg, #1B3A46 0%, #234C5A 100%); padding: 86px 32px 90px; }
+.ldw-legal-hero-inner { max-width: 1240px; margin: 0 auto; text-align: center; }
+.ldw-legal-hero-title { font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; font-size: 52px; line-height: 1.06; letter-spacing: -0.03em; color: #FFFFFF; margin: 0; text-wrap: balance; }
+.ldw-legal-body { background: #FFFFFF; }
+.ldw-legal-inner { max-width: 1240px; margin: 0 auto; padding: 72px 32px 88px; }
+.ldw-legal-inner p { font-size: 16px; line-height: 1.7; color: rgba(35,76,90,0.88); margin: 0 0 18px; }
+.ldw-legal-inner p:last-child { margin-bottom: 0; }
+.ldw-legal-inner strong { color: #234C5A; font-weight: 800; }
+.ldw-legal-inner a { color: #3E9994; font-weight: 700; text-decoration: underline; text-underline-offset: 2px; }
+.ldw-legal-inner a:hover { color: #234C5A; }
+.ldw-legal-inner h2, .ldw-legal-inner h3 { font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; color: #234C5A; letter-spacing: -0.02em; margin: 34px 0 12px; }
+.ldw-legal-inner h2 { font-size: 28px; }
+.ldw-legal-inner h3 { font-size: 21px; }
+.ldw-legal-inner h4 { font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; font-size: 17px; color: #234C5A; margin: 26px 0 10px; }
+.ldw-legal-inner h2 + h3, .ldw-legal-inner h3 + h4 { margin-top: 18px; }
+.ldw-legal-inner ul ul { margin: 8px 0 0; }
+/* A policy page whose whole body is the download link (Privacy Policy)
+   centres it and sits on less vertical space than a full document would. */
+.ldw-legal-doc-link { font-weight: 700; }
+.ldw-legal-inner > .ldw-legal-doc-link:only-child { text-align: center; padding: 26px 0 30px; font-size: 17px; }
+.ldw-legal-inner > .ldw-legal-doc-link:only-child a { text-decoration: underline; text-underline-offset: 3px; }
+.ldw-legal-inner ul, .ldw-legal-inner ol { font-size: 16px; line-height: 1.7; color: rgba(35,76,90,0.88); padding-left: 22px; margin: 0 0 18px; }
+.ldw-legal-inner li { margin-bottom: 8px; }
+.ldw-legal-version { margin-top: 32px !important; color: rgba(35,76,90,0.6) !important; }
+@media (max-width: 700px) {
+  .ldw-legal-hero { padding: 54px 20px 58px; }
+  .ldw-legal-hero-title { font-size: 34px; }
+  .ldw-legal-inner { padding: 44px 20px 56px; }
+  .ldw-legal-inner p, .ldw-legal-inner ul, .ldw-legal-inner ol { font-size: 15px; line-height: 1.68; }
 }
