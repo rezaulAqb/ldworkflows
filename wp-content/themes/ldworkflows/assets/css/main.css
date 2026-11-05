@@ -39,7 +39,7 @@
     .ldw-root { container-type: inline-size; container-name: page; }
     .ldw-root[data-mode="Mobile"] { max-width: 390px; margin: 0 auto; overflow-x: clip; box-shadow: 0 0 0 1px rgba(35,76,90,0.15), 0 30px 80px rgba(35,76,90,0.25); }
     /* ---- Responsive (container queries so the Mobile preview frame triggers them too; overrides inline styles, hence !important) ---- */
-    @container page (max-width: 1200px) {
+    @media (max-width: 1200px) {
       .ldw-collage-grid { grid-template-columns: repeat(2, minmax(0,1fr)) !important; }
       .ldw-journey-line { display: none !important; }
       .ldw-journey-grid { grid-template-columns: minmax(0,1fr) !important; }
@@ -53,13 +53,39 @@
       .ldw-nav-mobile[data-open="true"] { display: block !important; }
       .ldw-vat-wrap { height: auto !important; }
       .ldw-vat-track { display: none !important; }
-      .ldw-vat-grid { position: static !important; grid-template-columns: minmax(0,1fr) !important; gap: 0 !important; border-left: 2px solid #EEF2F1; margin-left: 7px; }
+      /* Stacked layout. The desktop track animates left/width, which mean nothing
+         once the steps are rows, so the fill and the travelling pulse are rebuilt
+         vertically as pseudo-elements of the grid. Rows are forced to equal height
+         so the 10/30/50/70/90% stops land exactly on the dots, and the keyframe
+         percentages are the desktop ones unchanged: both layouts run the same 17s
+         beat. */
+      .ldw-vat-grid { position: relative !important; inset: auto !important; grid-template-columns: minmax(0,1fr) !important; grid-template-rows: repeat(5, 1fr) !important; gap: 0 !important; border-left: 2px solid #EEF2F1; margin-left: 7px; }
+      .ldw-vat-grid::before { content: ""; position: absolute; left: -2px; top: 0; width: 2px; border-radius: 999px; background: linear-gradient(180deg, rgba(89,173,168,0.25) 0%, #59ADA8 65%, #F6CC9F 100%); animation: ldw-vfill-run 17s linear infinite; }
+      .ldw-vat-grid::after { content: ""; position: absolute; left: -7px; width: 12px; height: 12px; margin-top: -6px; box-sizing: border-box; border-radius: 50%; background: #FFFFFF; border: 3px solid #59ADA8; box-shadow: 0 0 0 6px rgba(89,173,168,0.12), 0 6px 18px rgba(89,173,168,0.42); animation: ldw-vpulse-run 17s linear infinite; }
       .ldw-vat-grid > div { position: static !important; display: flex !important; align-items: center; gap: 14px; padding: 15px 0 15px 24px; }
-      .ldw-vat-grid > div > div:nth-child(1) { position: static !important; transform: none !important; max-width: none !important; text-align: left !important; opacity: 1 !important; animation: none !important; order: 2; }
+      /* opacity, transform and animation are deliberately left to the keyframes:
+         an !important here would outrank the animation and freeze the step again,
+         which is what stopped this section animating on phones. */
+      .ldw-vat-grid > div > div:nth-child(1) { position: static !important; max-width: none !important; text-align: left !important; order: 2; }
       .ldw-vat-grid > div > div:nth-child(2) { display: none !important; }
-      .ldw-vat-grid > div > div:nth-child(3) { position: static !important; transform: none !important; order: 1; flex: none; width: 12px; height: 12px; margin-left: -31px; background: #59ADA8 !important; border-color: #59ADA8 !important; animation: none !important; }
+      .ldw-vat-grid > div > div:nth-child(3) { position: static !important; order: 1; flex: none; width: 12px; height: 12px; margin-left: -31px; }
+      @keyframes ldw-vfill-run { 0% { height: 10%; opacity: 0; } 3% { height: 10%; opacity: 1; } 17.3% { height: 30%; } 31.5% { height: 50%; } 45.8% { height: 70%; } 60% { height: 90%; } 70% { height: 90%; } 79% { height: 100%; } 93% { height: 100%; opacity: 1; } 100% { height: 100%; opacity: 0; } }
+      @keyframes ldw-vpulse-run { 0% { top: 10%; opacity: 0; } 3% { top: 10%; opacity: 1; } 17.3% { top: 30%; } 31.5% { top: 50%; } 45.8% { top: 70%; } 60% { top: 90%; } 70% { top: 90%; } 79% { top: 100%; } 93% { top: 100%; opacity: 1; } 100% { top: 100%; opacity: 0; } }
+      /* Same names as the desktop keyframes, so each step's inline animation picks
+         these up with no extra selectors. They drop the translate(-50%) that the
+         desktop absolute positioning needs and move on the Y axis instead. */
+      @keyframes ldw-rev0 { 0%, 0% { opacity: 0; transform: translateY(6px); } 6%, 93% { opacity: 1; transform: translateY(0); } 100% { opacity: 0; transform: translateY(0); } }
+      @keyframes ldw-dot0 { 0%, 0% { background: #FFFFFF; border-color: #E3E6EA; transform: scale(0.85); } 6%, 93% { background: #59ADA8; border-color: #59ADA8; transform: scale(1); } 100% { background: #FFFFFF; border-color: #E3E6EA; transform: scale(0.85); } }
+      @keyframes ldw-rev1 { 0%, 14.3% { opacity: 0; transform: translateY(6px); } 20.3%, 93% { opacity: 1; transform: translateY(0); } 100% { opacity: 0; transform: translateY(0); } }
+      @keyframes ldw-dot1 { 0%, 14.3% { background: #FFFFFF; border-color: #E3E6EA; transform: scale(0.85); } 20.3%, 93% { background: #59ADA8; border-color: #59ADA8; transform: scale(1); } 100% { background: #FFFFFF; border-color: #E3E6EA; transform: scale(0.85); } }
+      @keyframes ldw-rev2 { 0%, 28.5% { opacity: 0; transform: translateY(6px); } 34.5%, 93% { opacity: 1; transform: translateY(0); } 100% { opacity: 0; transform: translateY(0); } }
+      @keyframes ldw-dot2 { 0%, 28.5% { background: #FFFFFF; border-color: #E3E6EA; transform: scale(0.85); } 34.5%, 93% { background: #59ADA8; border-color: #59ADA8; transform: scale(1); } 100% { background: #FFFFFF; border-color: #E3E6EA; transform: scale(0.85); } }
+      @keyframes ldw-rev3 { 0%, 42.8% { opacity: 0; transform: translateY(6px); } 48.8%, 93% { opacity: 1; transform: translateY(0); } 100% { opacity: 0; transform: translateY(0); } }
+      @keyframes ldw-dot3 { 0%, 42.8% { background: #FFFFFF; border-color: #E3E6EA; transform: scale(0.85); } 48.8%, 93% { background: #59ADA8; border-color: #59ADA8; transform: scale(1); } 100% { background: #FFFFFF; border-color: #E3E6EA; transform: scale(0.85); } }
+      @keyframes ldw-rev4 { 0%, 57% { opacity: 0; transform: translateY(6px); } 63%, 93% { opacity: 1; transform: translateY(0); } 100% { opacity: 0; transform: translateY(0); } }
+      @keyframes ldw-dot4 { 0%, 57% { background: #FFFFFF; border-color: #E3E6EA; transform: scale(0.85); } 63%, 93% { background: #59ADA8; border-color: #59ADA8; transform: scale(1); } 100% { background: #FFFFFF; border-color: #E3E6EA; transform: scale(0.85); } }
     }
-    @container page (max-width: 900px) {
+    @media (max-width: 900px) {
       .ldw-flows-grid { grid-template-columns: minmax(0,1fr) !important; }
       .ldw-flows-grid > div { margin-top: 0 !important; }
       .ldw-split-grid { grid-template-columns: minmax(0,1fr) !important; }
@@ -67,7 +93,7 @@
       .ldw-split-img { height: 440px !important; }
       .ldw-footer-grid { grid-template-columns: minmax(0,1fr) !important; gap: 32px !important; }
     }
-    @container page (max-width: 700px) {
+    @media (max-width: 700px) {
       h1 { font-size: clamp(38px, 10vw, 54px) !important; padding-left: 0 !important; }
       h2 { font-size: clamp(30px, 8vw, 40px) !important; }
       .ldw-int-grid { grid-template-columns: repeat(3, minmax(0,1fr)) !important; }

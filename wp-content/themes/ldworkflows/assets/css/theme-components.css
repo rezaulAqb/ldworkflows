@@ -1,5 +1,12 @@
 /* LD Workflows — component styles for PHP-rendered templates (nav + hero/orbit). */
 
+/* Responsive rules are @media, not @container. They were container
+   queries, which silently do nothing on Safari 15 / iOS 15 and older,
+   Chrome < 105 and Firefox < 110 — those browsers got the full desktop
+   layout crammed onto a phone. Nothing constrains .ldw-root, so its
+   width always equals the viewport and @media is equivalent here.
+   container-type is kept because it also applies layout containment,
+   which the current positioning relies on. */
 .ldw-root { container-type: inline-size; container-name: page; }
 
 /* ---------- Nav ---------- */
@@ -25,7 +32,7 @@
 .ldw-nav-mobile-list a:hover { background: rgba(35,76,90,0.06); }
 .ldw-nav-mobile-list .sub-menu { list-style: none; margin: 0 0 0 10px; padding: 0; }
 
-@container page (max-width: 1200px) {
+@media (max-width: 1200px) {
   .ldw-nav-links { display: none !important; }
   .ldw-nav-toggle { display: inline-flex !important; margin-left: auto; }
 }
@@ -78,7 +85,7 @@
 .ldw-orbit-node-title { font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; font-size: 14px; color: #234C5A; line-height: 1.2; }
 .ldw-orbit-node-steps { font-size: 11.5px; line-height: 1.3; color: rgba(35,76,90,0.78); }
 
-@container page (max-width: 700px) {
+@media (max-width: 700px) {
   section[data-screen-label].ldw-hero { padding-left: 0 !important; padding-right: 0 !important; }
   .ldw-orbit { height: 380px; margin-top: 24px; width: 100%; box-sizing: border-box; padding: 0 16px 40px; overflow: hidden; }
   .ldw-orbit-disc { width: 173px; height: 173px; }
@@ -117,7 +124,7 @@
 .ldw-vat-step--below .ldw-vat-step-connector { top: calc(50% + 9px); background: linear-gradient(0deg, rgba(89,173,168,0) 0%, #F0C4B4 100%); }
 .ldw-vat-step-dot { position: absolute; left: 50%; top: 50%; box-sizing: border-box; width: 13px; height: 13px; border-radius: 50%; border: 2px solid #E3E6EA; background: #FFFFFF; }
 
-@container page (max-width: 700px) {
+@media (max-width: 700px) {
   .ldw-vat-inner { padding-top: 56px !important; padding-bottom: 52px !important; }
 }
 
@@ -140,7 +147,7 @@
 .ldw-cta-band-trust-item { display: inline-flex; align-items: center; gap: 8px; }
 .ldw-cta-band-check { color: #F6CC9F; }
 
-@container page (max-width: 700px) {
+@media (max-width: 700px) {
   .ldw-cta-band { padding: 80px 24px 88px; }
   .ldw-cta-band-heading { font-size: clamp(34px, 9vw, 48px); }
   .ldw-cta-band-subtext { font-size: 17px; }
@@ -184,7 +191,7 @@
 .ldw-journey-card--peach .ldw-journey-check,
 .ldw-journey-card--mint .ldw-journey-check { color: #234C5A; }
 
-@container page (max-width: 700px) {
+@media (max-width: 700px) {
   .ldw-journey { padding: 72px 24px 80px; }
   .ldw-journey-heading { font-size: clamp(30px, 8vw, 40px); }
   .ldw-journey-subtext { margin-bottom: 44px; }
@@ -203,7 +210,7 @@
 .ldw-int-logo { max-width: 100%; max-height: 100%; width: auto; height: auto; object-fit: contain; display: block; }
 .ldw-int-name { font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 700; font-size: 19px; letter-spacing: -0.015em; color: #234C5A; text-align: center; line-height: 1.2; }
 
-@container page (max-width: 700px) {
+@media (max-width: 700px) {
   .ldw-int { padding: 72px 24px 76px; }
   .ldw-int-heading { font-size: clamp(28px, 7.5vw, 38px); }
   .ldw-int-head { margin-bottom: 32px; }
@@ -240,7 +247,7 @@
 .ldw-compare-summary-highlight { color: #F6CC9F; }
 
 /* ---- iPad portrait ---- */
-@container page (max-width: 1000px) {
+@media (max-width: 1000px) {
   .ldw-compare-inner { padding: 80px 24px 84px; }
   .ldw-compare-heading { font-size: 38px; }
   .ldw-compare-head { margin-bottom: 36px; }
@@ -256,7 +263,7 @@
 
 /* ---- Phones: four columns can't stay legible, so each feature becomes
    a stacked block with its plan names shown inline via data-plan. ---- */
-@container page (max-width: 640px) {
+@media (max-width: 640px) {
   .ldw-compare-inner { padding: 64px 18px 68px; }
   .ldw-compare-heading { font-size: clamp(27px, 7.5vw, 36px); }
   .ldw-compare-eyebrow { font-size: 11px; padding: 7px 14px; margin-bottom: 16px; }
@@ -310,7 +317,7 @@
 /* ---- iPad: keep all plans side by side (that's the point of the
    comparison) and stack each row's label above its value, since a
    label/value pair won't fit across a ~200px card. ---- */
-@container page (max-width: 1000px) {
+@media (max-width: 1000px) {
   .ldw-crm { padding: 0 24px 84px; }
   .ldw-crm-heading { font-size: 38px; }
   .ldw-crm-head { margin-bottom: 36px; }
@@ -328,7 +335,7 @@
 
 /* ---- Phones: one card at a time, so rows go back to label-left /
    value-right across the full width. ---- */
-@container page (max-width: 640px) {
+@media (max-width: 640px) {
   .ldw-crm { padding: 0 18px 68px; }
   .ldw-crm-heading { font-size: clamp(27px, 7.5vw, 36px); }
   .ldw-crm-head { margin-bottom: 28px; }
@@ -364,7 +371,7 @@
 .ldw-case-stat-value { font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; font-size: 44px; line-height: 1; color: #F6CC9F; }
 .ldw-case-stat-label { font-size: 13.5px; opacity: 0.7; margin-top: 8px; }
 
-@container page (max-width: 1000px) {
+@media (max-width: 1000px) {
   .ldw-case { padding: 84px 24px; }
   .ldw-case-heading { font-size: 38px; }
   .ldw-case-grid { grid-template-columns: minmax(0, 1fr); border-radius: 32px; }
@@ -374,7 +381,7 @@
   .ldw-case-stat-value { font-size: 38px; }
 }
 
-@container page (max-width: 640px) {
+@media (max-width: 640px) {
   .ldw-case { padding: 68px 18px; }
   .ldw-case-heading { font-size: clamp(27px, 7.5vw, 36px); }
   .ldw-case-head { margin-bottom: 32px; }
@@ -413,13 +420,24 @@
 .ldw-res-card-text { font-size: 14px; line-height: 1.55; color: rgba(35,76,90,0.68); margin: 0; flex: 1; min-height: 44px; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; }
 .ldw-res-card-arrow { width: 36px; height: 36px; flex: none; border-radius: 50%; background: #234C5A; color: #F7F9FA; display: grid; place-items: center; font-size: 15px; }
 
-@container page (max-width: 1000px) {
+/* Pagination under the Resources page grid. Only renders once there are
+   more articles than the per-page setting, so it is invisible on a new
+   site. paginate_links() emits <a class="page-numbers"> plus a <span>
+   for the current page, hence styling both and overriding the span. */
+.ldw-res-pagination { display: flex; justify-content: center; flex-wrap: wrap; gap: 10px; margin-top: 44px; }
+.ldw-res-pagination .page-numbers { min-width: 44px; padding: 11px 16px; border-radius: 999px; border: 1px solid rgba(35,76,90,0.15); background: #FFFFFF; color: #234C5A; font-size: 15px; font-weight: 600; text-align: center; transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease; }
+.ldw-res-pagination a.page-numbers:hover { background: #EEF6F5; border-color: rgba(35,76,90,0.3); color: #234C5A; }
+.ldw-res-pagination .page-numbers.current { background: #234C5A; border-color: #234C5A; color: #F7F9FA; }
+.ldw-res-pagination .page-numbers.dots { border-color: transparent; background: transparent; }
+}
+
+@media (max-width: 1000px) {
   .ldw-res { padding: 84px 24px; }
   .ldw-res-heading { font-size: 38px; }
   .ldw-res-card--image[style*="--rows:2"] .ldw-res-card-title { font-size: 26px; }
 }
 
-@container page (max-width: 640px) {
+@media (max-width: 640px) {
   .ldw-res { padding: 68px 18px; }
   .ldw-res-heading { font-size: clamp(27px, 7.5vw, 36px); }
   .ldw-res-head { flex-direction: column; align-items: flex-start; gap: 10px; }
@@ -448,7 +466,7 @@
 .ldw-pagination .page-numbers { padding: 10px 16px; border-radius: 999px; background: #EEF2F1; }
 .ldw-pagination .page-numbers.current { background: #234C5A; color: #FFFFFF; }
 
-@container page (max-width: 640px) {
+@media (max-width: 640px) {
   .ldw-page-inner { padding: 52px 18px 72px; }
   .ldw-page-title { font-size: clamp(27px, 7.5vw, 36px); }
   .ldw-post-body { font-size: 16px; }
@@ -475,14 +493,14 @@
 .ldw-demo-card-value { font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; font-size: 30px; color: #F6CC9F; line-height: 1; flex: none; }
 .ldw-demo-card-label { font-size: 14.5px; line-height: 1.45; opacity: 0.8; }
 
-@container page (max-width: 1000px) {
+@media (max-width: 1000px) {
   .ldw-demo { padding: 84px 24px; }
   .ldw-demo-grid { grid-template-columns: minmax(0, 1fr); gap: 36px; padding: 48px 40px; border-radius: 32px; }
   .ldw-demo-heading { font-size: 40px; }
   .ldw-demo-subtext { max-width: none; }
 }
 
-@container page (max-width: 640px) {
+@media (max-width: 640px) {
   .ldw-demo { padding: 68px 18px; }
   .ldw-demo-grid { padding: 36px 24px; border-radius: 26px; gap: 28px; }
   .ldw-demo-heading { font-size: clamp(28px, 8vw, 38px); }
@@ -516,13 +534,13 @@
 .ldw-footer-legal a:hover { color: #234C5A; opacity: 1; }
 .ldw-footer-word { font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; font-size: clamp(60px, 12.5cqw, 168px); letter-spacing: -0.04em; line-height: 0.8; color: rgba(35,76,90,0.08); text-align: center; margin: 44px 0 -34px; white-space: nowrap; user-select: none; }
 
-@container page (max-width: 1000px) {
+@media (max-width: 1000px) {
   .ldw-footer { padding: 64px 24px 24px; }
   .ldw-footer-heading { font-size: 36px; }
   .ldw-footer-top { margin-bottom: 40px; }
 }
 
-@container page (max-width: 640px) {
+@media (max-width: 640px) {
   .ldw-footer { padding: 52px 18px 20px; }
   .ldw-footer-heading { font-size: clamp(26px, 7.5vw, 32px); }
   .ldw-footer-top { gap: 24px; margin-bottom: 32px; }
@@ -545,12 +563,12 @@
 .ldw-btn-ghost { border: 1.5px solid #234C5A; color: #234C5A; font-size: 16px; font-weight: 600; padding: 14.5px 32px; border-radius: 999px; display: inline-block; }
 .ldw-btn-ghost:hover { background: #234C5A; color: #FFFFFF; }
 
-@container page (max-width: 1000px) {
+@media (max-width: 1000px) {
   .ldw-pricing-hero-inner { padding: 76px 24px 72px; }
   .ldw-pricing-heading { font-size: 42px; }
   .ldw-pricing-highlight { font-size: 26px; }
 }
-@container page (max-width: 640px) {
+@media (max-width: 640px) {
   .ldw-pricing-hero-inner { padding: 60px 18px 56px; }
   .ldw-pricing-heading { font-size: clamp(30px, 8.5vw, 36px); }
   .ldw-pricing-highlight { font-size: 21px; }
@@ -603,13 +621,13 @@
 
 .ldw-plans-footnote { text-align: center; font-size: 15px; color: rgba(35,76,90,0.7); margin: 40px auto 0; max-width: 620px; }
 
-@container page (max-width: 1000px) {
+@media (max-width: 1000px) {
   .ldw-plans { padding: 70px 24px; }
   .ldw-plan-grid { gap: 14px; }
   .ldw-plan-card { padding: 28px 22px; }
   .ldw-plan-card--featured { transform: none; }
 }
-@container page (max-width: 640px) {
+@media (max-width: 640px) {
   .ldw-plans { padding: 56px 18px; }
   .ldw-plan-grid { grid-template-columns: minmax(0, 1fr); max-width: 420px; margin: 0 auto; }
   .ldw-plan-price-value { font-size: 40px; }
@@ -623,12 +641,12 @@
 .ldw-vs-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 .ldw-vs-quote { background: #DDE9D3; border-radius: 24px; padding: 34px 40px; margin-top: 28px; display: flex; gap: 20px; align-items: flex-start; }
 
-@container page (max-width: 1000px) {
+@media (max-width: 1000px) {
   .ldw-vs { padding: 0 24px 84px 24px; }
   .ldw-vs-heading { font-size: 34px; }
   .ldw-vs-quote { padding: 28px 30px; }
 }
-@container page (max-width: 640px) {
+@media (max-width: 640px) {
   .ldw-vs { padding: 0 18px 68px 18px; }
   .ldw-vs-grid { grid-template-columns: minmax(0, 1fr); gap: 18px; }
   .ldw-vs-heading { font-size: clamp(26px, 7.5vw, 32px); }
@@ -650,11 +668,11 @@
 .ldw-faq-answer { font-size: 15px; line-height: 1.65; color: rgba(35,76,90,0.72); padding: 0 28px 22px; max-width: 680px; }
 .ldw-faq-answer p { margin: 0; }
 
-@container page (max-width: 1000px) {
+@media (max-width: 1000px) {
   .ldw-faq-inner { padding: 80px 24px 84px; }
   .ldw-faq-heading { font-size: 36px; }
 }
-@container page (max-width: 640px) {
+@media (max-width: 640px) {
   .ldw-faq-inner { padding: 64px 18px 68px; }
   .ldw-faq-heading { font-size: clamp(27px, 7.5vw, 32px); }
   .ldw-faq-question { padding: 18px 20px; font-size: 15.5px; }
@@ -686,13 +704,13 @@
 .ldw-final-cta-btn--ghost { border: 1.5px solid rgba(255,255,255,0.5); color: #FFFFFF; font-weight: 600; padding: 15px 32px; }
 .ldw-final-cta-btn--ghost:hover { background: #FFFFFF; color: #1B3A46; transform: translateY(-2px); }
 
-@container page (max-width: 1000px) {
+@media (max-width: 1000px) {
   .ldw-final-cta { padding: 48px; }
   .ldw-final-cta-heading { font-size: 34px; }
   .ldw-final-cta-accent { font-size: 24px; }
 }
 
-@container page (max-width: 700px) {
+@media (max-width: 700px) {
   .ldw-final-cta-section { padding: 0 18px 68px; }
   .ldw-crmp-checklist + .ldw-final-cta-section { padding-top: 64px; }
   .ldw-final-cta { padding: 34px 26px; border-radius: 28px; gap: 26px; }
@@ -722,12 +740,12 @@
 .ldw-crmp-benefit-title { font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 800; font-size: 19px; letter-spacing: -0.02em; margin: 0 0 8px; color: #234C5A; }
 .ldw-crmp-benefit-text { font-size: 14.5px; line-height: 1.6; color: rgba(35,76,90,0.75); margin: 0; }
 
-@container page (max-width: 1000px) {
+@media (max-width: 1000px) {
   .ldw-crmp-checklist-heading, .ldw-crmp-benefits-heading { font-size: 32px; }
   .ldw-crmp-benefits-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
 
-@container page (max-width: 700px) {
+@media (max-width: 700px) {
   .ldw-crmp-checklist { padding: 64px 18px 0; }
   .ldw-crmp-checklist-heading, .ldw-crmp-benefits-heading { font-size: clamp(25px, 7vw, 30px); }
   .ldw-crmp-checklist-subtext, .ldw-crmp-benefits-subtext { font-size: 16px; }
@@ -757,12 +775,12 @@
 .ldw-crmp-flow-cta { display: inline-flex; align-items: center; gap: 9px; align-self: flex-start; background: #234C5A; color: #F7F9FA; font-size: 15px; font-weight: 700; padding: 12px 24px; border-radius: 999px; transition: transform 0.2s ease, background 0.2s ease; }
 .ldw-crmp-flow-cta:hover { background: #1B3A46; color: #F7F9FA; transform: translateY(-2px); }
 
-@container page (max-width: 1000px) {
+@media (max-width: 1000px) {
   .ldw-crmp-flows-heading { font-size: 32px; }
   .ldw-crmp-flows-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
 
-@container page (max-width: 700px) {
+@media (max-width: 700px) {
   .ldw-crmp-clients { padding: 56px 18px 0; }
   .ldw-crmp-clients-heading { font-size: clamp(22px, 6vw, 26px); }
   .ldw-crmp-clients-row { gap: 18px 28px; }
@@ -792,14 +810,14 @@
 .ldw-crmp-flow-media { margin: -4px -4px 18px; }
 .ldw-crmp-flow-media img { display: block; width: 100%; height: auto; border-radius: 16px; }
 
-@container page (max-width: 1000px) {
+@media (max-width: 1000px) {
   .ldw-crmp-checklist--split .ldw-crmp-checklist-inner { gap: 34px; }
   .ldw-crmp-benefit--split,
   .ldw-crmp-benefit--split.ldw-crmp-benefit--flip { grid-template-columns: 150px minmax(0, 1fr); gap: 26px; }
   .ldw-crmp-benefit--split.ldw-crmp-benefit--flip .ldw-crmp-benefit-media { order: 0; }
 }
 
-@container page (max-width: 700px) {
+@media (max-width: 700px) {
   .ldw-pricing-hero-media { margin-top: 28px; padding: 0 18px; }
   .ldw-crmp-checklist--split .ldw-crmp-checklist-inner { grid-template-columns: minmax(0, 1fr); gap: 24px; }
   .ldw-crmp-checklist--img-right .ldw-crmp-checklist-media { order: 0; }
