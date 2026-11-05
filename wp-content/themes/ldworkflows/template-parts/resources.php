@@ -2,19 +2,39 @@
 /**
  * Resources bento grid, driven by the blog's posts.
  * Section chrome from ACF Options; cards from inc/resources.php.
+ *
+ * Shared by the home page's teaser strip and the Resources page, so the
+ * two can never drift apart. $args['prefix'] picks the field set,
+ * $args['paged'] turns on pagination, and $args['anchor'] keeps the
+ * id="resources" jump target on the home page only — two elements with
+ * the same id would be invalid and break the nav anchor.
  */
 
-$heading = get_field( 'res_heading', 'option' ) ?: 'Resources';
-$subtext = get_field( 'res_subtext', 'option' );
-$limit   = (int) get_field( 'res_count', 'option' );
-$cards   = ldw_get_resource_cards( $limit > 0 ? $limit : 8 );
+$prefix  = ! empty( $args['prefix'] ) ? $args['prefix'] : 'res';
+$anchor  = ! empty( $args['anchor'] );
+$is_page = ! empty( $args['paged'] );
+
+$heading = get_field( "{$prefix}_heading", 'option' ) ?: 'Resources';
+$subtext = get_field( "{$prefix}_subtext", 'option' );
+$limit   = (int) get_field( "{$prefix}_count", 'option' );
+$limit   = $limit > 0 ? $limit : 8;
+
+$max_pages = 1;
+$paged     = 1;
+if ( $is_page ) {
+	// A static page paginates through 'paged' on /page/N/, but WP also
+	// uses 'page' for <!--nextpage--> splits — read both.
+	$paged = max( 1, (int) get_query_var( 'paged' ), (int) get_query_var( 'page' ) );
+}
+
+$cards = ldw_get_resource_cards( $limit, $is_page ? $paged : 0, $max_pages );
 
 if ( ! $cards ) {
 	return;
 }
 ?>
 <div class="ldw-res-band">
-  <section id="resources" data-screen-label="Resources" class="ldw-res">
+  <section <?php if ( $anchor ) : ?>id="resources" <?php endif; ?>data-screen-label="<?php echo esc_attr( ! empty( $args['label'] ) ? $args['label'] : 'Resources' ); ?>" class="ldw-res">
     <div class="ldw-res-head">
       <h2 class="ldw-res-heading"><?php echo esc_html( $heading ); ?></h2>
       <?php if ( $subtext ) : ?>
@@ -56,5 +76,28 @@ if ( ! $cards ) {
         <?php endif; ?>
       <?php endforeach; ?>
     </div>
+
+    <?php
+    if ( $is_page && $max_pages > 1 ) {
+    	$links = paginate_links(
+    		array(
+    			'base'      => trailingslashit( get_permalink() ) . 'page/%#%/',
+    			'format'    => '',
+    			'current'   => $paged,
+    			'total'     => $max_pages,
+    			'type'      => 'array',
+    			'prev_text' => '&larr; Newer',
+    			'next_text' => 'Older &rarr;',
+    		)
+    	);
+    	if ( $links ) :
+    		?>
+    		<nav class="ldw-res-pagination" aria-label="Resources pages">
+    			<?php echo implode( '', $links ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- paginate_links() returns escaped markup. ?>
+    		</nav>
+    		<?php
+    	endif;
+    }
+    ?>
   </section>
 </div>

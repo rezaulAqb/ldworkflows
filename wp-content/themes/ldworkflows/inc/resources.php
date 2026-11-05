@@ -104,20 +104,32 @@ add_action(
 
 /**
  * Posts shaped as resource cards.
+ *
+ * @param int      $limit     Posts to return, or -1 for all.
+ * @param int      $paged     Page number, or 0 for an unpaged run.
+ * @param int|null $max_pages Set by reference to the page count, so the
+ *                            caller can render pagination without
+ *                            running the query a second time.
+ * @return array
  */
-function ldw_get_resource_cards( $limit = 8 ) {
-	$posts = get_posts(
-		array(
-			'post_type'      => 'post',
-			'post_status'    => 'publish',
-			'posts_per_page' => $limit,
-		)
+function ldw_get_resource_cards( $limit = 8, $paged = 0, &$max_pages = null ) {
+	$query_args = array(
+		'post_type'      => 'post',
+		'post_status'    => 'publish',
+		'posts_per_page' => $limit,
 	);
+
+	if ( $paged > 0 ) {
+		$query_args['paged'] = $paged;
+	}
+
+	$query     = new WP_Query( $query_args );
+	$max_pages = (int) $query->max_num_pages;
 
 	$sizes = ldw_resource_sizes();
 	$cards = array();
 
-	foreach ( $posts as $post ) {
+	foreach ( $query->posts as $post ) {
 		$key  = get_field( 'resource_size', $post->ID );
 		$size = isset( $sizes[ $key ] ) ? $sizes[ $key ] : $sizes['small'];
 

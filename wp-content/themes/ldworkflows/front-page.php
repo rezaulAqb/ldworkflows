@@ -15,6 +15,6 @@ get_template_part( 'template-parts/integrations' );
 get_template_part( 'template-parts/comparison' );
 get_template_part( 'template-parts/crm-comparison' );
 get_template_part( 'template-parts/case-study' );
-get_template_part( 'template-parts/resources' );
+get_template_part( 'template-parts/resources', null, array( 'anchor' => true ) );
 get_template_part( 'template-parts/demo-cta' );
 get_footer();

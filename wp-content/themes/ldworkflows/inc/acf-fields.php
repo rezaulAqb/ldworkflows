@@ -724,6 +724,106 @@ add_action(
 			'ldw_render_p2p_final_cta_page'
 		);
 		add_action( "load-{$p2p_final_cta_hook}", 'acf_form_head' );
+
+		$resources_hero_hook = add_submenu_page(
+			'theme-content',
+			'Resources Page Hero',
+			'Resources Page Hero',
+			'edit_posts',
+			'theme-content-resources-hero',
+			'ldw_render_resources_hero_page'
+		);
+		add_action( "load-{$resources_hero_hook}", 'acf_form_head' );
+
+		$resources_grid_hook = add_submenu_page(
+			'theme-content',
+			'Resources Grid',
+			'Resources Grid',
+			'edit_posts',
+			'theme-content-resources-grid',
+			'ldw_render_resources_grid_page'
+		);
+		add_action( "load-{$resources_grid_hook}", 'acf_form_head' );
+
+		$resources_final_cta_hook = add_submenu_page(
+			'theme-content',
+			'Resources Final CTA',
+			'Resources Final CTA',
+			'edit_posts',
+			'theme-content-resources-final-cta',
+			'ldw_render_resources_final_cta_page'
+		);
+		add_action( "load-{$resources_final_cta_hook}", 'acf_form_head' );
+
+		$reporting_hero_hook = add_submenu_page(
+			'theme-content',
+			'Reporting Hero',
+			'Reporting Hero',
+			'edit_posts',
+			'theme-content-reporting-hero',
+			'ldw_render_reporting_hero_page'
+		);
+		add_action( "load-{$reporting_hero_hook}", 'acf_form_head' );
+
+		$reporting_dashboards_hook = add_submenu_page(
+			'theme-content',
+			'Reporting Dashboards',
+			'Reporting Dashboards',
+			'edit_posts',
+			'theme-content-reporting-dashboards',
+			'ldw_render_reporting_dashboards_page'
+		);
+		add_action( "load-{$reporting_dashboards_hook}", 'acf_form_head' );
+
+		$reporting_reports_hook = add_submenu_page(
+			'theme-content',
+			'Reporting Reports',
+			'Reporting Reports',
+			'edit_posts',
+			'theme-content-reporting-reports',
+			'ldw_render_reporting_reports_page'
+		);
+		add_action( "load-{$reporting_reports_hook}", 'acf_form_head' );
+
+		$reporting_source_hook = add_submenu_page(
+			'theme-content',
+			'Reporting Single Source',
+			'Reporting Single Source',
+			'edit_posts',
+			'theme-content-reporting-source',
+			'ldw_render_reporting_source_page'
+		);
+		add_action( "load-{$reporting_source_hook}", 'acf_form_head' );
+
+		$reporting_benefits_hook = add_submenu_page(
+			'theme-content',
+			'Reporting Benefits Section',
+			'Reporting Benefits Section',
+			'edit_posts',
+			'theme-content-reporting-benefits',
+			'ldw_render_reporting_benefits_page'
+		);
+		add_action( "load-{$reporting_benefits_hook}", 'acf_form_head' );
+
+		$reporting_final_cta_hook = add_submenu_page(
+			'theme-content',
+			'Reporting Final CTA',
+			'Reporting Final CTA',
+			'edit_posts',
+			'theme-content-reporting-final-cta',
+			'ldw_render_reporting_final_cta_page'
+		);
+		add_action( "load-{$reporting_final_cta_hook}", 'acf_form_head' );
+
+		$contact_hook = add_submenu_page(
+			'theme-content',
+			'Contact Form Embed',
+			'Contact Form Embed',
+			'edit_posts',
+			'theme-content-contact',
+			'ldw_render_contact_page'
+		);
+		add_action( "load-{$contact_hook}", 'acf_form_head' );
 	}
 );
 
@@ -1823,6 +1923,192 @@ function ldw_render_p2p_final_cta_page() {
 				'field_groups'    => array( 'group_p2p_final_cta' ),
 				'submit_value'    => 'Save',
 				'updated_message' => 'Procure to Pay Final CTA updated.',
+			)
+		);
+		?>
+	</div>
+	<?php
+}
+
+function ldw_render_resources_hero_page() {
+	?>
+	<div class="wrap">
+		<h1>Resources Page Hero</h1>
+		<?php
+		acf_form(
+			array(
+				'post_id'         => 'option',
+				'field_groups'    => array( 'group_resources_hero' ),
+				'submit_value'    => 'Save',
+				'updated_message' => 'Resources Page Hero updated.',
+			)
+		);
+		?>
+	</div>
+	<?php
+}
+
+function ldw_render_resources_grid_page() {
+	?>
+	<div class="wrap">
+		<h1>Resources Grid</h1>
+		<p>Articles are ordinary blog posts — add and edit them under Posts.</p>
+		<?php
+		acf_form(
+			array(
+				'post_id'         => 'option',
+				'field_groups'    => array( 'group_resources_grid' ),
+				'submit_value'    => 'Save',
+				'updated_message' => 'Resources Grid updated.',
+			)
+		);
+		?>
+	</div>
+	<?php
+}
+
+function ldw_render_resources_final_cta_page() {
+	?>
+	<div class="wrap">
+		<h1>Resources Final CTA</h1>
+		<?php
+		acf_form(
+			array(
+				'post_id'         => 'option',
+				'field_groups'    => array( 'group_resources_final_cta' ),
+				'submit_value'    => 'Save',
+				'updated_message' => 'Resources Final CTA updated.',
+			)
+		);
+		?>
+	</div>
+	<?php
+}
+
+function ldw_render_reporting_hero_page() {
+	?>
+	<div class="wrap">
+		<h1>Reporting Hero</h1>
+		<?php
+		acf_form(
+			array(
+				'post_id'         => 'option',
+				'field_groups'    => array( 'group_reporting_hero' ),
+				'submit_value'    => 'Save',
+				'updated_message' => 'Reporting Hero updated.',
+			)
+		);
+		?>
+	</div>
+	<?php
+}
+
+function ldw_render_reporting_dashboards_page() {
+	?>
+	<div class="wrap">
+		<h1>Reporting Dashboards</h1>
+		<p>One checklist item per line.</p>
+		<?php
+		acf_form(
+			array(
+				'post_id'         => 'option',
+				'field_groups'    => array( 'group_reporting_dashboards' ),
+				'submit_value'    => 'Save',
+				'updated_message' => 'Reporting Dashboards updated.',
+			)
+		);
+		?>
+	</div>
+	<?php
+}
+
+function ldw_render_reporting_reports_page() {
+	?>
+	<div class="wrap">
+		<h1>Reporting Reports</h1>
+		<p>One checklist item per line.</p>
+		<?php
+		acf_form(
+			array(
+				'post_id'         => 'option',
+				'field_groups'    => array( 'group_reporting_reports' ),
+				'submit_value'    => 'Save',
+				'updated_message' => 'Reporting Reports updated.',
+			)
+		);
+		?>
+	</div>
+	<?php
+}
+
+function ldw_render_reporting_source_page() {
+	?>
+	<div class="wrap">
+		<h1>Reporting Single Source</h1>
+		<p>One checklist item per line.</p>
+		<?php
+		acf_form(
+			array(
+				'post_id'         => 'option',
+				'field_groups'    => array( 'group_reporting_source' ),
+				'submit_value'    => 'Save',
+				'updated_message' => 'Reporting Single Source updated.',
+			)
+		);
+		?>
+	</div>
+	<?php
+}
+
+function ldw_render_reporting_benefits_page() {
+	?>
+	<div class="wrap">
+		<h1>Reporting Benefits Section</h1>
+		<p>The cards themselves live under Reporting Benefits.</p>
+		<?php
+		acf_form(
+			array(
+				'post_id'         => 'option',
+				'field_groups'    => array( 'group_reporting_benefits' ),
+				'submit_value'    => 'Save',
+				'updated_message' => 'Reporting Benefits Section updated.',
+			)
+		);
+		?>
+	</div>
+	<?php
+}
+
+function ldw_render_reporting_final_cta_page() {
+	?>
+	<div class="wrap">
+		<h1>Reporting Final CTA</h1>
+		<?php
+		acf_form(
+			array(
+				'post_id'         => 'option',
+				'field_groups'    => array( 'group_reporting_final_cta' ),
+				'submit_value'    => 'Save',
+				'updated_message' => 'Reporting Final CTA updated.',
+			)
+		);
+		?>
+	</div>
+	<?php
+}
+
+function ldw_render_contact_page() {
+	?>
+	<div class="wrap">
+		<h1>Contact Form Embed</h1>
+		<p>The Contact page renders this form inside this site&rsquo;s header and footer, forwarding submissions to the CRM. The form&rsquo;s own fields are edited in the CRM, not here.</p>
+		<?php
+		acf_form(
+			array(
+				'post_id'         => 'option',
+				'field_groups'    => array( 'group_contact_embed' ),
+				'submit_value'    => 'Save',
+				'updated_message' => 'Contact Form Embed updated.',
 			)
 		);
 		?>
@@ -5306,6 +5592,525 @@ add_action(
 							'param'    => 'options_page',
 							'operator' => '==',
 							'value'    => 'theme-content-p2p-final-cta',
+						),
+					),
+				),
+			)
+		);
+
+		acf_add_local_field_group(
+			array(
+				'key'      => 'group_resources_hero',
+				'title'    => 'Resources Page Hero',
+				'fields'   => array(
+					array(
+						'key'           => 'field_resources_hero_eyebrow',
+						'label'         => 'Eyebrow pill',
+						'name'          => 'resources_hero_eyebrow',
+						'type'          => 'text',
+						'instructions'  => 'Leave blank to hide it.',
+						'default_value' => 'Resources',
+					),
+					array(
+						'key'   => 'field_resources_hero_heading',
+						'label' => 'Heading',
+						'name'  => 'resources_hero_heading',
+						'type'  => 'text',
+					),
+					array(
+						'key'          => 'field_resources_hero_highlight',
+						'label'        => 'Accent line (italic)',
+						'name'         => 'resources_hero_highlight',
+						'type'         => 'text',
+						'instructions' => 'Leave blank to hide it.',
+					),
+					array(
+						'key'   => 'field_resources_hero_subtext',
+						'label' => 'Subtext',
+						'name'  => 'resources_hero_subtext',
+						'type'  => 'textarea',
+						'rows'  => 3,
+					),
+					array(
+						'key'          => 'field_resources_hero_primary_text',
+						'label'        => 'Primary button text',
+						'name'         => 'resources_hero_primary_text',
+						'type'         => 'text',
+						'instructions' => 'Leave blank to hide the button.',
+					),
+					array(
+						'key'   => 'field_resources_hero_primary_url',
+						'label' => 'Primary button URL',
+						'name'  => 'resources_hero_primary_url',
+						'type'  => 'text',
+					),
+					array(
+						'key'          => 'field_resources_hero_secondary_text',
+						'label'        => 'Secondary button text',
+						'name'         => 'resources_hero_secondary_text',
+						'type'         => 'text',
+						'instructions' => 'Leave blank to hide the button.',
+					),
+					array(
+						'key'   => 'field_resources_hero_secondary_url',
+						'label' => 'Secondary button URL',
+						'name'  => 'resources_hero_secondary_url',
+						'type'  => 'text',
+					),
+					array(
+						'key'           => 'field_resources_hero_image',
+						'label'         => 'Hero image',
+						'name'          => 'resources_hero_image',
+						'type'          => 'image',
+						'return_format' => 'array',
+						'preview_size'  => 'medium',
+						'instructions'  => 'Shown below the buttons. Leave empty to hide.',
+					),
+				),
+				'location' => array(
+					array(
+						array(
+							'param'    => 'options_page',
+							'operator' => '==',
+							'value'    => 'theme-content-resources-hero',
+						),
+					),
+				),
+			)
+		);
+
+		acf_add_local_field_group(
+			array(
+				'key'      => 'group_resources_grid',
+				'title'    => 'Resources Grid',
+				'fields'   => array(
+					array(
+						'key'          => 'field_resp_heading',
+						'label'        => 'Heading',
+						'name'         => 'resp_heading',
+						'type'         => 'text',
+						'instructions' => 'Sits above the grid of articles.',
+					),
+					array(
+						'key'   => 'field_resp_subtext',
+						'label' => 'Subheading',
+						'name'  => 'resp_subtext',
+						'type'  => 'textarea',
+						'rows'  => 2,
+					),
+					array(
+						'key'           => 'field_resp_count',
+						'label'         => 'Articles per page',
+						'name'          => 'resp_count',
+						'type'          => 'number',
+						'instructions'  => 'How many articles to show before paginating. The articles themselves are ordinary blog posts — add them under Posts.',
+						'default_value' => 12,
+						'min'           => 1,
+						'max'           => 48,
+					),
+				),
+				'location' => array(
+					array(
+						array(
+							'param'    => 'options_page',
+							'operator' => '==',
+							'value'    => 'theme-content-resources-grid',
+						),
+					),
+				),
+			)
+		);
+
+		acf_add_local_field_group(
+			array(
+				'key'      => 'group_resources_final_cta',
+				'title'    => 'Resources Final CTA',
+				'fields'   => array(
+					array(
+						'key'   => 'field_resources_final_cta_heading',
+						'label' => 'Heading',
+						'name'  => 'resources_final_cta_heading',
+						'type'  => 'text',
+					),
+					array(
+						'key'          => 'field_resources_final_cta_accent',
+						'label'        => 'Accent line (italic)',
+						'name'         => 'resources_final_cta_accent',
+						'type'         => 'text',
+						'instructions' => 'Leave blank to hide it.',
+					),
+					array(
+						'key'          => 'field_resources_final_cta_primary_text',
+						'label'        => 'Primary button text',
+						'name'         => 'resources_final_cta_primary_text',
+						'type'         => 'text',
+						'instructions' => 'Leave blank to hide the button.',
+					),
+					array(
+						'key'   => 'field_resources_final_cta_primary_url',
+						'label' => 'Primary button URL',
+						'name'  => 'resources_final_cta_primary_url',
+						'type'  => 'text',
+					),
+					array(
+						'key'          => 'field_resources_final_cta_secondary_text',
+						'label'        => 'Secondary button text',
+						'name'         => 'resources_final_cta_secondary_text',
+						'type'         => 'text',
+						'instructions' => 'Leave blank to hide the button.',
+					),
+					array(
+						'key'   => 'field_resources_final_cta_secondary_url',
+						'label' => 'Secondary button URL',
+						'name'  => 'resources_final_cta_secondary_url',
+						'type'  => 'text',
+					),
+				),
+				'location' => array(
+					array(
+						array(
+							'param'    => 'options_page',
+							'operator' => '==',
+							'value'    => 'theme-content-resources-final-cta',
+						),
+					),
+				),
+			)
+		);
+
+		acf_add_local_field_group(
+			array(
+				'key'      => 'group_reporting_hero',
+				'title'    => 'Reporting Hero',
+				'fields'   => array(
+					array(
+						'key'           => 'field_reporting_hero_eyebrow',
+						'label'         => 'Eyebrow pill',
+						'name'          => 'reporting_hero_eyebrow',
+						'type'          => 'text',
+						'instructions'  => 'Leave blank to hide it.',
+						'default_value' => 'Reporting',
+					),
+					array(
+						'key'   => 'field_reporting_hero_heading',
+						'label' => 'Heading',
+						'name'  => 'reporting_hero_heading',
+						'type'  => 'text',
+					),
+					array(
+						'key'          => 'field_reporting_hero_highlight',
+						'label'        => 'Accent line (italic)',
+						'name'         => 'reporting_hero_highlight',
+						'type'         => 'text',
+						'instructions' => 'Leave blank to hide it.',
+					),
+					array(
+						'key'   => 'field_reporting_hero_subtext',
+						'label' => 'Subtext',
+						'name'  => 'reporting_hero_subtext',
+						'type'  => 'textarea',
+						'rows'  => 3,
+					),
+					array(
+						'key'          => 'field_reporting_hero_primary_text',
+						'label'        => 'Primary button text',
+						'name'         => 'reporting_hero_primary_text',
+						'type'         => 'text',
+						'instructions' => 'Leave blank to hide the button.',
+					),
+					array(
+						'key'   => 'field_reporting_hero_primary_url',
+						'label' => 'Primary button URL',
+						'name'  => 'reporting_hero_primary_url',
+						'type'  => 'text',
+					),
+					array(
+						'key'          => 'field_reporting_hero_secondary_text',
+						'label'        => 'Secondary button text',
+						'name'         => 'reporting_hero_secondary_text',
+						'type'         => 'text',
+						'instructions' => 'Leave blank to hide the button.',
+					),
+					array(
+						'key'   => 'field_reporting_hero_secondary_url',
+						'label' => 'Secondary button URL',
+						'name'  => 'reporting_hero_secondary_url',
+						'type'  => 'text',
+					),
+					array(
+						'key'           => 'field_reporting_hero_image',
+						'label'         => 'Hero image',
+						'name'          => 'reporting_hero_image',
+						'type'          => 'image',
+						'return_format' => 'array',
+						'preview_size'  => 'medium',
+						'instructions'  => 'Shown below the buttons. Leave empty to hide.',
+					),
+				),
+				'location' => array(
+					array(
+						array(
+							'param'    => 'options_page',
+							'operator' => '==',
+							'value'    => 'theme-content-reporting-hero',
+						),
+					),
+				),
+			)
+		);
+
+		acf_add_local_field_group(
+			array(
+				'key'      => 'group_reporting_dashboards',
+				'title'    => 'Reporting Dashboards',
+				'fields'   => array(
+					array(
+						'key'   => 'field_reporting_dashboards_heading',
+						'label' => 'Heading',
+						'name'  => 'reporting_dashboards_heading',
+						'type'  => 'text',
+					),
+					array(
+						'key'   => 'field_reporting_dashboards_subtext',
+						'label' => 'Subheading',
+						'name'  => 'reporting_dashboards_subtext',
+						'type'  => 'textarea',
+						'rows'  => 2,
+					),
+					array(
+						'key'          => 'field_reporting_dashboards_items',
+						'label'        => 'Checklist items',
+						'name'         => 'reporting_dashboards_items',
+						'type'         => 'textarea',
+						'rows'         => 8,
+						'instructions' => 'One per line.',
+					),
+					array(
+						'key'           => 'field_reporting_dashboards_image',
+						'label'         => 'Section image',
+						'name'          => 'reporting_dashboards_image',
+						'type'          => 'image',
+						'return_format' => 'array',
+						'preview_size'  => 'medium',
+						'instructions'  => 'Sits beside the checklist. Leave empty for a centred, full-width list.',
+					),
+				),
+				'location' => array(
+					array(
+						array(
+							'param'    => 'options_page',
+							'operator' => '==',
+							'value'    => 'theme-content-reporting-dashboards',
+						),
+					),
+				),
+			)
+		);
+
+		acf_add_local_field_group(
+			array(
+				'key'      => 'group_reporting_reports',
+				'title'    => 'Reporting Reports',
+				'fields'   => array(
+					array(
+						'key'   => 'field_reporting_reports_heading',
+						'label' => 'Heading',
+						'name'  => 'reporting_reports_heading',
+						'type'  => 'text',
+					),
+					array(
+						'key'   => 'field_reporting_reports_subtext',
+						'label' => 'Subheading',
+						'name'  => 'reporting_reports_subtext',
+						'type'  => 'textarea',
+						'rows'  => 2,
+					),
+					array(
+						'key'          => 'field_reporting_reports_items',
+						'label'        => 'Checklist items',
+						'name'         => 'reporting_reports_items',
+						'type'         => 'textarea',
+						'rows'         => 8,
+						'instructions' => 'One per line.',
+					),
+					array(
+						'key'           => 'field_reporting_reports_image',
+						'label'         => 'Section image',
+						'name'          => 'reporting_reports_image',
+						'type'          => 'image',
+						'return_format' => 'array',
+						'preview_size'  => 'medium',
+						'instructions'  => 'Sits beside the checklist. Leave empty for a centred, full-width list.',
+					),
+				),
+				'location' => array(
+					array(
+						array(
+							'param'    => 'options_page',
+							'operator' => '==',
+							'value'    => 'theme-content-reporting-reports',
+						),
+					),
+				),
+			)
+		);
+
+		acf_add_local_field_group(
+			array(
+				'key'      => 'group_reporting_source',
+				'title'    => 'Reporting Single Source',
+				'fields'   => array(
+					array(
+						'key'   => 'field_reporting_source_heading',
+						'label' => 'Heading',
+						'name'  => 'reporting_source_heading',
+						'type'  => 'text',
+					),
+					array(
+						'key'   => 'field_reporting_source_subtext',
+						'label' => 'Subheading',
+						'name'  => 'reporting_source_subtext',
+						'type'  => 'textarea',
+						'rows'  => 2,
+					),
+					array(
+						'key'          => 'field_reporting_source_items',
+						'label'        => 'Checklist items',
+						'name'         => 'reporting_source_items',
+						'type'         => 'textarea',
+						'rows'         => 8,
+						'instructions' => 'One per line.',
+					),
+					array(
+						'key'           => 'field_reporting_source_image',
+						'label'         => 'Section image',
+						'name'          => 'reporting_source_image',
+						'type'          => 'image',
+						'return_format' => 'array',
+						'preview_size'  => 'medium',
+						'instructions'  => 'Sits beside the checklist. Leave empty for a centred, full-width list.',
+					),
+				),
+				'location' => array(
+					array(
+						array(
+							'param'    => 'options_page',
+							'operator' => '==',
+							'value'    => 'theme-content-reporting-source',
+						),
+					),
+				),
+			)
+		);
+
+		acf_add_local_field_group(
+			array(
+				'key'      => 'group_reporting_benefits',
+				'title'    => 'Reporting Benefits Section',
+				'fields'   => array(
+					array(
+						'key'          => 'field_reporting_benefits_heading',
+						'label'        => 'Heading',
+						'name'         => 'reporting_benefits_heading',
+						'type'         => 'text',
+						'instructions' => 'Leave blank to hide the whole section.',
+					),
+					array(
+						'key'   => 'field_reporting_benefits_subtext',
+						'label' => 'Subheading',
+						'name'  => 'reporting_benefits_subtext',
+						'type'  => 'textarea',
+						'rows'  => 2,
+					),
+				),
+				'location' => array(
+					array(
+						array(
+							'param'    => 'options_page',
+							'operator' => '==',
+							'value'    => 'theme-content-reporting-benefits',
+						),
+					),
+				),
+			)
+		);
+
+		acf_add_local_field_group(
+			array(
+				'key'      => 'group_reporting_final_cta',
+				'title'    => 'Reporting Final CTA',
+				'fields'   => array(
+					array(
+						'key'   => 'field_reporting_final_cta_heading',
+						'label' => 'Heading',
+						'name'  => 'reporting_final_cta_heading',
+						'type'  => 'text',
+					),
+					array(
+						'key'          => 'field_reporting_final_cta_accent',
+						'label'        => 'Accent line (italic)',
+						'name'         => 'reporting_final_cta_accent',
+						'type'         => 'text',
+						'instructions' => 'Leave blank to hide it.',
+					),
+					array(
+						'key'          => 'field_reporting_final_cta_primary_text',
+						'label'        => 'Primary button text',
+						'name'         => 'reporting_final_cta_primary_text',
+						'type'         => 'text',
+						'instructions' => 'Leave blank to hide the button.',
+					),
+					array(
+						'key'   => 'field_reporting_final_cta_primary_url',
+						'label' => 'Primary button URL',
+						'name'  => 'reporting_final_cta_primary_url',
+						'type'  => 'text',
+					),
+					array(
+						'key'          => 'field_reporting_final_cta_secondary_text',
+						'label'        => 'Secondary button text',
+						'name'         => 'reporting_final_cta_secondary_text',
+						'type'         => 'text',
+						'instructions' => 'Leave blank to hide the button.',
+					),
+					array(
+						'key'   => 'field_reporting_final_cta_secondary_url',
+						'label' => 'Secondary button URL',
+						'name'  => 'reporting_final_cta_secondary_url',
+						'type'  => 'text',
+					),
+				),
+				'location' => array(
+					array(
+						array(
+							'param'    => 'options_page',
+							'operator' => '==',
+							'value'    => 'theme-content-reporting-final-cta',
+						),
+					),
+				),
+			)
+		);
+
+		acf_add_local_field_group(
+			array(
+				'key'      => 'group_contact_embed',
+				'title'    => 'Contact Form Embed',
+				'fields'   => array(
+					array(
+						'key'          => 'field_contact_embed_url',
+						'label'        => 'Form URL',
+						'name'         => 'contact_embed_url',
+						'type'         => 'url',
+						'instructions' => 'The external enquiry form to embed. It is shown inside this site\'s header and footer.',
+					),
+				),
+				'location' => array(
+					array(
+						array(
+							'param'    => 'options_page',
+							'operator' => '==',
+							'value'    => 'theme-content-contact',
 						),
 					),
 				),

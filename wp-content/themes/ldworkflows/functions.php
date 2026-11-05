@@ -44,6 +44,15 @@ function ldw_assets() {
 	wp_enqueue_style( 'ldw-style', get_stylesheet_uri(), array( 'ldw-components' ), LDW_THEME_VERSION );
 
 	wp_enqueue_script( 'ldw-main', LDW_THEME_URI . '/assets/js/main.js', array(), LDW_THEME_VERSION, true );
+
+	// Only the Contact page renders the CRM's form, so its styles, icon
+	// font and captcha stay off every other page.
+	if ( is_page_template( 'page-contact.php' ) || is_page( 'contact' ) ) {
+		wp_enqueue_style( 'ldw-contact-font', 'https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400&display=swap', array(), null );
+		wp_enqueue_style( 'ldw-contact-form', LDW_THEME_URI . '/assets/css/contact-form.css', array( 'ldw-components' ), LDW_THEME_VERSION );
+		wp_enqueue_style( 'ldw-contact-icons', 'https://my.lightdegree.com/static/v2/css/font-awesome-all.css', array(), null );
+		wp_enqueue_script( 'ldw-recaptcha', 'https://www.google.com/recaptcha/api.js', array(), null, true );
+	}
 }
 add_action( 'wp_enqueue_scripts', 'ldw_assets' );
 
@@ -64,6 +73,8 @@ require LDW_THEME_DIR . '/inc/ecommerce-benefits-cpt.php';
 require LDW_THEME_DIR . '/inc/ai-benefits-cpt.php';
 require LDW_THEME_DIR . '/inc/o2c-benefits-cpt.php';
 require LDW_THEME_DIR . '/inc/p2p-benefits-cpt.php';
+require LDW_THEME_DIR . '/inc/reporting-benefits-cpt.php';
 require LDW_THEME_DIR . '/inc/resources.php';
+require LDW_THEME_DIR . '/inc/contact-proxy.php';
 require LDW_THEME_DIR . '/inc/acf-fields.php';
 require LDW_THEME_DIR . '/inc/seed-content.php';
