@@ -1,0 +1,23 @@
+# Local WordPress install — core is third-party and reinstallable with
+# `wp core download`, so only this project's own code is tracked.
+/wp-admin/
+/wp-includes/
+/wp-*.php
+/index.php
+/xmlrpc.php
+/.htaccess
+/license.txt
+/readme.html
+
+# Site config and generated content
+wp-config.php
+wp-content/uploads/
+wp-content/cache/
+wp-content/upgrade/
+*.log
+
+# Everything under wp-content except this project's theme
+wp-content/*
+!wp-content/themes/
+wp-content/themes/*
+!wp-content/themes/ldworkflows/
