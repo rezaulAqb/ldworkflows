@@ -824,8 +824,42 @@ add_action(
 			'ldw_render_contact_page'
 		);
 		add_action( "load-{$contact_hook}", 'acf_form_head' );
+
+		$legal_final_cta_hook = add_submenu_page(
+			'theme-content',
+			'Legal Pages Final CTA',
+			'Legal Pages Final CTA',
+			'edit_posts',
+			'theme-content-legal-final-cta',
+			'ldw_render_legal_final_cta_page'
+		);
+		add_action( "load-{$legal_final_cta_hook}", 'acf_form_head' );
 	}
 );
+
+/**
+ * Shared by every page using the "Legal page" template, so the Terms,
+ * Privacy and Cookies pages close with the same band rather than each
+ * needing its own screen.
+ */
+function ldw_render_legal_final_cta_page() {
+	?>
+	<div class="wrap">
+		<h1>Legal Pages Final CTA</h1>
+		<p>Shown at the foot of every page using the "Legal page" template. Leave the heading and both buttons blank to hide the band.</p>
+		<?php
+		acf_form(
+			array(
+				'post_id'         => 'option',
+				'field_groups'    => array( 'group_legal_final_cta' ),
+				'submit_value'    => 'Save',
+				'updated_message' => 'Legal Pages Final CTA updated.',
+			)
+		);
+		?>
+	</div>
+	<?php
+}
 
 function ldw_render_hero_section_page() {
 	?>
@@ -6692,6 +6726,96 @@ add_action(
 						),
 					),
 				),
+			)
+		);
+
+		acf_add_local_field_group(
+			array(
+				'key'      => 'group_legal_final_cta',
+				'title'    => 'Legal Pages Final CTA',
+				'fields'   => array(
+					array(
+						'key'   => 'field_legal_final_cta_heading',
+						'label' => 'Heading',
+						'name'  => 'legal_final_cta_heading',
+						'type'  => 'text',
+					),
+					array(
+						'key'          => 'field_legal_final_cta_accent',
+						'label'        => 'Accent line (italic)',
+						'name'         => 'legal_final_cta_accent',
+						'type'         => 'text',
+						'instructions' => 'Leave blank to hide it.',
+					),
+					array(
+						'key'          => 'field_legal_final_cta_primary_text',
+						'label'        => 'Primary button text',
+						'name'         => 'legal_final_cta_primary_text',
+						'type'         => 'text',
+						'instructions' => 'Leave blank to hide the button.',
+					),
+					array(
+						'key'   => 'field_legal_final_cta_primary_url',
+						'label' => 'Primary button URL',
+						'name'  => 'legal_final_cta_primary_url',
+						'type'  => 'text',
+					),
+					array(
+						'key'          => 'field_legal_final_cta_secondary_text',
+						'label'        => 'Secondary button text',
+						'name'         => 'legal_final_cta_secondary_text',
+						'type'         => 'text',
+						'instructions' => 'Leave blank to hide the button.',
+					),
+					array(
+						'key'   => 'field_legal_final_cta_secondary_url',
+						'label' => 'Secondary button URL',
+						'name'  => 'legal_final_cta_secondary_url',
+						'type'  => 'text',
+					),
+				),
+				'location' => array(
+					array(
+						array(
+							'param'    => 'options_page',
+							'operator' => '==',
+							'value'    => 'theme-content-legal-final-cta',
+						),
+					),
+				),
+			)
+		);
+
+		/*
+		 * Per-page switches for the Legal template. Unlike the rest of the
+		 * theme's fields these live on the page itself rather than on an
+		 * options screen, because the answer differs per policy page.
+		 */
+		acf_add_local_field_group(
+			array(
+				'key'      => 'group_legal_page',
+				'title'    => 'Legal page options',
+				'fields'   => array(
+					array(
+						'key'           => 'field_legal_show_resources',
+						'label'         => 'Show the Resources grid',
+						'name'          => 'legal_show_resources',
+						'type'          => 'true_false',
+						'ui'            => 1,
+						'instructions'  => 'Adds the blog card grid above the closing band, as on the original site.',
+						'default_value' => 0,
+					),
+				),
+				'location' => array(
+					array(
+						array(
+							'param'    => 'page_template',
+							'operator' => '==',
+							'value'    => 'template-legal.php',
+						),
+					),
+				),
+				'position' => 'side',
 			)
 		);
 	}
