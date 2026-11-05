@@ -96,6 +96,31 @@ class LDW_Nav_Walker extends Walker_Nav_Menu {
 }
 
 /**
+ * Menu-item args for a seeded link. When a page with $slug exists the item
+ * is stored as a real post_type item, so it follows the page if its
+ * permalink or the site URL changes and shows the page link in
+ * Appearance > Menus. Pages that don't exist yet fall back to the raw
+ * path, which is also how plain anchors like "#resources" pass through.
+ */
+function ldw_menu_item_args( $label, $slug ) {
+	$args = array(
+		'menu-item-title'  => $label,
+		'menu-item-status' => 'publish',
+	);
+
+	$page = ( 0 === strpos( $slug, '#' ) ) ? null : get_page_by_path( trim( $slug, '/' ) );
+	if ( $page ) {
+		$args['menu-item-type']      = 'post_type';
+		$args['menu-item-object']    = 'page';
+		$args['menu-item-object-id'] = $page->ID;
+	} else {
+		$args['menu-item-url'] = $slug;
+	}
+
+	return $args;
+}
+
+/**
  * Create the default primary + footer menus on first activation, matching
  * the original design, so navigation isn't empty out of the box.
  */
@@ -116,11 +141,14 @@ function ldw_seed_menus() {
 			'menu-item-url'    => '#',
 			'menu-item-status' => 'publish',
 		) );
-		foreach ( array( 'ERP', 'CRM', 'Field Service', 'Warehouse', 'E-commerce' ) as $i => $label ) {
-			wp_update_nav_menu_item( $menu_id, 0, array(
-				'menu-item-title'     => $label,
-				'menu-item-url'       => '#',
-				'menu-item-status'    => 'publish',
+		foreach ( array(
+			'ERP'           => '/erp/',
+			'CRM'           => '/crm/',
+			'Field Service' => '/service/',
+			'Warehouse'     => '/warehouse/',
+			'E-commerce'    => '/ecommerce/',
+		) as $label => $slug ) {
+			wp_update_nav_menu_item( $menu_id, 0, ldw_menu_item_args( $label, $slug ) + array(
 				'menu-item-parent-id' => $product,
 			) );
 		}
@@ -130,26 +158,23 @@ function ldw_seed_menus() {
 			'menu-item-url'    => '#',
 			'menu-item-status' => 'publish',
 		) );
-		foreach ( array( 'Order to Cash', 'Procure to Pay', 'Accounting and MTD VAT', 'Reporting', 'AI integration' ) as $label ) {
-			wp_update_nav_menu_item( $menu_id, 0, array(
-				'menu-item-title'     => $label,
-				'menu-item-url'       => '#',
-				'menu-item-status'    => 'publish',
+		foreach ( array(
+			'Order to Cash'  => '/order-to-cash/',
+			'Procure to Pay' => '/procure-to-pay/',
+			'Reporting'      => '/reporting/',
+			'AI integration' => '/ai-integration/',
+		) as $label => $slug ) {
+			wp_update_nav_menu_item( $menu_id, 0, ldw_menu_item_args( $label, $slug ) + array(
 				'menu-item-parent-id' => $solutions,
 			) );
 		}
 
 		foreach ( array(
-			'Integrations' => '#integrations',
-			'Pricing'      => '/pricing/',
-			'Resources'    => '#resources',
-			'Contact'      => '#contact',
-		) as $label => $url ) {
-			wp_update_nav_menu_item( $menu_id, 0, array(
-				'menu-item-title'  => $label,
-				'menu-item-url'    => $url,
-				'menu-item-status' => 'publish',
-			) );
+			'Pricing'   => '/pricing/',
+			'Resources' => '/resources/',
+			'Contact'   => '/contact/',
+		) as $label => $slug ) {
+			wp_update_nav_menu_item( $menu_id, 0, ldw_menu_item_args( $label, $slug ) );
 		}
 
 		$locations             = get_theme_mod( 'nav_menu_locations' );
@@ -201,18 +226,14 @@ function ldw_seed_footer_menu() {
 
 	if ( $menu_id ) {
 		foreach ( array(
-			'ERP Flow'                => '#flows',
-			'Field Service Team Flow' => '#flows',
-			'CRM Flow'                => '#flows',
+			'ERP Flow'                => '/erp/',
+			'Field Service Team Flow' => '/service/',
+			'CRM Flow'                => '/crm/',
 			'Pricing'                 => '/pricing/',
-			'Contact'                 => '#contact',
-			'Login'                   => '#',
-		) as $label => $url ) {
-			wp_update_nav_menu_item( $menu_id, 0, array(
-				'menu-item-title'  => $label,
-				'menu-item-url'    => $url,
-				'menu-item-status' => 'publish',
-			) );
+			'Contact'                 => '/contact/',
+			'Resources'               => '/resources/',
+		) as $label => $slug ) {
+			wp_update_nav_menu_item( $menu_id, 0, ldw_menu_item_args( $label, $slug ) );
 		}
 
 		$locations           = get_theme_mod( 'nav_menu_locations' );
