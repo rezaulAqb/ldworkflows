@@ -78,3 +78,22 @@ require LDW_THEME_DIR . '/inc/resources.php';
 require LDW_THEME_DIR . '/inc/contact-proxy.php';
 require LDW_THEME_DIR . '/inc/acf-fields.php';
 require LDW_THEME_DIR . '/inc/seed-content.php';
+
+/**
+ * Advanced Custom Fields is a hard dependency, not an enhancement: every
+ * section's copy is read with get_field(), so without it the pages render
+ * their markup with no text at all. The plugin is not in this repository
+ * (it is third-party and licensed), so a fresh clone needs it installed
+ * separately — hence a notice rather than a silent empty site.
+ */
+function ldw_require_acf_notice() {
+	if ( function_exists( 'get_field' ) || ! current_user_can( 'activate_plugins' ) ) {
+		return;
+	}
+	printf(
+		'<div class="notice notice-error"><p><strong>%s</strong> %s</p></div>',
+		esc_html__( 'LD Workflows theme:', 'ldworkflows' ),
+		esc_html__( 'Advanced Custom Fields Pro is required. Until it is installed and activated, every page will render without its content.', 'ldworkflows' )
+	);
+}
+add_action( 'admin_notices', 'ldw_require_acf_notice' );
