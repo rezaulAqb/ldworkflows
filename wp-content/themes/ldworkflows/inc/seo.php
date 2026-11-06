@@ -130,6 +130,17 @@ function ldw_seo_context() {
 	if ( ! $image ) {
 		$image = ldw_seo_image( ldw_seo_option( 'seo_default_og_image' ) );
 	}
+	// Last resort: the card that ships with the theme. uploads/ does not
+	// travel with the repository, so without this a fresh install would
+	// share every page as a bare link until someone uploaded an image.
+	if ( ! $image ) {
+		$image = array(
+			'url'    => LDW_THEME_URI . '/assets/images/og-share-card.jpg',
+			'width'  => 1200,
+			'height' => 630,
+			'alt'    => trim( get_bloginfo( 'name' ) . ' — ' . get_bloginfo( 'description' ), ' —' ),
+		);
+	}
 
 	$ctx = array(
 		'is_front'  => $is_front,

@@ -92,8 +92,11 @@ What gets printed: `<title>`, `description`, `keywords`, `canonical`,
 `og:description`, `og:url`, `og:image` with dimensions) and the Twitter card.
 
 Fallbacks run page field → post excerpt → site-wide default → tagline for the
-description, and page field → featured image → site-wide default for the share
-image. **Nothing is auto-generated from the page body.** These pages are built
+description, and page field → featured image → site-wide default → the card
+shipped at `assets/images/og-share-card.jpg` for the share image. That last
+step matters because `uploads/` does not travel with the repository: without
+it a fresh install would share every page as a bare link. Upload your own
+under Theme Content > SEO to override it everywhere. **Nothing is auto-generated from the page body.** These pages are built
 from ACF, so their `post_content` is empty and scraping it would produce
 nothing; a blank description shows up as a repeated site-wide one, which is a
 visible prompt to go and write it.
