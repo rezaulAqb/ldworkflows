@@ -102,3 +102,22 @@ function ldw_require_acf_notice() {
 	);
 }
 add_action( 'admin_notices', 'ldw_require_acf_notice' );
+
+/**
+ * Default favicon, cropped from the logo's circle mark. A Site Icon set in
+ * Appearance > Customize > Site Identity takes over, since WordPress prints
+ * its own tags then and two sets would compete.
+ */
+function ldw_default_favicon() {
+	if ( has_site_icon() ) {
+		return;
+	}
+	$base = LDW_THEME_URI . '/assets/images/favicon';
+	printf( '<link rel="icon" href="%s" sizes="any">' . "\n", esc_url( $base . '/favicon.ico' ) );
+	printf( '<link rel="icon" type="image/png" sizes="32x32" href="%s">' . "\n", esc_url( $base . '/favicon-32.png' ) );
+	printf( '<link rel="icon" type="image/png" sizes="192x192" href="%s">' . "\n", esc_url( $base . '/icon-192.png' ) );
+	printf( '<link rel="apple-touch-icon" href="%s">' . "\n", esc_url( $base . '/apple-touch-icon.png' ) );
+}
+add_action( 'wp_head', 'ldw_default_favicon', 5 );
+add_action( 'admin_head', 'ldw_default_favicon' );
+add_action( 'login_head', 'ldw_default_favicon' );
