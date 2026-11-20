@@ -59,7 +59,7 @@ if ( ! $plans ) {
             <span class="ldw-plan-price-note--annual"><?php echo esc_html( $note_annual ); ?></span>
           </p>
 
-          <a href="<?php echo esc_url( $plan['cta_url'] ); ?>" class="ldw-plan-cta"><?php echo esc_html( $plan['cta_text'] ); ?></a>
+          <a href="<?php echo esc_url( $plan['cta_url'] ); ?>"<?php echo ldw_link_target_attrs( $plan['cta_url'] ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- pre-escaped attribute string. ?> class="ldw-plan-cta"><?php echo esc_html( $plan['cta_text'] ); ?></a>
 
           <?php if ( $plan['features'] ) : ?>
             <div class="ldw-plan-features">

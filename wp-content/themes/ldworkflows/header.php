@@ -37,6 +37,10 @@
     <button type="button" class="ldw-nav-toggle" aria-label="Menu" aria-expanded="false">
       <svg viewBox="0 0 24 24" width="19" height="19" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" style="display:block"><path d="M4 7h16"></path><path d="M4 12h16"></path><path d="M4 17h16"></path></svg>
     </button>
+
+    <div class="ldw-nav-cta">
+      <a href="https://my.lightdegree.com/login/" class="ldw-nav-login" target="_blank" rel="noopener">Login</a>
+    </div>
   </div>
 
   <div class="ldw-nav-mobile">
